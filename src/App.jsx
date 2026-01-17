@@ -58,7 +58,8 @@ const AdminRoute = ({ children }) => {
 export default function App() {
   return (
     <Router>
-      <div className="bg-[#050505] min-h-screen flex flex-col">
+
+<div className="bg-white dark:bg-[#050505] text-zinc-900 dark:text-white min-h-screen flex flex-col transition-colors duration-300">
         <ScrollToTop />
         <Navbar />
 

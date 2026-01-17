@@ -10,7 +10,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   
   const location = useLocation();
   const navigate = useNavigate();
@@ -48,13 +48,19 @@ const Navbar = () => {
   }, [location]);
 
   // Theme Initialization
+ // 2. Updated Theme Initialization Effect
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
+    
+    // If user explicitly saved dark, or if no preference exists but you want light:
+    if (savedTheme === 'dark') {
+      setIsDark(true);
+      document.documentElement.classList.add('dark');
+    } else {
+      // DEFAULT PATH
       setIsDark(false);
       document.documentElement.classList.remove('dark');
-    } else {
-      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'light');
     }
   }, []);
 
