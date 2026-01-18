@@ -12,6 +12,8 @@ import API from '../api';
 // Assets
 import fluxLogo from '../assets/fluxlogo.png';
 import satiLogo from '../assets/satilogo.png';
+import maheshPhoto from '../assets/Mahesh.jpg'; // UPDATED IMPORT
+
 
 // --- Static Data ---
 const CONTACT_INFO = [
@@ -183,10 +185,10 @@ const FluxContactPage = () => {
           <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white dark:bg-black/40 border border-slate-200 dark:border-white/5 p-6 md:p-10 backdrop-blur-xl">
             <div className="lg:col-span-4 flex justify-center relative group">
               <div className="relative w-48 h-48 md:w-64 md:h-64 overflow-hidden rounded-xl border border-white/10">
-                  <img 
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400" 
+                <img 
+                    src={maheshPhoto} // UPDATED SOURCE
                     alt="Mahesh Kushwah" 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                    className="w-full h-full object-cover group-hover: group-hover:scale-105 transition-all duration-500"
                   />
                   <div className="absolute -bottom-1 -right-1 bg-cyan-500 text-black px-3 py-1 font-mono text-[9px] font-bold z-20">CORE_DEV</div>
               </div>
