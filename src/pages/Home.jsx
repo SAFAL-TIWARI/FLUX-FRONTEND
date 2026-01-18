@@ -32,23 +32,26 @@ const Home = () => {
           40% { opacity: 0.6; } 100% { opacity: 1; } 
         }
         .animate-scan { animation: scan 3.5s linear infinite; }
-        .animate-grid-move { animation: grid-move 1.5s linear infinite; will-change: background-position; }
+        /* Optimized: will-change used only on desktop */
+        @media (min-width: 1024px) {
+          .animate-grid-move { animation: grid-move 1.5s linear infinite; will-change: background-position; }
+        }
         .animate-marquee { animation: marquee 30s linear infinite; }
         .tagline-anim { animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both; }
       `}} />
 
       {/* ===== FIXED BACKGROUND LAYER ===== */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Static Top Grid */}
-        <div className="absolute inset-0 opacity-15 dark:opacity-10"
+        {/* Static Top Grid - Lowered opacity on mobile for better contrast */}
+        <div className="absolute inset-0 opacity-10 md:opacity-15 dark:opacity-[0.07] md:dark:opacity-10"
           style={{
             backgroundImage: 'linear-gradient(#06b6d4 1px, transparent 1px), linear-gradient(90deg, #06b6d4 1px, transparent 1px)',
             backgroundSize: 'clamp(30px, 5vw, 50px) 50px'
           }}
         />
 
-        {/* Animated Perspective Grid */}
-        <div className="absolute bottom-[-10%] w-[200%] left-[-50%] h-[60%]">
+        {/* Animated Perspective Grid - HIDDEN ON MOBILE/TABLET */}
+        <div className="hidden lg:block absolute bottom-[-10%] w-[200%] left-[-50%] h-[60%]">
           <div className="absolute inset-0 opacity-20 dark:opacity-40 animate-grid-move"
             style={{
               backgroundImage: 'linear-gradient(to right, #06b6d4 1.5px, transparent 1.5px), linear-gradient(to bottom, #06b6d4 1.5px, transparent 1.5px)',
@@ -64,7 +67,7 @@ const Home = () => {
       </div>
 
       {/* ===== HERO CONTENT ===== */}
-      <main className="relative z-10 w-full max-w-7xl mx-auto flex-grow flex flex-col justify-center px-4 sm:px-8 lg:px-12 py-8">
+      <main className="relative z-10 w-full max-w-7xl mx-auto flex-grow flex flex-col justify-center px-6 sm:px-8 lg:px-12 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
           {/* LEFT: TEXT CONTENT */}
@@ -83,7 +86,7 @@ const Home = () => {
             </div>
 
             <h1 className="font-extrabold tracking-tighter text-slate-900 dark:text-white leading-[0.85]">
-              <span className="block text-6xl sm:text-7xl md:text-8xl xl:text-9xl">FLUX</span>
+              <span className="block text-7xl sm:text-8xl md:text-8xl xl:text-9xl">FLUX</span>
               <span className="block text-4xl sm:text-5xl md:text-6xl xl:text-7xl bg-gradient-to-r from-cyan-600 via-slate-700 to-purple-600 dark:from-cyan-400 dark:via-white dark:to-purple-500 text-transparent bg-clip-text pb-2">
                 ROBOTICS
               </span>
@@ -103,7 +106,7 @@ const Home = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-              <button className="px-8 py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest bg-cyan-500 text-white dark:text-black shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300">
+              <button className="px-8 py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest bg-cyan-500 text-white dark:text-black shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:-translate-y-0.5 transition-all duration-300">
                 Join Squad
               </button>
               <button className="px-8 py-4 text-[10px] sm:text-xs font-semibold uppercase tracking-widest border border-slate-300 dark:border-white/20 text-slate-900 dark:text-white hover:border-cyan-500 hover:text-cyan-500 backdrop-blur-sm transition-all duration-300">
@@ -112,9 +115,8 @@ const Home = () => {
             </div>
           </div>
 
-          {/* RIGHT: THE 3D ROBOT */}
-          <div className="relative h-[40vh] sm:h-[50vh] lg:h-[70vh] w-full flex items-center justify-center order-1 lg:order-2">
-            {/* Background Glow */}
+          {/* RIGHT: THE 3D ROBOT - Hidden on Mobile to prevent lag */}
+          <div className="relative hidden lg:flex h-[40vh] sm:h-[50vh] lg:h-[70vh] w-full items-center justify-center order-1 lg:order-2">
             <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-2/3 h-2/3 bg-cyan-500/20 dark:bg-cyan-500/10 blur-[100px] rounded-full animate-pulse" />
             </div>
@@ -145,10 +147,8 @@ const Home = () => {
       <footer className="w-full border-t border-slate-200 dark:border-white/5 bg-slate-100/90 dark:bg-black/90 backdrop-blur-md z-40 mt-auto">
         <div className="max-w-7xl mx-auto px-4 py-3 md:py-4 flex items-center text-[9px] sm:text-[10px] font-mono tracking-[0.2em] uppercase">
           <div className="flex-1 overflow-hidden relative">
-            {/* Fade Edges for Ticker */}
             <div className="absolute inset-y-0 left-0 w-12 z-10 bg-gradient-to-r from-slate-100 dark:from-black to-transparent" />
             <div className="absolute inset-y-0 right-0 w-12 z-10 bg-gradient-to-l from-slate-100 dark:from-black to-transparent" />
-            
             <MarqueeTicker />
           </div>
 

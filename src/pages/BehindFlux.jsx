@@ -13,7 +13,7 @@ import kamleshSirImg from '../assets/faculty/kamleshsir.jpeg';
 const ScrollTypewriter = memo(({ content, delay = 20, cursor = '█' }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
-    threshold: 0.15,
+    threshold: 0.1, // Lower threshold for faster mobile trigger
   });
 
   return (
@@ -34,11 +34,11 @@ const ScrollTypewriter = memo(({ content, delay = 20, cursor = '█' }) => {
 
 // --- Optimized Faculty Card Component ---
 const FacultyCard = memo(({ fac }) => (
-  <div className="group relative bg-slate-100 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 p-1 hover:border-cyan-500/50 transition-all duration-500 rounded-sm">
+  <div className="group relative bg-slate-100 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 p-1 hover:border-cyan-500/50 transition-all duration-300 rounded-sm">
     <div className="relative bg-white dark:bg-[#050505] p-6 lg:p-8 space-y-6 z-10 h-full flex flex-col">
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-start text-center sm:text-left">
         <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 overflow-hidden rounded-lg border-2 border-slate-200 dark:border-white/5 group-hover:border-cyan-500/50 transition-colors">
-          <img src={fac.img} alt={fac.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+          <img src={fac.img} alt={fac.name} className="w-full h-full object-cover lg:group-hover:scale-110 transition-transform duration-500" loading="lazy" />
         </div>
         <div className="space-y-1">
           <span className="text-[10px] font-mono text-purple-600 dark:text-purple-400 tracking-widest font-bold">{fac.id}</span>
@@ -50,7 +50,8 @@ const FacultyCard = memo(({ fac }) => (
         <ScrollTypewriter content={fac.content} delay={15} cursor="_" />
       </div>
     </div>
-    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+    {/* Hidden animation on mobile to save GPU */}
+    <div className="hidden lg:block absolute bottom-0 left-0 w-full h-[2px] bg-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
   </div>
 ));
 
@@ -81,19 +82,19 @@ const BehindFlux = () => {
   return (
     <div id="behind-flux" className="relative min-h-screen w-full bg-white dark:bg-[#030303] text-slate-900 dark:text-white font-sans py-12 lg:py-24 overflow-x-hidden border-t border-slate-200 dark:border-white/5 transition-colors duration-500">
       
-      {/* Background Decor */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-20 dark:opacity-10 will-change-transform" 
+      {/* Background Decor - HIDDEN ON MOBILE */}
+      <div className="hidden lg:block absolute inset-0 z-0 pointer-events-none opacity-10" 
            style={{ backgroundImage: 'linear-gradient(#06b6d4 1px, transparent 1px), linear-gradient(90deg, #06b6d4 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         
         {/* Header */}
         <header className="mb-12 lg:mb-20 space-y-4 text-center lg:text-left">
           <div className="flex items-center justify-center lg:justify-start gap-4">
-            <div className="h-[2px] w-8 lg:w-12 bg-cyan-500 animate-pulse" />
+            <div className="h-[2px] w-8 lg:w-12 bg-cyan-500" />
             <span className="text-cyan-600 dark:text-cyan-400 font-mono text-[10px] lg:text-xs tracking-[0.3em] lg:tracking-[0.5em] uppercase font-bold">Administration & Guidance</span>
           </div>
-          <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">
+          <h2 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">
             Behind <span className="bg-gradient-to-r from-cyan-600 via-slate-500 to-purple-600 dark:from-cyan-400 dark:via-white dark:to-purple-500 text-transparent bg-clip-text">Flux</span>
           </h2>
         </header>
@@ -101,23 +102,27 @@ const BehindFlux = () => {
         {/* DIRECTOR HERO CARD */}
         <section className="mb-16 lg:mb-32">
           <div className="relative group max-w-5xl mx-auto">
-            <div className="hidden md:block absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-cyan-500 z-20" />
-            <div className="hidden md:block absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-cyan-500 z-20" />
-            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-1000" />
+            {/* Corners hidden on mobile for cleaner look */}
+            <div className="hidden lg:block absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-cyan-500 z-20" />
+            <div className="hidden lg:block absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-cyan-500 z-20" />
             
-            <div className="relative bg-slate-50/90 dark:bg-black/80 backdrop-blur-xl border border-slate-200 dark:border-white/20 p-6 sm:p-10 lg:p-14 flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12 rounded-xl lg:rounded-sm">
+            {/* High GPU Blur disabled on mobile */}
+            <div className="hidden lg:block absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg blur opacity-20" />
+            
+            <div className="relative bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 p-6 sm:p-10 lg:p-14 flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12 rounded-xl lg:rounded-sm">
               <div className="relative w-40 h-40 sm:w-56 sm:h-56 lg:w-72 lg:h-72 flex-shrink-0">
-                <div className="absolute -inset-2 sm:-inset-4 border border-cyan-500/30 rounded-full animate-[spin_30s_linear_infinite]" />
-                <img src={director.img} alt={director.name} className="w-full h-full object-cover rounded-full border-4 border-cyan-500 relative z-20 shadow-2xl" />
+                {/* Expensive spinning animation hidden on mobile */}
+                <div className="hidden lg:block absolute -inset-4 border border-cyan-500/30 rounded-full animate-[spin_30s_linear_infinite]" />
+                <img src={director.img} alt={director.name} className="w-full h-full object-cover rounded-full border-2 lg:border-4 border-cyan-500 relative z-20" />
               </div>
               
               <div className="flex-1 space-y-4 lg:space-y-6 text-center lg:text-left w-full">
                 <div>
-                  <span className="text-cyan-600 dark:text-cyan-400 font-mono text-xs tracking-[0.3em] block mb-2">{director.id} // COMMAND_CENTER</span>
-                  <h3 className="text-2xl sm:text-4xl lg:text-6xl font-bold tracking-tight uppercase">{director.name}</h3>
+                  <span className="text-cyan-600 dark:text-cyan-400 font-mono text-[10px] tracking-[0.3em] block mb-2">{director.id} // COMMAND_CENTER</span>
+                  <h3 className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight uppercase">{director.name}</h3>
                   <p className="text-sm sm:text-xl text-purple-600 dark:text-purple-400 font-mono mt-1 lg:mt-2 uppercase tracking-widest font-bold">{director.role}</p>
                 </div>
-                <div className="text-xs sm:text-sm md:text-base text-slate-600 dark:text-gray-300 font-light leading-relaxed min-h-[140px] border-l-0 lg:border-l-2 border-cyan-500/30 lg:pl-6 italic text-justify lg:text-left">
+                <div className="text-sm md:text-base text-slate-600 dark:text-gray-300 leading-relaxed border-l-0 lg:border-l-2 border-cyan-500/30 lg:pl-6 italic text-justify lg:text-left">
                   <ScrollTypewriter content={director.content} delay={10} />
                 </div>
               </div>
@@ -132,7 +137,7 @@ const BehindFlux = () => {
 
         {/* TERMINAL NOTICE BOARD SECTION */}
         <section className="mt-8 lg:mt-12 max-w-4xl mx-auto">
-          <div className="bg-black/90 dark:bg-zinc-950 border border-cyan-500/50 rounded-lg overflow-hidden shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+          <div className="bg-black dark:bg-zinc-950 border border-cyan-500/30 rounded-lg overflow-hidden">
             <div className="bg-zinc-900 px-3 py-2 border-b border-white/10 flex items-center justify-between">
               <div className="flex gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
@@ -144,9 +149,9 @@ const BehindFlux = () => {
             
             <div className="p-4 sm:p-6 font-mono text-[10px] sm:text-xs md:text-sm text-cyan-400 space-y-3">
               {recentNews.map((news, index) => (
-                <div key={index} className="flex gap-3 items-start group">
+                <div key={index} className="flex gap-3 items-start">
                   <span className="text-white/20 select-none shrink-0">{`0${index + 1}`}</span>
-                  <div className="group-hover:text-white transition-colors cursor-default w-full">
+                  <div className="text-cyan-400/90 w-full">
                     <ScrollTypewriter content={news} delay={30} cursor="▋" />
                   </div>
                 </div>
