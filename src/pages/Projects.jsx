@@ -1,58 +1,46 @@
-import React, { useState, useEffect } from 'react'; // 1. Added useEffect here
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, memo } from 'react';
+import { motion } from 'framer-motion';
 import { Github, Layers, Cpu, Shield, Wind, Brain, Radio, Microscope, User, Send, Plus, Globe } from 'lucide-react';
 import API from '../api'; 
-import { PROJECTS_DATA } from '../data/projectData'; // Your imported data
+import { PROJECTS_DATA } from '../data/projectData';
 
 /* ===================== ICON HELPER ===================== */
-const getProjectIcon = (iconName) => {
-  const icons = {
-    shield: <Shield size={16} />,
-    cpu: <Cpu size={16} />,
-    brain: <Brain size={16} />,
-    wind: <Wind size={16} />,
-    radio: <Radio size={16} />,
-    microscope: <Microscope size={16} />,
-  };
-  return icons[iconName?.toLowerCase()] || <Layers size={16} />;
+const ICONS = {
+  shield: <Shield size={16} />,
+  cpu: <Cpu size={16} />,
+  brain: <Brain size={16} />,
+  wind: <Wind size={16} />,
+  radio: <Radio size={16} />,
+  microscope: <Microscope size={16} />,
 };
 
-/* ===================== REFINED CARD COMPONENT ===================== */
-const ProjectCard = ({ project }) => {
-  // Helper to render the specific category icon
-  const getProjectIcon = (iconName) => {
-    const icons = {
-      shield: <Shield size={16} />,
-      cpu: <Cpu size={16} />,
-      brain: <Brain size={16} />,
-      wind: <Wind size={16} />,
-      radio: <Radio size={16} />,
-      microscope: <Microscope size={16} />,
-    };
-    return icons[iconName?.toLowerCase()] || <Layers size={16} />;
-  };
+const getProjectIcon = (iconName) => ICONS[iconName?.toLowerCase()] || <Layers size={16} />;
 
+/* ===================== OPTIMIZED CARD COMPONENT ===================== */
+// Memoized to prevent re-renders when form state changes
+const ProjectCard = memo(({ project }) => {
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 15 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="bg-white dark:bg-[#0c0c0c] border border-slate-200 dark:border-white/5 rounded-[1.5rem] md:rounded-[2rem] p-4 flex flex-col group hover:border-cyan-500/30 transition-all duration-300 shadow-sm h-full"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      className="bg-white dark:bg-[#0c0c0c] border border-slate-200 dark:border-white/5 rounded-[1.5rem] md:rounded-[2rem] p-4 flex flex-col group transition-colors duration-300 shadow-sm h-full transform-gpu"
     >
       {/* Image Header */}
       <div className="aspect-video rounded-xl md:rounded-2xl overflow-hidden mb-4 relative bg-slate-100 dark:bg-white/5">
         <img 
           src={project.img} 
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+          loading="lazy"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
           alt={project.title} 
         />
-        <div className="absolute top-3 left-3 p-2 bg-white/90 dark:bg-black/60 backdrop-blur-md rounded-xl text-cyan-600 border border-white/10">
+        {/* Removed backdrop-blur for performance */}
+        <div className="absolute top-3 left-3 p-2 bg-white dark:bg-black/80 rounded-xl text-cyan-600 border border-white/10">
           {getProjectIcon(project.iconName)}
         </div>
       </div>
 
       <div className="px-1 flex-1 flex flex-col">
-        {/* Title & Summary */}
         <h3 className="text-base md:text-lg font-bold tracking-tight text-slate-900 dark:text-white uppercase mb-1">
           {project.title}
         </h3>
@@ -83,18 +71,15 @@ const ProjectCard = ({ project }) => {
 
         {/* Action Buttons */}
         <div className="flex gap-2 mt-auto">
-          {/* Download Button: Links to /public/report/file.pdf */}
           <a 
             href={`/report/${project.reportFile}`} 
             download={project.reportFile}
-            className="flex-1 flex items-center justify-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-black py-2.5 md:py-3 rounded-xl font-bold text-[10px] uppercase hover:bg-cyan-600 dark:hover:bg-cyan-500 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-black py-2.5 md:py-3 rounded-xl font-bold text-[10px] uppercase transition-colors"
           >
             <Globe size={12} /> 
-            <span className="hidden xs:inline">Download Report</span>
-            <span className="xs:hidden">Report</span>
+            <span>Report</span>
           </a>
 
-          {/* Github Link */}
           <a 
             href={project.git} 
             target="_blank" 
@@ -107,17 +92,15 @@ const ProjectCard = ({ project }) => {
       </div>
     </motion.div>
   );
-};
+});
 
 /* ===================== MAIN APP ===================== */
 const FluxProjects = () => {
   const [projects, setProjects] = useState([]);
-  
   const [formData, setFormData] = useState({
     submittedBy: '', email: '', title: '', description: '', techStack: '', githubLink: '', liveLink: ''
   });
 
-  // 2. Added this useEffect to load your data into state
   useEffect(() => {
     if (PROJECTS_DATA) {
       setProjects(PROJECTS_DATA);
@@ -150,47 +133,36 @@ const FluxProjects = () => {
     <div className="min-h-screen bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-slate-100 pt-24 md:pt-32 pb-20 px-4 md:px-6 font-sans overflow-x-hidden">
       
       <header className="max-w-6xl mx-auto mb-12 md:mb-20">
-        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
-          <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 text-[10px] font-bold uppercase tracking-[0.3em] mb-3">
-            <Layers size={14} /> System Registry
-          </div>
-          <h1 className="text-4xl xs:text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9]">
-            Active <br className="sm:hidden" />
-            <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">Projects</span>
-          </h1>
-        </motion.div>
+        <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 text-[10px] font-bold uppercase tracking-[0.3em] mb-3">
+          <Layers size={14} /> System Registry
+        </div>
+        <h1 className="text-4xl xs:text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9]">
+          Active <br className="sm:hidden" />
+          <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">Projects</span>
+        </h1>
       </header>
 
       <div className="max-w-6xl mx-auto">
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-24">
-          {/* Now projects has data from the useEffect hook */}
           {projects.map((p) => <ProjectCard key={p.id || p._id} project={p} />)}
           
-          <motion.div 
-            whileHover={{ scale: 0.98 }}
+          <div 
             onClick={() => {
                 const element = document.getElementById('simple-form');
-                const offset = 100; 
-                const bodyRect = document.body.getBoundingClientRect().top;
-                const elementRect = element.getBoundingClientRect().top;
-                const elementPosition = elementRect - bodyRect;
-                const offsetPosition = elementPosition - offset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
+                element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
             className="border-2 border-dashed border-slate-200 dark:border-white/10 rounded-[1.5rem] md:rounded-[2rem] flex flex-col items-center justify-center p-8 md:p-12 cursor-pointer hover:border-cyan-500/50 transition-all bg-white/50 dark:bg-white/[0.01] min-h-[300px]"
           >
-            <div className="p-4 bg-cyan-500/10 rounded-full text-cyan-500 mb-4 animate-pulse"><Plus size={28} /></div>
+            <div className="p-4 bg-cyan-500/10 rounded-full text-cyan-500 mb-4"><Plus size={28} /></div>
             <span className="text-[10px] md:text-xs font-black uppercase text-slate-400 tracking-widest text-center">Contribute to Archive</span>
-          </motion.div>
+          </div>
         </section>
 
+        {/* Form Kept Exactly As Provided */}
         <section id="simple-form" className="max-w-3xl mx-auto">
           <div className="bg-white dark:bg-[#0c0c0c] p-6 md:p-12 rounded-[2rem] md:rounded-[3rem] border border-slate-200 dark:border-white/5 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 blur-3xl rounded-full -mr-16 -mt-16" />
+            {/* Reduced blur on this element for performance */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full -mr-16 -mt-16" />
             
             <h2 className="text-xl md:text-3xl font-black uppercase tracking-tight mb-8 flex items-center gap-3">
               <Send size={24} className="text-cyan-500" /> Submit Proposal
