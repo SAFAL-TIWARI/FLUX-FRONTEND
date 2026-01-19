@@ -163,19 +163,7 @@ const BehindFlux = () => {
                   </div>
 
                   {/* Attendance Sheet Link */}
-                  <div className="group/link">
-                    <span className="text-white/20 mr-3">05</span>
-                    <span className="text-white">flux_user@system:~$ view --attendance</span>
-                    <a 
-                      href="https://onedrive.live.com/personal/913d06f5320ba2d9/_layouts/15/Doc.aspx?sourcedoc=%7Bdbdae340-e876-46b1-a107-18decf64cb70%7D&action=default&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3gvYy85MTNkMDZmNTMyMGJhMmQ5L0lRQkE0OXJiZHVpeFJxRUhHTjdQWk10d0FUWmtpX2g3UGZteEN6SEhjY043T1hrP2U9YzB4N1g4" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="mt-2 flex items-center gap-3 w-fit bg-purple-500/10 border border-purple-500/30 px-4 py-2 text-purple-400 hover:bg-purple-500 hover:text-white transition-all rounded-sm group"
-                    >
-                      <Table size={16} />
-                      <span className="text-[10px] uppercase font-bold tracking-widest">Attendance_Sheet_Live</span>
-                    </a>
-                  </div>
+                  
                 </div>
               </div>
 

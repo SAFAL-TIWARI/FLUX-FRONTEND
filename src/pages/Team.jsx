@@ -29,7 +29,8 @@ const TechFrame = memo(({ children, className = "", scanSpeed = "2s", isMobile, 
       <div className={`absolute bottom-0 left-0 w-3 h-3 md:w-5 md:h-5 border-b-2 border-l-2 ${glowColor} z-10`} />
       <div className={`absolute bottom-0 right-0 w-3 h-3 md:w-5 md:h-5 border-b-2 border-r-2 ${glowColor} z-10`} />
       
-      <div className="relative overflow-hidden rounded-sm bg-white dark:bg-black h-full w-full">
+      {/* Updated: background is dark to prevent light bleed on images */}
+      <div className="relative overflow-hidden rounded-sm bg-zinc-900 dark:bg-black h-full w-full">
         {!isMobile && (
           <div 
             className={`absolute inset-0 bg-gradient-to-b from-transparent ${color === 'purple' ? 'via-purple-500/20' : 'via-cyan-500/20'} to-transparent h-1/2 w-full -translate-y-full group-hover:animate-scan z-20 pointer-events-none`}
@@ -61,7 +62,8 @@ const LeaderCard = memo(({ member, color, isMobile }) => {
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
           alt={member.name} 
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-200 dark:from-black via-transparent to-transparent opacity-40 dark:opacity-60 z-20" />
+        {/* Updated: Removed whitish gradient (gray-200) and used a clean dark vignette for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 z-20" />
       </TechFrame>
 
       {/* TEXT AREA: Displaying Name, Role, and Academic Data */}
@@ -215,7 +217,7 @@ const FluxTeam = () => {
         </section>
       </div>
 
-      {/* MODAL / LIGHTBOX: UPDATED WITH BRANCH AND YEAR SPECS */}
+      {/* MODAL / LIGHTBOX */}
       <AnimatePresence>
         {selectedItem && (
           <motion.div 
@@ -229,7 +231,7 @@ const FluxTeam = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex flex-col md:flex-row">
-                <div className="w-full md:w-2/5 aspect-square bg-gray-100 dark:bg-black">
+                <div className="w-full md:w-2/5 aspect-square bg-zinc-950">
                   <img src={selectedItem.img} alt={selectedItem.name} className="w-full h-full object-cover" />
                 </div>
                 
@@ -243,7 +245,6 @@ const FluxTeam = () => {
                     <p className="font-mono text-slate-400 dark:text-white/40 text-[10px] uppercase">{selectedItem.role}</p>
                   </div>
 
-                  {/* ACADEMIC SPECS BLOCK */}
                   <div className="flex gap-6 border-y border-gray-100 dark:border-white/5 py-4 my-2">
                     <div className="space-y-1">
                        <span className="flex items-center gap-1 text-[8px] font-mono text-slate-400 uppercase"><Layers size={10}/> Sector</span>
