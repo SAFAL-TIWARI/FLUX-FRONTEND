@@ -343,10 +343,10 @@ const Ideathon = () => {
                                     </h3>
                                     <p className="text-slate-500 dark:text-slate-400 text-lg">For all shortlisted teams</p>
                                 </div>
-                                <div className="mt-8 pt-8 border-t border-white/10 flex items-center justify-between">
+                                <div className="mt-8 pt-8 border-t border-black/10 dark:border-white/10 flex items-center justify-between">
                                     <div className="flex items-center gap-2 text-white/90">
                                         <CheckCircle size={18} className="text-cyan-300" />
-                                        <span className="font-medium">E-Certificate</span>
+                                        <span className="font-medium text-slate-900 dark:text-white">E-Certificate</span>
                                     </div>
                                 </div>
                             </div>
