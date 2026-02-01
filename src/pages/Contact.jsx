@@ -12,7 +12,7 @@ import API from '../api';
 // Assets
 import fluxLogo from '../assets/fluxlogo.png';
 import satiLogo from '../assets/satilogo.png';
-import maheshPhoto from '../assets/Mahesh.jpg'; // UPDATED IMPORT
+import maheshPhoto from '../assets/mahesh.jpeg'; // UPDATED IMPORT
 
 
 import { LeaderCard, AdaptiveScrollRow } from '../components/TeamComponents';
@@ -24,6 +24,7 @@ import devanshImg from '../assets/members/devansh.png';
 import somilImg from '../assets/members/somil.png';
 import somImg from '../assets/members/som.jpeg';
 import nishaImg from '../assets/members/nisha.jpeg';
+import prathameshImg from '../assets/members/prathamesh.jpeg';
 // Placeholders for missing images
 import fluxLogoPlaceholder from '../assets/fluxlogo.png';
 
@@ -41,9 +42,29 @@ const useIsMobile = () => {
 
 // --- Static Data ---
 const CONTACT_INFO = [
-  { icon: <MapPin size={20} />, title: "Coordinates", lines: ["SATI Vidisha", "Kailash Satyarthi Hall"], color: "text-cyan-500" },
-  { icon: <Mail size={20} />, title: "Digital_Mail", lines: ["flux.club@satiengg.in"], color: "text-purple-500" },
-  { icon: <Phone size={20} />, title: "Voice_Line", lines: ["+91 78699 28242", "+91 83199 70011"], color: "text-emerald-500" }
+  {
+    icon: <MapPin size={20} />,
+    title: "Coordinates",
+    lines: ["SATI Vidisha", "Kailash Satyarthi Hall"],
+    color: "text-cyan-500",
+    link: "https://www.google.com/maps/search/?api=1&query=Kailash+Satyarthi+Auditorium+SATI+Vidisha"
+  },
+  {
+    icon: <Mail size={20} />,
+    title: "Digital_Mail",
+    lines: ["flux.club@satiengg.in"],
+    color: "text-purple-500",
+    link: "mailto:flux.club@satiengg.in"
+  },
+  {
+    icon: <Phone size={20} />,
+    title: "Voice_Line",
+    lines: [
+      { text: "+91 78699 28242", href: "tel:+917869928242" },
+      { text: "+91 83199 70011", href: "tel:+918319970011" }
+    ],
+    color: "text-emerald-500"
+  }
 ];
 
 const WEBSITE_MANAGERS = [
@@ -83,7 +104,7 @@ const WEBSITE_MANAGERS = [
   {
     name: "Nisha Singh",
     role: "Member",
-    branch: "CSE",
+    branch: "Computer Science & Engeering",
     year: "2nd Year",
     img: nishaImg,
     linkedin: "https://www.linkedin.com/in/nisha-singh-61499b325/",
@@ -94,7 +115,7 @@ const WEBSITE_MANAGERS = [
   {
     name: "Som Singh Thakur",
     role: "Member",
-    branch: "CSE",
+    branch: "Computer Science & Engeering",
     year: "2nd Year",
     img: somImg,
     linkedin: "https://www.linkedin.com/in/som-singh-thakur-6b829132a/",
@@ -107,7 +128,7 @@ const WEBSITE_MANAGERS = [
     role: "Member",
     branch: "AIADS",
     year: "2nd Year",
-    img: fluxLogoPlaceholder, // Placeholder
+    img: prathameshImg,
     linkedin: "#",
     instagram: "https://www.instagram.com/pratham.relates/",
     github: "#",
@@ -275,6 +296,69 @@ const FluxContactPage = () => {
           </div>
         </section>
 
+        {/* OPERATOR SECTION */}
+        <section className="relative max-w-6xl mx-auto px-4">
+          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white dark:bg-black/40 border border-slate-200 dark:border-white/5 p-6 md:p-10 backdrop-blur-xl">
+            <div className="lg:col-span-4 flex justify-center relative group">
+              <div className="relative w-48 h-48 md:w-64 md:h-64 overflow-hidden rounded-xl border border-white/10">
+                <img
+                  src={maheshPhoto} // UPDATED SOURCE
+                  alt="Mahesh Kushwah"
+                  className="w-full h-full object-cover group-hover: group-hover:scale-105 transition-all duration-500"
+                />
+                <div className="absolute -bottom-1 -right-1 bg-cyan-500 text-black px-3 py-1 font-mono text-[9px] font-bold z-20">CORE_DEV</div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-8 space-y-6 text-center lg:text-left">
+              <div>
+                <div className="flex items-center justify-center lg:justify-start gap-2 mb-2">
+                  <div className="h-[1px] w-8 bg-cyan-500" />
+                  <span className="text-cyan-500 font-mono text-[10px] uppercase tracking-widest">Lead System Architect</span>
+                </div>
+                <h2 className="text-5xl md:text-6xl font-black italic tracking-tighter uppercase leading-none text-slate-900 dark:text-white">
+                  Mahesh <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">Kushwah</span>
+                </h2>
+              </div>
+              <p className="text-sm md:text-lg text-slate-500 dark:text-gray-400 font-medium leading-relaxed max-w-2xl">
+                I engineer <span className="text-slate-900 dark:text-white">high-frequency React ecosystems</span> and secure data transmissions. Always ready to build scalable web apps and optimize for peak performance.
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 lg:gap-10 py-4">
+                <div className="space-y-1">
+                  <p className="text-[10px] font-mono text-cyan-500 uppercase tracking-widest">Branch</p>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-tight">ECE</p>
+                </div>
+                <div className="hidden md:block w-px h-8 bg-slate-200 dark:bg-white/10" />
+                <div className="space-y-1">
+                  <p className="text-[10px] font-mono text-cyan-500 uppercase tracking-widest">Year</p>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-tight">[Pre-Final Year]</p>
+                </div>
+
+                <div className="hidden md:block w-px h-8 bg-slate-200 dark:bg-white/10" />
+
+                <div className="space-y-1">
+                  <p className="text-[10px] font-mono text-cyan-500 uppercase tracking-widest">Exploring</p>
+                  <p className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-tight">MERN Stack, AIML</p>
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 pt-4 border-t border-slate-100 dark:border-white/5">
+                <div className="flex items-center gap-4">
+                  <SocialLink href="https://www.linkedin.com/in/mahesh-kushwah-942245276" icon={<Linkedin size={18} />} />
+                  <SocialLink href="https://github.com/Introvert07" icon={<Github size={18} />} />
+                  <SocialLink href="https://www.instagram.com/_introvert7/" icon={<Instagram size={18} />} />
+                </div>
+                <div className="flex flex-col items-center lg:items-start">
+                  <span className="text-[8px] font-mono text-slate-400 uppercase tracking-widest">Secure_Comm</span>
+                  <a href="tel:+918770726065" className="text-sm font-bold text-cyan-500 hover:text-cyan-400 transition-colors">+91 87707 26065</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
         {/* WEBSITE MANAGERS SECTION (REPLACES OLD OPERATOR SECTION) */}
         <section className="mb-32">
           <div className="flex items-center gap-4 mb-12">
@@ -406,15 +490,24 @@ const LogoFrame = memo(({ label, imgSrc, color, isGlowing }) => (
   </div>
 ));
 
-const ContactCard = memo(({ icon, title, lines, color }) => (
-  <div className="bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 p-5 rounded-[1.5rem] flex items-center gap-5 group hover:border-cyan-500/30 transition-all shadow-sm">
-    <div className={`p-4 bg-slate-50 dark:bg-white/5 rounded-2xl group-hover:scale-110 transition-transform ${color}`}>{icon}</div>
-    <div>
-      <h4 className="text-[9px] font-mono text-slate-400 uppercase tracking-widest font-bold">{title}</h4>
-      {lines.map((l, i) => <p key={i} className="text-sm font-black uppercase tracking-tight">{l}</p>)}
-    </div>
-  </div>
-));
+const ContactCard = memo(({ icon, title, lines, color, link }) => {
+  const Wrapper = link ? 'a' : 'div';
+  const wrapperProps = link ? { href: link, target: "_blank", rel: "noopener noreferrer" } : {};
+
+  return (
+    <Wrapper {...wrapperProps} className={`bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 p-5 rounded-[1.5rem] flex items-center gap-5 group hover:border-cyan-500/30 transition-all shadow-sm ${link ? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-white/5' : ''}`}>
+      <div className={`p-4 bg-slate-50 dark:bg-white/5 rounded-2xl group-hover:scale-110 transition-transform ${color}`}>{icon}</div>
+      <div>
+        <h4 className="text-[9px] font-mono text-slate-400 uppercase tracking-widest font-bold">{title}</h4>
+        {lines.map((l, i) => (
+          typeof l === 'string' ?
+            <p key={i} className="text-sm font-black text-cyan-500 uppercase tracking-tight">{l}</p> :
+            <a key={i} href={l.href} className="text-sm font-black uppercase tracking-tight block hover:text-cyan-500 transition-colors">{l.text}</a>
+        ))}
+      </div>
+    </Wrapper>
+  );
+});
 
 const InputField = memo(({ label, ...props }) => (
   <div className="flex flex-col gap-2">
