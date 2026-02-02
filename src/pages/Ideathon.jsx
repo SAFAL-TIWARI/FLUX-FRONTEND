@@ -6,7 +6,7 @@ import {
     Award, Zap, CheckCircle, Mail, Phone,
     Trophy, Gift
 } from 'lucide-react';
-import IdeathonPoster from '../assets/events/Events-Posters/IdeathonPoster.jpg';
+import IdeathonPoster from '../assets/events/Events-Posters/IdeathonPoster.jpeg';
 
 const TimelineItem = ({ date, title, description, icon: Icon, index, total }) => {
     const isEven = index % 2 === 0;
@@ -343,10 +343,10 @@ const Ideathon = () => {
                                     </h3>
                                     <p className="text-slate-500 dark:text-slate-400 text-lg">For all shortlisted teams</p>
                                 </div>
-                                <div className="mt-8 pt-8 border-t border-white/10 flex items-center justify-between">
+                                <div className="mt-8 pt-8 border-t border-black/10 dark:border-white/10 flex items-center justify-between">
                                     <div className="flex items-center gap-2 text-white/90">
                                         <CheckCircle size={18} className="text-cyan-300" />
-                                        <span className="font-medium">E-Certificate</span>
+                                        <span className="font-medium text-slate-900 dark:text-white">E-Certificate</span>
                                     </div>
                                 </div>
                             </div>
@@ -451,10 +451,21 @@ const Ideathon = () => {
                                 <Mail size={18} />
                                 <span>vedansh27ai074@satiengg.in</span>
                             </a>
-                            {/* <a href="tel:+916265320187" className="flex items-center gap-2 text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-500 transition-colors">
+                        </div>
+
+                        <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mt-2">
+                            <a href="tel:+919179736005" className="flex items-center gap-2 text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-500 transition-colors">
                                 <Phone size={18} />
-                                <span>+91 62653 20187</span>
-                            </a> */}
+                                <span>Himanshu Deshmukh - 9179736005</span>
+                            </a>
+                            <a href="tel:+916266059669" className="flex items-center gap-2 text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-500 transition-colors">
+                                <Phone size={18} />
+                                <span>Riddhi Agrawal - 6266059669</span>
+                            </a>
+                            <a href="tel:+919302276804" className="flex items-center gap-2 text-slate-500 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-500 transition-colors">
+                                <Phone size={18} />
+                                <span>Devansh Patel - 9302276804</span>
+                            </a>
                         </div>
                     </div>
                 </div>
