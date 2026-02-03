@@ -427,7 +427,7 @@ const FluxContactPage = () => {
                     <a
                       href={selectedItem.linkedin || "#"}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener noreferrer nofollow"
                       className="flex-1 py-2 md:py-3 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center gap-1 md:gap-2 hover:bg-cyan-600 dark:hover:bg-cyan-500 hover:text-white transition-all text-[7px] md:text-[10px] font-black uppercase tracking-widest"
                     >
                       <Linkedin size={14} /> LinkedIn
@@ -435,7 +435,7 @@ const FluxContactPage = () => {
                     <a
                       href={selectedItem.github || "#"}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener noreferrer nofollow"
                       className="flex-1 py-2 md:py-3 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center gap-1 md:gap-2 hover:bg-purple-600 dark:hover:bg-purple-500 hover:text-white transition-all text-[7px] md:text-[10px] font-black uppercase tracking-widest"
                     >
                       <Github size={14} /> GitHub
@@ -443,7 +443,7 @@ const FluxContactPage = () => {
                     <a
                       href={selectedItem.instagram || "#"}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener noreferrer nofollow"
                       className="flex-1 py-2 md:py-3 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center gap-1 md:gap-2 hover:bg-pink-600 dark:hover:bg-pink-500 hover:text-white transition-all text-[7px] md:text-[10px] font-black uppercase tracking-widest"
                     >
                       <Instagram size={14} /> Instagram

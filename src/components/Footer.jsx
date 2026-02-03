@@ -1,6 +1,6 @@
 import React, { useState, useEffect, memo } from 'react';
-import { 
-  Github, Linkedin, Youtube, Instagram, 
+import {
+  Github, Linkedin, Youtube, Instagram,
   Sun, Moon, Globe, Database, ArrowRight, Cpu
 } from 'lucide-react';
 
@@ -16,9 +16,9 @@ const TimeDisplay = () => {
 
 // --- Sub-component: Social Link Button ---
 const SocialButton = memo(({ href, icon, label }) => (
-  <a 
-    href={href} 
-    target="_blank" 
+  <a
+    href={href}
+    target="_blank"
     rel="noopener noreferrer"
     className="p-2.5 rounded-md border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-500 hover:text-cyan-500 hover:border-cyan-500/50 transition-all duration-300"
     title={label}
@@ -70,13 +70,13 @@ const Footer = () => {
 
   return (
     <footer className="relative bg-white dark:bg-[#050505] border-t border-slate-200 dark:border-white/10 pt-12 md:pt-20 pb-8 transition-colors duration-500 overflow-hidden">
-      
+
       {/* Flux Cyan Gradient Line */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
-      
+
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 mb-16 md:mb-20">
-          
+
           {/* BRAND PORTION */}
           <div className="lg:col-span-4 space-y-6 md:space-y-8">
             <div className="flex items-center gap-3">
@@ -92,14 +92,14 @@ const Footer = () => {
                 </span>
               </div>
             </div>
-            
+
             <p className="text-slate-500 dark:text-gray-400 text-sm font-mono leading-relaxed max-w-sm">
               Engineering the interface between hardware precision and software agility. SATI's premier technical innovation hub.
             </p>
 
             <div className="flex flex-col gap-4">
-               <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">System_Access_Points</span>
-               <div className="flex items-center gap-2 md:gap-3">
+              <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest">System_Access_Points</span>
+              <div className="flex items-center gap-2 md:gap-3">
                 {/* <button 
                   onClick={toggleTheme} 
                   className="p-2.5 rounded-md border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-500 hover:text-cyan-500 transition-colors"
@@ -107,11 +107,11 @@ const Footer = () => {
                 >
                   {isDark ? <Sun size={18} /> : <Moon size={18} />}
                 </button> */}
-                
-                {/* <SocialButton href="https://github.com/fluxsati" icon={<Github />} label="GitHub" /> */}
+
                 <SocialButton href="https://www.linkedin.com/company/fluxsati/" icon={<Linkedin />} label="LinkedIn" />
                 <SocialButton href="https://www.instagram.com/fluxsati/" icon={<Instagram />} label="Instagram" />
                 <SocialButton href="https://www.youtube.com/@fluxsati" icon={<Youtube />} label="YouTube" />
+                <SocialButton href="https://github.com/fluxsati/FLUX-FRONTEND" icon={<Github />} label="GitHub" />
               </div>
             </div>
           </div>
@@ -142,9 +142,9 @@ const Footer = () => {
               Encrypted_Updates
             </h4>
             <form className="relative group" onSubmit={(e) => e.preventDefault()}>
-              <input 
-                type="email" 
-                placeholder="Enter_User_Email..." 
+              <input
+                type="email"
+                placeholder="Enter_User_Email..."
                 autoComplete="email"
                 className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg py-3 px-4 text-xs font-mono focus:outline-none focus:border-cyan-500 transition-colors dark:text-white"
               />
@@ -165,18 +165,18 @@ const Footer = () => {
             <span className="hidden sm:inline text-slate-200 dark:text-white/10">|</span>
             <span>All_Systems_Nominal</span>
           </div>
-          
+
           <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 text-[10px] font-mono text-slate-500">
-             <div className="flex items-center gap-2">
-                <Database size={12} className="text-cyan-500" />
-                <span className="dark:text-gray-400 text-slate-600">SATI_Node_v2.6.0</span>
-             </div>
-             <div className="flex items-center gap-2">
-                <Globe size={12} className="text-cyan-500" />
-                <div className="dark:text-white text-slate-900 min-w-[70px]">
-                  <TimeDisplay />
-                </div>
-             </div>
+            <div className="flex items-center gap-2">
+              <Database size={12} className="text-cyan-500" />
+              <span className="dark:text-gray-400 text-slate-600">SATI_Node_v2.6.0</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Globe size={12} className="text-cyan-500" />
+              <div className="dark:text-white text-slate-900 min-w-[70px]">
+                <TimeDisplay />
+              </div>
+            </div>
           </div>
         </div>
       </div>
