@@ -24,6 +24,7 @@ import FluxLearningHub from "./pages/LearningHub";
 import LyfatFlux from "./pages/Fluxlyf";
 import Ideathon from "./pages/Ideathon";
 import LegacySite from "./pages/LegacySite";
+import NotFound from "./pages/NotFound";
 
 import VercelAnalytics from './VercelAnalytics'; // Import here
 // Private Pages
@@ -130,7 +131,7 @@ export default function App() {
             />
 
             {/* Catch-all for 404s */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
 

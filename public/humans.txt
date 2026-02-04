@@ -1,0 +1,21 @@
+/* TEAM FLUX */
+/* The humans responsible for this project */
+
+/* LEADERSHIP */
+Convenors: Dhananjay Dubey, Shruti Zunjarke, Sneha Gawande, Yashwant Singh Gour
+Co-Convenors: Ashish Suryavanshi, Nitil Singh, Ritika Jain, Shreya Chahar
+
+/* DEVELOPMENT TEAM & CONTRIBUTORS */
+Technical Lead: Mahesh Kushwah
+Developers: Safal Tiwari, Devansh Patel, Somil Jain, Som Singh Thakur, Nisha Singh, Prathamesh Mohankar
+Core Members: Aakansh, Akash, Anshika Gupta, Anshika Jain, Anvesha Jain, Bhoomi, Harishchandra, Himanshu, Mahima, Mohit, Praveen, Rajshree, Saloni, Shivani, Srijan, Swati, Vedansh, Veer
+
+/* SITE */
+Last Update: 2026-02-04
+Standards: HTML5, CSS3, ES6+
+Components: React, TailwindCSS, Framer Motion
+Software: VS Code
+Site: https://clubflux.in
+
+/* ORIGIN */
+Made with <3 at SATI Vidisha.

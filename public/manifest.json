@@ -1,0 +1,21 @@
+{
+    "name": "FluxSati | SATI's Premier Technical Club",
+    "short_name": "FluxSati",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#050505",
+    "theme_color": "#06B6D4",
+    "description": "Official website of FluxSati, the premier technical club of SATI Vidisha.",
+    "icons": [
+        {
+            "src": "/fluxlogo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/fluxlogo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
