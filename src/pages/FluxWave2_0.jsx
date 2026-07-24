@@ -4,6 +4,7 @@ import { ChevronDown, Send, Code, Target, Zap, Layout, Mic, MessageCircle, HelpC
 import Typewriter from 'typewriter-effect';
 import FluxWaveRegistration from '../components/FluxWaveRegistration';
 import FluxWaveArchive from '../components/FluxWaveArchive';
+import FAQDiscussion from '../components/FAQDiscussion/FAQDiscussion';
 
 import iotBg from '../assets/events/FluxWave_2.0/domains/iot.jpeg';
 import iotAvatar from '../assets/events/FluxWave_2.0/domains/iot_char.png';
@@ -126,7 +127,9 @@ const FluxWave2_0 = () => {
   const [activeCategory, setActiveCategory] = useState("General & Rules");
   const [faqSearchQuery, setFaqSearchQuery] = useState("");
   const [hoveredMetric, setHoveredMetric] = useState(null);
-
+  const [communityQuestions, setCommunityQuestions] = useState([]);
+  const [communityLoading, setCommunityLoading] = useState(false);
+  const [communityError, setCommunityError] = useState(null);
   useEffect(() => {
     const targetDate = new Date("July 25, 2026 23:59:59").getTime();
     const interval = setInterval(() => {
@@ -145,6 +148,19 @@ const FluxWave2_0 = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
+  useEffect(() => {
+    if (activeCategory !== 'Community Q&A') return;
+    setCommunityLoading(true);
+    setCommunityError(null);
+    fetch('http://localhost:5000/api/faq')
+    .then(r => r.json())
+    .then(json => {
+      if (json.success) setCommunityQuestions(json.data);
+      else setCommunityError('Failed to load questions.');
+      })
+    .catch(() => setCommunityError('Could not connect to server. Is your backend running?'))
+    .finally(() => setCommunityLoading(false));
+  }, [activeCategory]);
 
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -580,7 +596,10 @@ const FluxWave2_0 = () => {
           {/* Category Tabs (Hidden when actively typing in search) */}
           {!faqSearchQuery && (
             <div className="flex flex-wrap justify-center gap-3 mb-10">
-              {faqCategories.map((cat) => {
+              {[
+                ...faqCategories,
+                { category: 'Community Q&A', icon: <MessageCircle className="w-4 h-4" /> }
+              ].map((cat) => {
                 const isActive = activeCategory === cat.category;
                 return (
                   <button
@@ -603,72 +622,77 @@ const FluxWave2_0 = () => {
             </div>
           )}
 
-          {/* FAQ Accordion List */}
-          <div className="space-y-4">
-            {faqCategories
-              .flatMap(cat => cat.items.map(item => ({ ...item, category: cat.category })))
-              .filter(item => {
-                if (faqSearchQuery.trim()) {
-                  const query = faqSearchQuery.toLowerCase();
-                  return (
-                    item.q.toLowerCase().includes(query) ||
-                    (typeof item.a === 'string' && item.a.toLowerCase().includes(query))
-                  );
-                }
-                return item.category === activeCategory;
-              })
-              .map((faq, idx) => {
-                const isOpen = activeFaq === idx;
-                return (
-                  <motion.div 
-                    key={idx}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.2, delay: idx * 0.05 }}
-                    className={`border rounded-2xl overflow-hidden backdrop-blur-md transition-all duration-300 ${
-                      isOpen
-                        ? 'bg-white dark:bg-[#12121e] border-cyan-500/50 shadow-[0_0_25px_rgba(6,182,212,0.15)]'
-                        : 'bg-white/80 dark:bg-white/5 border-slate-200 dark:border-white/10 hover:border-purple-500/40'
-                    }`}
-                  >
-                    <button
-                      onClick={() => setActiveFaq(isOpen ? null : idx)}
-                      className="w-full text-left p-6 flex justify-between items-center gap-4 transition-colors"
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="w-2 h-2 rounded-full bg-cyan-500 flex-shrink-0"></span>
-                        <span className="font-bold text-slate-800 dark:text-white text-base md:text-lg tracking-wide leading-snug">
-                          {faq.q}
-                        </span>
-                      </div>
-                      <div className={`p-2 rounded-xl transition-all duration-300 flex-shrink-0 ${
-                        isOpen ? 'bg-cyan-500/20 text-cyan-400 rotate-180' : 'bg-slate-100 dark:bg-white/5 text-slate-400'
-                      }`}>
-                        <ChevronDown className="w-5 h-5" />
-                      </div>
-                    </button>
+          {/* FAQ Content — accordion for hardcoded categories, scroll feed for Community */}
+          {activeCategory === 'Community Q&A' && !faqSearchQuery ? (
+            <FAQDiscussion />
+          ) : (
 
-                    <AnimatePresence>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: "easeInOut" }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-6 pb-6 pt-2 text-slate-600 dark:text-slate-300 border-t border-slate-100 dark:border-white/5 leading-relaxed font-medium text-sm md:text-base">
-                            <p className="pl-5 border-l-2 border-purple-500/50">
-                              {faq.a}
-                            </p>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                );
-              })}
-          </div>
+            <div className="space-y-4">
+              {faqCategories
+                .flatMap(cat => cat.items.map(item => ({ ...item, category: cat.category })))
+                .filter(item => {
+                  if (faqSearchQuery.trim()) {
+                    const query = faqSearchQuery.toLowerCase();
+                    return (
+                      item.q.toLowerCase().includes(query) ||
+                      (typeof item.a === 'string' && item.a.toLowerCase().includes(query))
+                    );
+                  }
+                  return item.category === activeCategory;
+                })
+                .map((faq, idx) => {
+                  const isOpen = activeFaq === idx;
+                  return (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2, delay: idx * 0.05 }}
+                      className={`border rounded-2xl overflow-hidden backdrop-blur-md transition-all duration-300 ${
+                        isOpen
+                          ? 'bg-white dark:bg-[#12121e] border-cyan-500/50 shadow-[0_0_25px_rgba(6,182,212,0.15)]'
+                          : 'bg-white/80 dark:bg-white/5 border-slate-200 dark:border-white/10 hover:border-purple-500/40'
+                      }`}
+                    >
+                      <button
+                        onClick={() => setActiveFaq(isOpen ? null : idx)}
+                        className="w-full text-left p-6 flex justify-between items-center gap-4 transition-colors"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="w-2 h-2 rounded-full bg-cyan-500 flex-shrink-0"></span>
+                          <span className="font-bold text-slate-800 dark:text-white text-base md:text-lg tracking-wide leading-snug">
+                            {faq.q}
+                          </span>
+                        </div>
+                        <div className={`p-2 rounded-xl transition-all duration-300 flex-shrink-0 ${
+                          isOpen ? 'bg-cyan-500/20 text-cyan-400 rotate-180' : 'bg-slate-100 dark:bg-white/5 text-slate-400'
+                        }`}>
+                          <ChevronDown className="w-5 h-5" />
+                        </div>
+                      </button>
+
+                      <AnimatePresence>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            className="overflow-hidden"
+                          >
+                            <div className="px-6 pb-6 pt-2 text-slate-600 dark:text-slate-300 border-t border-slate-100 dark:border-white/5 leading-relaxed font-medium text-sm md:text-base">
+                              <p className="pl-5 border-l-2 border-purple-500/50">
+                                {faq.a}
+                              </p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  );
+                })}
+            </div>
+          )}
 
         </div>
       </section>
