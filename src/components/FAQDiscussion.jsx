@@ -6,7 +6,7 @@ import {
   Plus, Send, CheckCircle, X, Loader2
 } from 'lucide-react';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/';
 const CATEGORIES = ['General', 'Events', 'Projects', 'Membership', 'Other'];
 
 const FAQDiscussion = () => {

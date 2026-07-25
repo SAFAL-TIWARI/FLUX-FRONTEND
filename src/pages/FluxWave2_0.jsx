@@ -3,8 +3,9 @@ import { motion, useScroll, useTransform, AnimatePresence, useSpring, useVelocit
 import { ChevronDown, Send, Code, Target, Zap, Layout, Mic, MessageCircle, HelpCircle, ExternalLink, Search, Sparkles, Cpu, ShieldCheck, Coffee } from 'lucide-react';
 import Typewriter from 'typewriter-effect';
 import FluxWaveRegistration from '../components/FluxWaveRegistration';
+import FluxWaveRewards from '../components/FluxWaveRewards';
 import FluxWaveArchive from '../components/FluxWaveArchive';
-import FAQDiscussion from '../components/FAQDiscussion/FAQDiscussion';
+import FAQDiscussion from '../components/FAQDiscussion';
 
 import iotBg from '../assets/events/FluxWave_2.0/domains/iot.jpeg';
 import iotAvatar from '../assets/events/FluxWave_2.0/domains/iot_char.png';
@@ -536,6 +537,9 @@ const FluxWave2_0 = () => {
 
       <FluxWaveRegistration />
 
+      {/* HACKATHON REWARDS & BENEFITS SECTION */}
+      <FluxWaveRewards />
+
       {/* ENHANCED CATEGORIZED & SEARCHABLE FAQS SECTION */}
       <section className="relative w-full px-6 md:px-12 lg:px-24 py-20 z-10">
         <div className="max-w-4xl mx-auto">
@@ -595,7 +599,7 @@ const FluxWave2_0 = () => {
 
           {/* Category Tabs (Hidden when actively typing in search) */}
           {!faqSearchQuery && (
-            <div className="flex flex-wrap justify-center gap-3 mb-10">
+            <div className="grid grid-cols-2 md:grid-cols-4 justify-center gap-3 mb-10">
               {[
                 ...faqCategories,
                 { category: 'Community Q&A', icon: <MessageCircle className="w-4 h-4" /> }
