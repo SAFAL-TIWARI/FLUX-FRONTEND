@@ -5,8 +5,16 @@ import axios from 'axios';
  * VITE_API_URL is set in your Vercel Dashboard or local .env file.
  * This keeps your backend location hidden from the source code.
  */
-// Ensure the name matches your .env file exactly!
-const BASE_URL = import.meta.env.VITE_BACKEND_URL  || 'http://localhost:5000/api';
+const getBaseUrl = () => {
+  let url = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/api';
+  url = url.trim().replace(/\/+$/, '');
+  if (!url.endsWith('/api')) {
+    url += '/api';
+  }
+  return url;
+};
+
+const BASE_URL = getBaseUrl();
 const API = axios.create({
   baseURL: BASE_URL,
 });
@@ -68,6 +76,13 @@ export const updateFluxWavePublicStatus = (id, status) =>
 
 export const checkInFluxWavePublicTeam = (id) =>
   API.patch(`/fluxwave/public-admin/${id}/checkin`, {}, eventKeyHeader());
+
+// --- FAQ ENDPOINTS ---
+export const fetchFAQs = () => API.get('/faq');
+export const createFAQ = (faqData) => API.post('/faq', faqData);
+export const addFAQAnswer = (id, answerData) => API.post(`/faq/${id}/answer`, answerData);
+export const upvoteFAQ = (id) => API.put(`/faq/${id}/upvote`);
+export const resolveFAQ = (id) => API.put(`/faq/${id}/resolve`);
 
 // --- SYSTEM HELPERS ---
 export const logoutUser = () => {

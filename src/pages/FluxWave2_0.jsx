@@ -128,9 +128,6 @@ const FluxWave2_0 = () => {
   const [activeCategory, setActiveCategory] = useState("General & Rules");
   const [faqSearchQuery, setFaqSearchQuery] = useState("");
   const [hoveredMetric, setHoveredMetric] = useState(null);
-  const [communityQuestions, setCommunityQuestions] = useState([]);
-  const [communityLoading, setCommunityLoading] = useState(false);
-  const [communityError, setCommunityError] = useState(null);
   useEffect(() => {
     const targetDate = new Date("July 25, 2026 23:59:59").getTime();
     const interval = setInterval(() => {
@@ -149,19 +146,6 @@ const FluxWave2_0 = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-  useEffect(() => {
-    if (activeCategory !== 'Community Q&A') return;
-    setCommunityLoading(true);
-    setCommunityError(null);
-    fetch('http://localhost:5000/api/faq')
-    .then(r => r.json())
-    .then(json => {
-      if (json.success) setCommunityQuestions(json.data);
-      else setCommunityError('Failed to load questions.');
-      })
-    .catch(() => setCommunityError('Could not connect to server. Is your backend running?'))
-    .finally(() => setCommunityLoading(false));
-  }, [activeCategory]);
 
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({

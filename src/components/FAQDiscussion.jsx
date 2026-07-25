@@ -6,7 +6,8 @@ import {
   Plus, Send, CheckCircle, X, Loader2
 } from 'lucide-react';
 
-const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/';
+import { fetchFAQs as fetchFAQsApi, createFAQ, addFAQAnswer, upvoteFAQ as upvoteFAQApi } from '../api';
+
 const CATEGORIES = ['General', 'Events', 'Projects', 'Membership', 'Other'];
 
 const FAQDiscussion = () => {
@@ -20,40 +21,39 @@ const FAQDiscussion = () => {
   const [submitting, setSubmitting] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All');
 
-  const fetchFAQs = async () => {
+  const loadFAQs = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${API_URL}/api/faq`);
-      const data = await res.json();
-      if (data.success) setFaqs(data.data);
-      else setError('Failed to load questions');
-    } catch {
-      setError('Could not connect to server. Is your backend running?');
+      setError(null);
+      const res = await fetchFAQsApi();
+      if (res.data && res.data.success) {
+        setFaqs(res.data.data);
+      } else {
+        setError('Failed to load questions');
+      }
+    } catch (err) {
+      console.error('Error fetching FAQs:', err);
+      setError(err.response?.data?.message || 'Could not connect to server. Is your backend running?');
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => { fetchFAQs(); }, []);
+  useEffect(() => { loadFAQs(); }, []);
 
   const handleSubmitQuestion = async (e) => {
     e.preventDefault();
     if (!newQuestion.question.trim()) return;
     setSubmitting(true);
     try {
-      const res = await fetch(`${API_URL}/api/faq`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newQuestion),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setFaqs([data.data, ...faqs]);
+      const res = await createFAQ(newQuestion);
+      if (res.data && res.data.success) {
+        setFaqs([res.data.data, ...faqs]);
         setNewQuestion({ question: '', askedBy: '', category: 'General' });
         setShowAskForm(false);
       }
-    } catch {
-      alert('Failed to submit question. Please try again.');
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to submit question. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -63,28 +63,26 @@ const FAQDiscussion = () => {
     const form = answerForms[faqId];
     if (!form?.text?.trim()) return;
     try {
-      const res = await fetch(`${API_URL}/api/faq/${faqId}/answer`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: form.text, author: form.author || 'Anonymous' }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setFaqs(faqs.map(f => f._id === faqId ? data.data : f));
+      const res = await addFAQAnswer(faqId, { text: form.text, author: form.author || 'Anonymous' });
+      if (res.data && res.data.success) {
+        setFaqs(faqs.map(f => f._id === faqId ? res.data.data : f));
         setAnswerForms(prev => ({ ...prev, [faqId]: { text: '', author: '' } }));
       }
-    } catch {
-      alert('Failed to post answer.');
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to post answer.');
     }
   };
 
   const handleUpvote = async (faqId, e) => {
     e.stopPropagation();
     try {
-      const res = await fetch(`${API_URL}/api/faq/${faqId}/upvote`, { method: 'PUT' });
-      const data = await res.json();
-      if (data.success) setFaqs(faqs.map(f => f._id === faqId ? data.data : f));
-    } catch {}
+      const res = await upvoteFAQApi(faqId);
+      if (res.data && res.data.success) {
+        setFaqs(faqs.map(f => f._id === faqId ? res.data.data : f));
+      }
+    } catch (err) {
+      console.error('Error upvoting FAQ:', err);
+    }
   };
 
   const filteredFaqs = activeFilter === 'All'
