@@ -11,7 +11,7 @@ import {
     submitFluxWaveFinal,
 } from '../api';
 // At the top of App.jsx (or your chosen page file):
-import FAQDiscussion from './FAQDiscussion/FAQDiscussion';
+import FAQDiscussion from './FAQDiscussion';
 
 
 // Keep this in sync with backend/models/FluxWaveRegistration.js -> DOMAINS
