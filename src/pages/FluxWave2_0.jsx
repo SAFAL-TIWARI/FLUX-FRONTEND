@@ -25,7 +25,7 @@ const REGISTRATION_TUTORIAL_LINK = "https://drive.google.com/file/d/1OeHlRDNK4yy
 
 const timelineData = [
   { id: 1, date: "July 11, 2026", title: "Registration Launch", desc: "Portals open for hackers", tutorialLink: REGISTRATION_TUTORIAL_LINK },
-  { id: 2, date: "July 25, 2026", title: "Registration Deadline", desc: "Submissions TBD" },
+  { id: 2, date: "July 25, 2026", title: "Registration Deadline", desc: "112 Participants Registered" },
   { id: 3, date: "July 20–28", title: "Idea & PPT", desc: "Submit problem statement & solution" },
   { id: 4, date: "July 29–31", title: "Evaluation", desc: "Judging panel screens projects" },
   { id: 5, date: "August 1, 2026", title: "Grand Finale", desc: "8-Hour Offline Hackathon at KSH" }
@@ -129,7 +129,7 @@ const FluxWave2_0 = () => {
   const [faqSearchQuery, setFaqSearchQuery] = useState("");
   const [hoveredMetric, setHoveredMetric] = useState(null);
   useEffect(() => {
-    const targetDate = new Date("July 25, 2026 23:59:59").getTime();
+    const targetDate = new Date("July 28, 2026 23:59:59").getTime();
     const interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = targetDate - now;
@@ -239,7 +239,7 @@ const FluxWave2_0 = () => {
                   className="px-6 py-2 rounded-full bg-slate-900 dark:bg-white text-white dark:text-black hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-lg text-2xl"
                   style={{ fontFamily: '"Mars", system-ui' }}
                 >
-                  REGISTER NOW
+                  SUBMIT PPT
                 </button>
                 <a
                   href="https://chat.whatsapp.com/L8cxv50mB7BIv4PgHmM179"

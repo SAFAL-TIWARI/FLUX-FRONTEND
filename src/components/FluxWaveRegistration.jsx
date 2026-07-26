@@ -95,7 +95,7 @@ const getErrorMessage = (err, fallback) => {
 };
 
 const FluxWaveRegistration = () => {
-    const [activeRound, setActiveRound] = useState(() => loadFromStorage(STORAGE_KEYS.activeRound, 0));
+    const [activeRound, setActiveRound] = useState(() => loadFromStorage(STORAGE_KEYS.activeRound, 1));
 
     // ---------- Round 0: Registration ----------
     const [numMembers, setNumMembers] = useState(() => loadFromStorage(STORAGE_KEYS.numMembers, 2));
@@ -120,14 +120,17 @@ const FluxWaveRegistration = () => {
     useEffect(() => saveToStorage(STORAGE_KEYS.numMembers, numMembers), [numMembers]);
 
     // ---- Round locking: dates taken from the event timeline ----
-    // Round 0 is always open; Round 1 & 2 unlock on their start dates.
+    // Round 0 is permanently closed; Round 1 & 2 unlock on their start dates.
+    const ROUND_CLOSED = new Set([0]);        // rounds that are permanently closed
+
     const ROUND_OPEN_DATES = {
-        0: null,                              // always open
+        0: null,                              // closed permanently (see ROUND_CLOSED)
         1: new Date('2026-07-20T00:00:00'),   // "Idea & PPT" starts July 20
         2: new Date('2026-08-01T00:00:00'),   // "Grand Finale" starts August 1
     };
 
     const isRoundLocked = (roundId) => {
+        if (ROUND_CLOSED.has(roundId)) return true;
         const openDate = ROUND_OPEN_DATES[roundId];
         if (!openDate) return false;
         return new Date() < openDate;
@@ -135,19 +138,31 @@ const FluxWaveRegistration = () => {
 
     const handleRoundClick = (roundId) => {
         if (isRoundLocked(roundId)) {
-            const openDate = ROUND_OPEN_DATES[roundId];
-            const formatted = openDate.toLocaleDateString('en-IN', {
-                day: 'numeric', month: 'long', year: 'numeric',
-            });
-            toast(`🔒 Submissions for this round will open on ${formatted}`, {
-                icon: '🗓️',
-                style: {
-                    borderRadius: '12px',
-                    background: '#1a1a2e',
-                    color: '#e2e8f0',
-                    border: '1px solid rgba(6,182,212,0.3)',
-                },
-            });
+            if (ROUND_CLOSED.has(roundId)) {
+                toast('🔒 Registrations for Round 0 are now closed.', {
+                    icon: '🚫',
+                    style: {
+                        borderRadius: '12px',
+                        background: '#1a1a2e',
+                        color: '#e2e8f0',
+                        border: '1px solid rgba(6,182,212,0.3)',
+                    },
+                });
+            } else {
+                const openDate = ROUND_OPEN_DATES[roundId];
+                const formatted = openDate.toLocaleDateString('en-IN', {
+                    day: 'numeric', month: 'long', year: 'numeric',
+                });
+                toast(`🔒 Submissions for this round will open on ${formatted}`, {
+                    icon: '🗓️',
+                    style: {
+                        borderRadius: '12px',
+                        background: '#1a1a2e',
+                        color: '#e2e8f0',
+                        border: '1px solid rgba(6,182,212,0.3)',
+                    },
+                });
+            }
             return;
         }
         setActiveRound(roundId);
