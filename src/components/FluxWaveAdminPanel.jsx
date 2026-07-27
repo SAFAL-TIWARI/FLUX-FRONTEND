@@ -137,7 +137,7 @@ const FluxWaveAdminPanel = ({ useEventKey = false, onAuthError }) => {
         return [
           team.teamName || '—',
           team.domain || '—',
-          `${team.leaderName || '—'}\n${team.leaderEmail || ''}\n${team.contactNumber || ''}`,
+          `${team.leaderName || '—'}\n${team.leaderEmail || ''}\n${team.contactNumber || ''}\n${team.enrollment || ''}`,
           members,
           submissions,
           (team.status || '—').replace('_', ' '),
