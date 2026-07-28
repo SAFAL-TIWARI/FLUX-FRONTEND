@@ -126,7 +126,7 @@ const FluxWaveRegistration = () => {
     const ROUND_OPEN_DATES = {
         0: null,                              // closed permanently (see ROUND_CLOSED)
         1: new Date('2026-07-20T00:00:00'),   // "Idea & PPT" starts July 20
-        2: new Date('2026-08-01T00:00:00'),   // "Grand Finale" starts August 1
+        2: new Date('2026-08-02T00:00:00'),   // "Grand Finale" starts August 1
     };
 
     const isRoundLocked = (roundId) => {
