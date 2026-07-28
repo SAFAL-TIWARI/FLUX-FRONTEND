@@ -128,7 +128,9 @@ const FluxWaveAdminPanel = ({ useEventKey = false, onAuthError }) => {
           .join('\n') || '—';
 
         const submissions = [
-          team.pptLink ? `Idea: ${team.ideaTitle || 'Untitled'}\nPPT: ${team.pptLink}` : 'Idea: Not submitted',
+          team.pptLink
+            ? `Idea: ${team.ideaTitle || 'Untitled'}\nPPT: ${team.pptLink}\nProblem: ${team.problemStatement || '—'}`
+            : 'Idea: Not submitted',
           team.deployLink
             ? `Live: ${team.deployLink}\nGitHub: ${team.githubLink || '—'}\nRecording: ${team.screenRecordingLink || '—'}`
             : 'Final: Not submitted',
@@ -293,6 +295,12 @@ const FluxWaveAdminPanel = ({ useEventKey = false, onAuthError }) => {
                         <a href={team.pptLink} target="_blank" rel="noreferrer" className="text-cyan-600 dark:text-cyan-400 text-xs flex items-center gap-1 hover:underline">
                           View PPT <ExternalLink size={10} />
                         </a>
+                        {team.problemStatement && (
+                          <div className="text-xs text-slate-500 dark:text-slate-400 max-w-xs leading-relaxed">
+                            <span className="font-semibold text-slate-600 dark:text-slate-300">Problem: </span>
+                            {team.problemStatement}
+                          </div>
+                        )}
                       </div>
                     ) : (
                       <span className="text-slate-400 text-xs">Not submitted</span>

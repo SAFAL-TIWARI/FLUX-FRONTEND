@@ -22,13 +22,14 @@ import gameAvatar from '../assets/events/FluxWave_2.0/domains/game_char.png';
 import posterImage from '../assets/events/FluxWave_2.0/poster.jpeg';
 
 const REGISTRATION_TUTORIAL_LINK = "https://drive.google.com/file/d/1OeHlRDNK4yyzpMtawnn5t7ahEIqZf8Sq/view?usp=drive_link";
+const PPT_SUBMISSION_LINK = "https://drive.google.com/file/d/104J4OeQqf32006qFXcVVH3PHJp3RuP2R/view?usp=drive_link";
 
 const timelineData = [
-  { id: 1, date: "July 11, 2026", title: "Registration Launch", desc: "Portals open for hackers", tutorialLink: REGISTRATION_TUTORIAL_LINK },
+  { id: 1, date: "July 11, 2026", title: "Registration Launch", desc: "Portals open for hackers", tutorialLink: REGISTRATION_TUTORIAL_LINK, linkLabel: "Registration Tutorial" },
   { id: 2, date: "July 25, 2026", title: "Registration Deadline", desc: "112 Participants Registered" },
-  { id: 3, date: "July 20–28", title: "Idea & PPT", desc: "Submit problem statement & solution" },
-  { id: 4, date: "July 29–31", title: "Evaluation", desc: "Judging panel screens projects" },
-  { id: 5, date: "August 1, 2026", title: "Grand Finale", desc: "8-Hour Offline Hackathon at KSH" }
+  { id: 3, date: "July 20–28", title: "Idea & PPT", desc: "Submit problem statement & solution", tutorialLink: PPT_SUBMISSION_LINK, linkLabel: "PPT Submission" },
+  { id: 4, date: "July 29–August 01", title: "Evaluation", desc: "Judging panel screens projects" },
+  { id: 5, date: "August 1, 2026", title: "Grand Finale", desc: "Present your Idea & Prototype" }
 ];
 
 const domainsData = [
@@ -125,11 +126,11 @@ const MarqueeRibbon = ({ text, bg = "bg-purple-600", rotate = "-rotate-2" }) => 
 const FluxWave2_0 = () => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [activeFaq, setActiveFaq] = useState(null);
-  const [activeCategory, setActiveCategory] = useState("General & Rules");
+  const [activeCategory, setActiveCategory] = useState("Community Q&A");
   const [faqSearchQuery, setFaqSearchQuery] = useState("");
   const [hoveredMetric, setHoveredMetric] = useState(null);
   useEffect(() => {
-    const targetDate = new Date("July 28, 2026 23:59:59").getTime();
+    const targetDate = new Date("July 29, 2026 23:59:59").getTime();
     const interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = targetDate - now;
@@ -402,7 +403,7 @@ const FluxWave2_0 = () => {
                         <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-medium">{item.desc}</p>
                         {item.tutorialLink && (
                           <a href={item.tutorialLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 mt-3 px-4 py-2 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider hover:bg-cyan-500/20 transition-colors border border-cyan-500/20">
-                            <ExternalLink size={14} /> Registration Tutorial
+                            <ExternalLink size={14} /> {item.linkLabel || "Tutorial"}
                           </a>
                         )}
                       </div>
@@ -449,7 +450,7 @@ const FluxWave2_0 = () => {
                     <p className="text-slate-600 dark:text-slate-400 text-xs md:text-sm">{item.desc}</p>
                     {item.tutorialLink && (
                       <a href={item.tutorialLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-2 px-3 py-1.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-[10px] md:text-xs font-bold uppercase tracking-wider hover:bg-cyan-500/20 transition-colors border border-cyan-500/20">
-                        <ExternalLink size={12} /> Tutorial
+                        <ExternalLink size={12} /> {item.linkLabel || "Tutorial"}
                       </a>
                     )}
                   </div>
@@ -585,8 +586,8 @@ const FluxWave2_0 = () => {
           {!faqSearchQuery && (
             <div className="grid grid-cols-2 md:grid-cols-4 justify-center gap-3 mb-10">
               {[
+                { category: 'Community Q&A', icon: <MessageCircle className="w-4 h-4" /> },
                 ...faqCategories,
-                { category: 'Community Q&A', icon: <MessageCircle className="w-4 h-4" /> }
               ].map((cat) => {
                 const isActive = activeCategory === cat.category;
                 return (
