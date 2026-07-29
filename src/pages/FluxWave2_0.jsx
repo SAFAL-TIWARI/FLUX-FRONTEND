@@ -58,7 +58,7 @@ const faqCategories = [
       { q: "How do I register for FluxWave 2.0?", a: (<span>Fill out the registration form on this page. If you need help, watch our step-by-step <a href={REGISTRATION_TUTORIAL_LINK} target="_blank" rel="noopener noreferrer" className="text-cyan-500 hover:text-cyan-400 underline underline-offset-2 font-semibold inline-flex items-center gap-1">Registration Tutorial <ExternalLink size={14} /></a> for a complete walkthrough.</span>) },
       { q: "What is the team size?", a: "Teams must consist of 2 to 4 members. Cross-branch and cross-year teams are highly encouraged to bring diverse skills to your build." },
       { q: "What are the domains/tracks available?", a: "FluxWave 2.0 features 6 exciting domains: IoT & Hardware, Artificial Intelligence, Cyber Security, Web3 & Blockchain, Open Innovation, and Game Development." },
-      { q: "What is the hackathon format?", a: "Multi-phase format: Register → Submit Idea & PPT (July 20–29) → Evaluation by judges (July 30–31) → Top teams compete in an 8-Hour Offline Grand Finale at Kailash Satyarthi Hall (KSH) on August 1, 2026." },
+      { q: "What is the hackathon format?", a: "Multi-phase format: Register →  Idea & PPT (July 20–29) → Evaluation by judges (July 30–31) → Top teams compete in an 8-Hour Offline Grand Finale at Kailash Satyarthi Hall (KSH) on August 1, 2026." },
       { q: "How will projects be judged?", a: "Projects are scored on: Innovation (30%), Technical Implementation (25%), Problem-Solving (20%), UI/UX & Design (15%), and Presentation (10%)." }
     ]
   },
@@ -130,7 +130,7 @@ const FluxWave2_0 = () => {
   const [faqSearchQuery, setFaqSearchQuery] = useState("");
   const [hoveredMetric, setHoveredMetric] = useState(null);
   useEffect(() => {
-    const targetDate = new Date("July 29, 2026 23:59:59").getTime();
+    const targetDate = new Date("August 02, 2026 18:00:00").getTime();
     const interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = targetDate - now;
@@ -240,7 +240,7 @@ const FluxWave2_0 = () => {
                   className="px-6 py-2 rounded-full bg-slate-900 dark:bg-white text-white dark:text-black hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-lg text-2xl"
                   style={{ fontFamily: '"Mars", system-ui' }}
                 >
-                  SUBMIT PPT
+                  Grand Finale
                 </button>
                 <a
                   href="https://chat.whatsapp.com/L8cxv50mB7BIv4PgHmM179"
