@@ -26,10 +26,10 @@ const PPT_SUBMISSION_LINK = "https://drive.google.com/file/d/104J4OeQqf32006qFXc
 
 const timelineData = [
   { id: 1, date: "July 11, 2026", title: "Registration Launch", desc: "Portals open for hackers", tutorialLink: REGISTRATION_TUTORIAL_LINK, linkLabel: "Registration Tutorial" },
-  { id: 2, date: "July 25, 2026", title: "Registration Deadline", desc: "112 Participants Registered" },
-  { id: 3, date: "July 20–28", title: "Idea & PPT", desc: "Submit problem statement & solution", tutorialLink: PPT_SUBMISSION_LINK, linkLabel: "PPT Submission" },
-  { id: 4, date: "July 29–August 01", title: "Evaluation", desc: "Judging panel screens projects" },
-  { id: 5, date: "August 1, 2026", title: "Grand Finale", desc: "Present your Idea & Prototype" }
+  { id: 2, date: "July 25, 2026", title: "Registration Deadline", desc: "120 Participants Registered" },
+  { id: 3, date: "July 20–29", title: "Idea & PPT", desc: "Submit problem statement & solution", tutorialLink: PPT_SUBMISSION_LINK, linkLabel: "Guidelines for PPT Submission" },
+  { id: 4, date: "July 30–August 01", title: "Evaluation", desc: "Judging panel screens projects" },
+  { id: 5, date: "August 2, 2026", title: "Grand Finale", desc: "Present your Idea & Prototype" }
 ];
 
 const domainsData = [
@@ -58,7 +58,7 @@ const faqCategories = [
       { q: "How do I register for FluxWave 2.0?", a: (<span>Fill out the registration form on this page. If you need help, watch our step-by-step <a href={REGISTRATION_TUTORIAL_LINK} target="_blank" rel="noopener noreferrer" className="text-cyan-500 hover:text-cyan-400 underline underline-offset-2 font-semibold inline-flex items-center gap-1">Registration Tutorial <ExternalLink size={14} /></a> for a complete walkthrough.</span>) },
       { q: "What is the team size?", a: "Teams must consist of 2 to 4 members. Cross-branch and cross-year teams are highly encouraged to bring diverse skills to your build." },
       { q: "What are the domains/tracks available?", a: "FluxWave 2.0 features 6 exciting domains: IoT & Hardware, Artificial Intelligence, Cyber Security, Web3 & Blockchain, Open Innovation, and Game Development." },
-      { q: "What is the hackathon format?", a: "Multi-phase format: Register → Submit Idea & PPT (July 20–28) → Evaluation by judges (July 29–31) → Top teams compete in an 8-Hour Offline Grand Finale at Kailash Satyarthi Hall (KSH) on August 1, 2026." },
+      { q: "What is the hackathon format?", a: "Multi-phase format: Register → Submit Idea & PPT (July 20–29) → Evaluation by judges (July 30–31) → Top teams compete in an 8-Hour Offline Grand Finale at Kailash Satyarthi Hall (KSH) on August 1, 2026." },
       { q: "How will projects be judged?", a: "Projects are scored on: Innovation (30%), Technical Implementation (25%), Problem-Solving (20%), UI/UX & Design (15%), and Presentation (10%)." }
     ]
   },
