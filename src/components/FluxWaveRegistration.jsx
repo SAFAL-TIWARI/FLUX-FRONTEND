@@ -95,7 +95,7 @@ const getErrorMessage = (err, fallback) => {
 };
 
 const FluxWaveRegistration = () => {
-    const [activeRound, setActiveRound] = useState(() => loadFromStorage(STORAGE_KEYS.activeRound, 0));
+    const [activeRound, setActiveRound] = useState(() => loadFromStorage(STORAGE_KEYS.activeRound, null));
     // const [activeRound, setActiveRound] = useState(() => loadFromStorage(STORAGE_KEYS.activeRound, 1));
 
     // ---------- Round 0: Registration ----------
@@ -122,7 +122,7 @@ const FluxWaveRegistration = () => {
 
     // ---- Round locking: dates taken from the event timeline ----
     // Round 0 is permanently closed; Round 1 & 2 unlock on their start dates.
-    const ROUND_CLOSED = new Set(['null']);        // rounds that are permanently closed
+    const ROUND_CLOSED = new Set([0, 1]);        // rounds that are permanently closed
     // const ROUND_CLOSED = new Set(['0']);        // rounds that are permanently closed
 
     const ROUND_OPEN_DATES = {
@@ -141,7 +141,7 @@ const FluxWaveRegistration = () => {
     const handleRoundClick = (roundId) => {
         if (isRoundLocked(roundId)) {
             if (ROUND_CLOSED.has(roundId)) {
-                toast('🔒 Registrations for Round 0 are now closed.', {
+                toast('🔒 Registrations and idea submissions are now closed.', {
                     icon: '🚫',
                     style: {
                         borderRadius: '12px',
