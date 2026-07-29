@@ -240,7 +240,7 @@ const FluxWave2_0 = () => {
                   className="px-6 py-2 rounded-full bg-slate-900 dark:bg-white text-white dark:text-black hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-lg text-2xl"
                   style={{ fontFamily: '"Mars", system-ui' }}
                 >
-                  Grand Finale
+                  gRAND FINALE
                 </button>
                 <a
                   href="https://chat.whatsapp.com/L8cxv50mB7BIv4PgHmM179"
