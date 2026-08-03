@@ -94,9 +94,36 @@ const getErrorMessage = (err, fallback) => {
     return data?.message || err?.message || fallback;
 };
 
+// ---- Round locking: dates taken from the event timeline ----
+// Round 0 is permanently closed; Round 1 & 2 unlock on their start dates.
+const ROUND_CLOSED = new Set([0, 1, 2]);        // rounds that are permanently closed
+
+const ROUND_OPEN_DATES = {
+    0: null,                              // closed permanently (see ROUND_CLOSED)
+    1: new Date('2026-07-20T00:00:00'),   // "Idea & PPT" starts July 20
+    2: new Date('2026-08-02T00:00:00'),   // "Grand Finale" starts August 2
+};
+
+const isRoundLocked = (roundId) => {
+    if (ROUND_CLOSED.has(roundId)) return true;
+    const openDate = ROUND_OPEN_DATES[roundId];
+    if (!openDate) return false;
+    return new Date() < openDate;
+};
+
 const FluxWaveRegistration = () => {
-    // const [activeRound, setActiveRound] = useState(() => loadFromStorage(STORAGE_KEYS.activeRound, null));
-    const [activeRound, setActiveRound] = useState(() => loadFromStorage(STORAGE_KEYS.activeRound, 2));
+    const [activeRound, setActiveRound] = useState(() => {
+        const stored = loadFromStorage(STORAGE_KEYS.activeRound, null);
+        if (stored !== null && isRoundLocked(stored)) return null;
+        return stored;
+    });
+
+    // Validate cached activeRound on mount
+    useEffect(() => {
+        if (activeRound !== null && isRoundLocked(activeRound)) {
+            setActiveRound(null);
+        }
+    }, []);
 
     // ---------- Round 0: Registration ----------
     const [numMembers, setNumMembers] = useState(() => loadFromStorage(STORAGE_KEYS.numMembers, 2));
@@ -120,28 +147,10 @@ const FluxWaveRegistration = () => {
     useEffect(() => saveToStorage(STORAGE_KEYS.teamMembers, teamMembers), [teamMembers]);
     useEffect(() => saveToStorage(STORAGE_KEYS.numMembers, numMembers), [numMembers]);
 
-    // ---- Round locking: dates taken from the event timeline ----
-    // Round 0 is permanently closed; Round 1 & 2 unlock on their start dates.
-    const ROUND_CLOSED = new Set([0, 1]);        // rounds that are permanently closed
-    // const ROUND_CLOSED = new Set(['0']);        // rounds that are permanently closed
-
-    const ROUND_OPEN_DATES = {
-        0: null,                              // closed permanently (see ROUND_CLOSED)
-        1: new Date('2026-07-20T00:00:00'),   // "Idea & PPT" starts July 20
-        2: new Date('2026-08-02T00:00:00'),   // "Grand Finale" starts August 2
-    };
-
-    const isRoundLocked = (roundId) => {
-        if (ROUND_CLOSED.has(roundId)) return true;
-        const openDate = ROUND_OPEN_DATES[roundId];
-        if (!openDate) return false;
-        return new Date() < openDate;
-    };
-
     const handleRoundClick = (roundId) => {
         if (isRoundLocked(roundId)) {
             if (ROUND_CLOSED.has(roundId)) {
-                toast('🔒 Registrations and idea submissions are now closed.', {
+                toast('🔒 All rounds are now closed. Stay tuned for more updates!', {
                     icon: '🚫',
                     style: {
                         borderRadius: '12px',

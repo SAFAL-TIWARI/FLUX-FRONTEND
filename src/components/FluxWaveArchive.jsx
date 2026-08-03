@@ -130,7 +130,7 @@ const FluxWaveArchive = () => {
 };
 
 const WinnerCard = ({ rank, sub, name, color }) => (
-    <div className="bg-slate-50 dark:bg-[#0a0a0a] border border-slate-200 dark:border-white/10 p-5 rounded-2xl hover:border-slate-300 dark:hover:border-white/20 transition-colors group flex flex-col justify-center relative overflow-hidden shadow-sm">
+    <div className="border border-slate-200 dark:border-white/10 p-5 rounded-2xl hover:border-slate-300 dark:hover:border-white/20 transition-colors group flex flex-col justify-center relative overflow-hidden shadow-sm">
         <div className={`absolute top-0 left-0 w-1 h-full bg-gradient-to-b ${color}`}></div>
         <div className="flex flex-wrap items-baseline gap-2 mb-1">
             <span className={`text-xs sm:text-sm font-bold uppercase tracking-widest bg-clip-text text-transparent bg-gradient-to-r ${color}`}>

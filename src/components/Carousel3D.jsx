@@ -62,7 +62,7 @@ const Carousel3D = ({ images }) => {
     >
       <button 
         onClick={handlePrev}
-        className="absolute left-2 md:left-8 z-20 p-2 md:p-3 bg-white/5 hover:bg-cyan-500 backdrop-blur-md rounded-full text-white border border-white/10 transition-all duration-300"
+        className="absolute left-2 md:left-8 z-20 p-2 md:p-3 bg-gray-900/40 hover:bg-cyan-500 backdrop-blur-md rounded-full text-white border border-white/10 transition-all duration-300"
       >
         <ChevronLeft size={24} />
       </button>
@@ -93,7 +93,7 @@ const Carousel3D = ({ images }) => {
 
       <button 
         onClick={handleNext}
-        className="absolute right-2 md:right-8 z-20 p-2 md:p-3 bg-white/5 hover:bg-cyan-500 backdrop-blur-md rounded-full text-white border border-white/10 transition-all duration-300"
+        className="absolute right-2 md:right-8 z-20 p-2 md:p-3 bg-gray-900/40 hover:bg-cyan-500 backdrop-blur-md rounded-full text-white border border-white/10 transition-all duration-300"
       >
         <ChevronRight size={24} />
       </button>
