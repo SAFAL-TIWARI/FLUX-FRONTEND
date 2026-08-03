@@ -17,6 +17,7 @@ const recruitImages = import.meta.glob('../assets/events/FluxRecruitment/*.{png,
 const roboImages = import.meta.glob('../assets/events/Robo_workshop/*.{png,jpg,jpeg,webp}', { eager: true });
 const hwImages = import.meta.glob('../assets/events/Hard-wired/*.{png,jpg,jpeg,webp}', { eager: true });
 const blockChainImages = import.meta.glob('../assets/events/Blockchain_workshop/*.{png,jpg,jpeg,webp}', { eager: true });
+const fw2Images = import.meta.glob('../assets/events/FluxWave_2.0/media/*.{jpg,png,jpeg,webp,JPG,JPEG}', { eager: true });
 
 // Technovision 2026 subcategories
 const tv26Ropeway = import.meta.glob('../assets/events/technovision_2026/ropeway/*.{png,jpg,jpeg,webp}', { eager: true });
@@ -28,6 +29,13 @@ const getImageUrls = (globObj) => Object.values(globObj).map(mod => mod.default)
 
 /* ===================== DATA STRUCTURE ===================== */
 const EVENTS = [
+  {
+    id: 'fluxwave_2_0',
+    label: 'FLUXWAVE_2.0',
+    desc: 'Inter College Hackathon Archive',
+    icon: <Zap size={24} />,
+    assets: getImageUrls(fw2Images)
+  },
   {
     id: 'farewell_memories',
     label: 'FAREWELL_MEMORIES_26',
@@ -91,7 +99,7 @@ const EVENTS = [
   {
     id: 'fluxwave',
     label: 'FLUXWAVE',
-    desc: 'State Level Hackathon Archive',
+    desc: 'Inter College Hackathon Archive',
     icon: <Zap size={24} />,
     assets: getImageUrls(fwImages)
   },

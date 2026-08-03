@@ -26,7 +26,7 @@ export const ARCHIVE_DATA = {
       tag: "Mega Hackathon",
       detailsUrl: "/events/fluxwave-2.0",
       images: [fluxwave2_0_poster],
-      terminal: "> registered: 35_Teams\n> timeline: June - August 2026\n> focus: Code, Hardware, Design\n> prize_pool: Certificates, Trophy",
+      terminal: "> registered: 35_Teams\n> shortlisted: 15_Teams\n> timeline: July - August 2026\n> prize_pool: Certificates, Trophy and Cash Rewards\n> Winner: Rockstar",
       date: "2026-08-01",
       popularity: 100,
       summary: "The ultimate innovation sandbox where code, hardware, and design crash together. Forge solutions to real-world problems and push boundaries."

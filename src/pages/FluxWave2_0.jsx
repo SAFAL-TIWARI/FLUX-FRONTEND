@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence, useSpring, useVelocity, useAnimationFrame } from 'framer-motion';
-import { ChevronDown, Send, Code, Target, Zap, Layout, Mic, MessageCircle, HelpCircle, ExternalLink, Search, Sparkles, Cpu, ShieldCheck, Coffee } from 'lucide-react';
+import { ChevronDown, Send, Code, Target, Zap, Layout, Mic, MessageCircle, HelpCircle, ExternalLink, Search, Sparkles, Cpu, ShieldCheck, Coffee, Trophy } from 'lucide-react';
 import Typewriter from 'typewriter-effect';
 import FluxWaveRegistration from '../components/FluxWaveRegistration';
 import FluxWaveRewards from '../components/FluxWaveRewards';
 import FluxWaveArchive from '../components/FluxWaveArchive';
 import FAQDiscussion from '../components/FAQDiscussion';
+import Carousel3D from '../components/Carousel3D';
 
 import iotBg from '../assets/events/FluxWave_2.0/domains/iot.jpeg';
 import iotAvatar from '../assets/events/FluxWave_2.0/domains/iot_char.png';
@@ -21,6 +23,20 @@ import gameBg from '../assets/events/FluxWave_2.0/domains/game.jpeg';
 import gameAvatar from '../assets/events/FluxWave_2.0/domains/game_char.png';
 import posterImage from '../assets/events/FluxWave_2.0/poster.jpeg';
 
+import goldTrophy from '../assets/events/FluxWave_2.0/trophies/gold.png';
+import silverTrophy from '../assets/events/FluxWave_2.0/trophies/silver.png';
+import bronzeTrophy from '../assets/events/FluxWave_2.0/trophies/bronze.png';
+
+import media1 from '../assets/events/FluxWave_2.0/media/2_winner.jpeg';
+import media2 from '../assets/events/FluxWave_2.0/media/3_1st_runnner_up.jpeg';
+import media3 from '../assets/events/FluxWave_2.0/media/4_2nd_runner_up.jpeg';
+import media4 from '../assets/events/FluxWave_2.0/media/1_group_pic.jpeg';
+import media5 from '../assets/events/FluxWave_2.0/media/flux_team.jpeg';
+import media6 from '../assets/events/FluxWave_2.0/media/presentation.jpeg';
+import media7 from '../assets/events/FluxWave_2.0/media/judges.jpeg';
+
+const fw2CarouselImages = [media1, media2, media3, media4, media5, media6, media7];
+
 const REGISTRATION_TUTORIAL_LINK = "https://drive.google.com/file/d/1OeHlRDNK4yyzpMtawnn5t7ahEIqZf8Sq/view?usp=drive_link";
 const PPT_SUBMISSION_LINK = "https://drive.google.com/file/d/104J4OeQqf32006qFXcVVH3PHJp3RuP2R/view?usp=drive_link";
 
@@ -29,7 +45,7 @@ const timelineData = [
   { id: 2, date: "July 25, 2026", title: "Registration Deadline", desc: "120 Participants Registered" },
   { id: 3, date: "July 20–29", title: "Idea & PPT", desc: "Submit problem statement & solution", tutorialLink: PPT_SUBMISSION_LINK, linkLabel: "Guidelines for PPT Submission" },
   { id: 4, date: "July 30–August 01", title: "Evaluation", desc: "Judging panel screens projects" },
-  { id: 5, date: "August 2, 2026", title: "Grand Finale", desc: "Present your Idea & Prototype" }
+  { id: 5, date: "August 2, 2026", title: "Grand Finale", desc: "Present your Idea & Prototype", tutorialLink: "/gallery", linkLabel: "Event Gallery" }
 ];
 
 const domainsData = [
@@ -204,7 +220,7 @@ const FluxWave2_0 = () => {
       <div className="fixed top-0 w-full h-[50vh] bg-gradient-to-b from-purple-500/10 via-transparent to-transparent pointer-events-none z-0"></div>
 
       {/* HERO SECTION */}
-      <section className="relative z-10 w-full min-h-[90vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 pb-16 pt-20">
+      <section className="relative z-10 w-full min-h-[90vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 pb-16 pt-2">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 w-full max-w-[1400px] mx-auto">
           
           <div className="flex flex-col justify-center items-start w-full lg:w-1/2">
@@ -240,7 +256,7 @@ const FluxWave2_0 = () => {
                   className="px-6 py-2 rounded-full bg-slate-900 dark:bg-white text-white dark:text-black hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-lg text-2xl"
                   style={{ fontFamily: '"Mars", system-ui' }}
                 >
-                  gRAND FINALE
+                  wiiNNERS
                 </button>
                 <a
                   href="https://chat.whatsapp.com/L8cxv50mB7BIv4PgHmM179"
@@ -280,7 +296,7 @@ const FluxWave2_0 = () => {
                   alt="FluxWave 2.0 Poster" 
                   className="w-full h-full object-cover relative z-0 transition-all duration-700 group-hover:brightness-110 group-hover:contrast-125 group-hover:saturate-150"
                 />
-
+                
                 <div 
                   className="absolute inset-0 w-full h-full bg-cover bg-center opacity-0 opacity-70 mix-blend-screen pointer-events-none z-10"
                   style={{ 
@@ -301,9 +317,6 @@ const FluxWave2_0 = () => {
 
                 <div className="absolute inset-0 pointer-events-none z-20 opacity-20 group-hover:opacity-40 transition-opacity duration-500" style={{ backgroundImage: 'repeating-linear-gradient(transparent, transparent 2px, rgba(0, 0, 0, 0.8) 2px, rgba(0, 0, 0, 0.8) 4px)' }}></div>
                 <div className="absolute top-0 left-0 right-0 h-[10%] bg-gradient-to-b from-transparent via-cyan-400/40 to-transparent pointer-events-none z-30 opacity-0 group-hover:opacity-100 animate-[scanline_3s_linear_infinite]"></div>
-                <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay z-40 animate-[noise_0.2s_infinite]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(168,85,247,0.4)_100%)] pointer-events-none z-50 mix-blend-screen"></div>
-
              </div>
           </div>
           
@@ -311,6 +324,141 @@ const FluxWave2_0 = () => {
       </section>
 
       <MarqueeRibbon text="IDEATE ✦ BUILD ✦ CODE ✦ DEBUG ✦ PITCH ✦ NETWORK ✦ INNOVATE ✦ COLLABORATE ✦ CREATE ✦ DEPLOY ✦ DEMO ✦ WIN" bg="bg-purple-600" />
+
+      {/* WINNERS (HALL OF FAME) SECTION */}
+      <section id="winners" className="relative w-full px-6 md:px-12 lg:px-24 py-20 z-10 font-sans overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-500 dark:text-amber-400 text-xs font-bold uppercase tracking-widest mb-4 backdrop-blur-md">
+              <Trophy size={16} className="text-amber-400 animate-pulse" /> Hall of Fame
+            </div>
+            <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-white uppercase tracking-widest mb-4" style={{ fontFamily: '"Russo One", sans-serif' }}>
+              FluxWave 2.0 Champions
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-medium text-sm md:text-base">
+              Honoring the brilliant minds, developers, and visionaries who conquered the hackathon.
+            </p>
+          </div>
+
+          {/* Podium / Winners Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 items-end mb-20">
+            
+            {/* 1ST RUNNER UP - Ncoders */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="order-2 md:order-1 group relative border border-slate-300 dark:border-slate-700/60 rounded-3xl p-6 md:p-8 flex flex-col items-center text-center transition-all duration-500"
+            >
+              <div className="absolute top-0 left-0 right-0 h-1.5 rounded-t-3xl bg-gradient-to-r from-slate-400 via-slate-200 to-slate-400"></div>
+              <div className="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-widest mb-6 border border-slate-300 dark:border-slate-700">
+                1st Runner Up
+              </div>
+
+              {/* Floating Silver Trophy */}
+              <motion.div 
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                className="w-32 h-32 md:w-36 md:h-36 mb-6 flex items-center justify-center filter drop-shadow-[0_10px_20px_rgba(203,213,225,0.4)]"
+              >
+                <img src={silverTrophy} alt="1st Runner Up Trophy" className="w-full h-full object-contain" />
+              </motion.div>
+
+              <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white uppercase tracking-wider mb-2" style={{ fontFamily: '"AudiowideReal", sans-serif' }}>
+                Ncoders
+              </h3>
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+                Silver Medalist
+              </p>
+              <p className="text-xs font-semibold text-purple-500 dark:text-purple-400 uppercase tracking-widest">
+                1500 Cash Prize
+              </p>
+            </motion.div>
+
+            {/* WINNER - Rockstar (Elevated central card) */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="order-1 md:order-2 group relative border-2 border-amber-400/60 dark:border-amber-400/80 rounded-3xl p-8 md:p-10 flex flex-col items-center text-center shadow-[0_0_30px_rgba(245,158,11,0.2)] transition-all duration-500 transform md:-translate-y-4"
+            >
+              <div className="absolute top-0 left-0 right-0 h-2 rounded-t-3xl bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 shadow-[0_0_15px_#f59e0b]"></div>
+              
+              <div className="px-4 py-1.5 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-300 text-xs font-black uppercase tracking-widest mb-6 border border-amber-400/40 shadow-[0_0_10px_rgba(245,158,11,0.2)]">
+                👑 Grand Winner
+              </div>
+
+              {/* Floating Gold Trophy */}
+              <motion.div 
+                animate={{ y: [0, -15, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                className="w-40 h-40 md:w-44 md:h-44 mb-6 flex items-center justify-center filter drop-shadow-[0_15px_30px_rgba(245,158,11,0.5)]"
+              >
+                <img src={goldTrophy} alt="Winner Gold Trophy" className="w-full h-full object-contain" />
+              </motion.div>
+
+              <h3 className="text-3xl md:text-4xl font-black text-amber-500 dark:text-amber-400 uppercase tracking-widest mb-2 drop-shadow-sm" style={{ fontFamily: '"AudiowideReal", sans-serif' }}>
+                Rockstar
+              </h3>
+              <p className="text-xs font-bold text-amber-600 dark:text-amber-300 uppercase tracking-widest">
+                FluxWave 2.0 Champion
+              </p>
+               <p className="text-xs font-semibold text-purple-500 dark:text-purple-400 uppercase tracking-widest">
+                2000 Cash Prize
+              </p>
+            </motion.div>
+
+            {/* 2ND RUNNER UP - Protominds */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="order-3 group relative border border-amber-900/30 dark:border-amber-700/40 rounded-3xl p-6 md:p-8 flex flex-col items-center text-center transition-all duration-500"
+            >
+              <div className="absolute top-0 left-0 right-0 h-1.5 rounded-t-3xl bg-gradient-to-r from-amber-700 via-orange-600 to-amber-800"></div>
+              <div className="px-3 py-1 rounded-full bg-amber-900/20 text-amber-800 dark:text-amber-300 text-xs font-bold uppercase tracking-widest mb-6 border border-amber-700/30">
+                2nd Runner Up
+              </div>
+
+              {/* Floating Bronze Trophy */}
+              <motion.div 
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                className="w-32 h-32 md:w-36 md:h-36 mb-6 flex items-center justify-center filter drop-shadow-[0_10px_20px_rgba(217,119,6,0.3)]"
+              >
+                <img src={bronzeTrophy} alt="2nd Runner Up Trophy" className="w-full h-full object-contain" />
+              </motion.div>
+
+              <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white uppercase tracking-wider mb-2" style={{ fontFamily: '"AudiowideReal", sans-serif' }}>
+                Protominds
+              </h3>
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+                Bronze Medalist
+              </p>
+               <p className="text-xs font-semibold text-purple-500 dark:text-purple-400 uppercase tracking-widest">
+                500 Cash Prize
+              </p>
+            </motion.div>
+
+          </div>
+
+          {/* Photo Carousel (FluxWave 2.0 Media) */}
+          <div className="mt-16">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white uppercase tracking-widest border-l-4 border-cyan-500 pl-4" style={{ fontFamily: '"Russo One", sans-serif' }}>
+                Glimpses of FluxWave 2.0
+              </h3>
+            </div>
+            <Carousel3D images={fw2CarouselImages} />
+          </div>
+
+        </div>
+      </section>
 
       {/* DOMAINS SECTION */}
       <section className="relative w-full px-6 md:px-12 lg:px-24 py-20 z-10">
@@ -402,9 +550,15 @@ const FluxWave2_0 = () => {
                         <h4 className="text-slate-800 dark:text-slate-200 font-bold text-2xl mb-1" style={{ fontFamily: '"AudiowideReal", sans-serif' }}>{item.title}</h4>
                         <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-medium">{item.desc}</p>
                         {item.tutorialLink && (
-                          <a href={item.tutorialLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 mt-3 px-4 py-2 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider hover:bg-cyan-500/20 transition-colors border border-cyan-500/20">
-                            <ExternalLink size={14} /> {item.linkLabel || "Tutorial"}
-                          </a>
+                          item.tutorialLink.startsWith('/') ? (
+                            <Link to={item.tutorialLink} className="inline-flex items-center gap-1.5 mt-3 px-4 py-2 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider hover:bg-cyan-500/20 transition-colors border border-cyan-500/20">
+                              <ExternalLink size={14} /> {item.linkLabel || "Tutorial"}
+                            </Link>
+                          ) : (
+                            <a href={item.tutorialLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 mt-3 px-4 py-2 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-xs font-bold uppercase tracking-wider hover:bg-cyan-500/20 transition-colors border border-cyan-500/20">
+                              <ExternalLink size={14} /> {item.linkLabel || "Tutorial"}
+                            </a>
+                          )
                         )}
                       </div>
                     </div>
@@ -449,9 +603,15 @@ const FluxWave2_0 = () => {
                     <h4 className="text-slate-900 dark:text-white font-bold text-sm md:text-lg mb-1" style={{ fontFamily: '"AudiowideReal", sans-serif' }}>{item.title}</h4>
                     <p className="text-slate-600 dark:text-slate-400 text-xs md:text-sm">{item.desc}</p>
                     {item.tutorialLink && (
-                      <a href={item.tutorialLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-2 px-3 py-1.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-[10px] md:text-xs font-bold uppercase tracking-wider hover:bg-cyan-500/20 transition-colors border border-cyan-500/20">
-                        <ExternalLink size={12} /> {item.linkLabel || "Tutorial"}
-                      </a>
+                      item.tutorialLink.startsWith('/') ? (
+                        <Link to={item.tutorialLink} className="inline-flex items-center gap-1 mt-2 px-3 py-1.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-[10px] md:text-xs font-bold uppercase tracking-wider hover:bg-cyan-500/20 transition-colors border border-cyan-500/20">
+                          <ExternalLink size={12} /> {item.linkLabel || "Tutorial"}
+                        </Link>
+                      ) : (
+                        <a href={item.tutorialLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-2 px-3 py-1.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 text-[10px] md:text-xs font-bold uppercase tracking-wider hover:bg-cyan-500/20 transition-colors border border-cyan-500/20">
+                          <ExternalLink size={12} /> {item.linkLabel || "Tutorial"}
+                        </a>
+                      )
                     )}
                   </div>
 

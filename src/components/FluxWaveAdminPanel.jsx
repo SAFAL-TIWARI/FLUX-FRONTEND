@@ -13,7 +13,7 @@ import {
   checkInFluxWavePublicTeam,
 } from '../api';
 
-const STATUS_OPTIONS = ['registered', 'idea_submitted', 'shortlisted', 'rejected', 'finalist'];
+const STATUS_OPTIONS = ['registered', 'idea_submitted', 'shortlisted', 'rejected', 'finalist', 'winner'];
 
 const STATUS_STYLES = {
   registered: 'bg-slate-200 text-slate-700 dark:bg-slate-700/40 dark:text-slate-300',
@@ -21,6 +21,7 @@ const STATUS_STYLES = {
   shortlisted: 'bg-purple-100 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400',
   rejected: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
   finalist: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400',
+  winner: 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300 border border-amber-400/40',
 };
 
 const getErrorMessage = (err, fallback) => err?.response?.data?.message || fallback;
@@ -127,12 +128,17 @@ const FluxWaveAdminPanel = ({ useEventKey = false, onAuthError }) => {
           .map((m) => `${m.name} (${m.enrollment})`)
           .join('\n') || '—';
 
+        const finalLinks = [];
+        if (team.deployLink) finalLinks.push(`Live URL: ${team.deployLink}`);
+        if (team.screenRecordingLink) finalLinks.push(`Video: ${team.screenRecordingLink}`);
+        if (team.githubLink) finalLinks.push(`GitHub: ${team.githubLink}`);
+
         const submissions = [
           team.pptLink
             ? `Idea: ${team.ideaTitle || 'Untitled'}\nPPT: ${team.pptLink}\nProblem: ${team.problemStatement || '—'}`
             : 'Idea: Not submitted',
-          team.deployLink
-            ? `Live: ${team.deployLink}\nGitHub: ${team.githubLink || '—'}\nRecording: ${team.screenRecordingLink || '—'}`
+          finalLinks.length > 0
+            ? `Final Submission:\n${finalLinks.join('\n')}`
             : 'Final: Not submitted',
         ].join('\n\n');
 

@@ -6,7 +6,7 @@ const rewards = [
   {
     id: 1,
     title: "EXCITING PRIZES",
-    subtitle: "1st, 2nd & 3rd Position winners will get Trophy and Winner Certificate.",
+    subtitle: "1st, 2nd & 3rd Position winners will get Trophy, Winner Certificate and Cash Prizes.",
     icon: Trophy,
     color: "text-amber-400",
     glow: "drop-shadow-[0_0_12px_rgba(251,191,36,0.6)]",
