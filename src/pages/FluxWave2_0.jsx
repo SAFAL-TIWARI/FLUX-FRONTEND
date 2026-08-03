@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence, useSpring, useVelocity, useAnimationFrame } from 'framer-motion';
-import { ChevronDown, Send, Code, Target, Zap, Layout, Mic, MessageCircle, HelpCircle, ExternalLink, Search, Sparkles, Cpu, ShieldCheck, Coffee, Trophy } from 'lucide-react';
+import { ChevronDown, Send, Code, Target, Zap, Layout, Mic, MessageCircle, HelpCircle, ExternalLink, Search, Sparkles, Cpu, ShieldCheck, Coffee, Trophy, Image } from 'lucide-react';
 import Typewriter from 'typewriter-effect';
 import FluxWaveRegistration from '../components/FluxWaveRegistration';
 import FluxWaveRewards from '../components/FluxWaveRewards';
@@ -44,7 +44,7 @@ const timelineData = [
   { id: 1, date: "July 11, 2026", title: "Registration Launch", desc: "Portals open for hackers", tutorialLink: REGISTRATION_TUTORIAL_LINK, linkLabel: "Registration Tutorial" },
   { id: 2, date: "July 25, 2026", title: "Registration Deadline", desc: "120 Participants Registered" },
   { id: 3, date: "July 20–29", title: "Idea & PPT", desc: "Submit problem statement & solution", tutorialLink: PPT_SUBMISSION_LINK, linkLabel: "Guidelines for PPT Submission" },
-  { id: 4, date: "July 30–August 01", title: "Evaluation", desc: "Judging panel screens projects" },
+  { id: 4, date: "July 30–August 01", title: "Evaluation", desc: "15 Teams shortlisted" },
   { id: 5, date: "August 2, 2026", title: "Grand Finale", desc: "Present your Idea & Prototype", tutorialLink: "/gallery", linkLabel: "Event Gallery" }
 ];
 
@@ -222,7 +222,7 @@ const FluxWave2_0 = () => {
       {/* HERO SECTION */}
       <section className="relative z-10 w-full min-h-[90vh] flex flex-col justify-center px-6 md:px-12 lg:px-24 pb-16 pt-2">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 w-full max-w-[1400px] mx-auto">
-          
+
           <div className="flex flex-col justify-center items-start w-full lg:w-1/2">
             <div className="flex items-center gap-2 sm:gap-4 mb-4 bg-white/50 dark:bg-white/5 p-2 pr-4 sm:p-3 sm:pr-5 rounded-full border border-slate-200 dark:border-white/10 backdrop-blur-sm shadow-sm w-fit max-w-full">
               <img src="/fluxlogo.png" alt="Flux Logo" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex-shrink-0" onError={(e) => e.target.style.display = 'none'} />
@@ -238,21 +238,21 @@ const FluxWave2_0 = () => {
 
             <div className="mt-8 text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed border-l-4 border-purple-500 pl-6 min-h-[80px]">
               <Typewriter
-                  options={{
-                      delay: 20
-                  }}
-                  onInit={(typewriter) => {
-                      typewriter
-                          .typeString("The ultimate innovation sandbox where code, hardware, and design crash together. Forge solutions to real-world problems and push boundaries.")
-                          .start();
-                  }}
+                options={{
+                  delay: 20
+                }}
+                onInit={(typewriter) => {
+                  typewriter
+                    .typeString("The ultimate innovation sandbox where code, hardware, and design crash together. Forge solutions to real-world problems and push boundaries.")
+                    .start();
+                }}
               />
             </div>
 
             <div className="mt-12 flex flex-col items-start gap-6 w-full">
               <div className="flex flex-wrap gap-4 items-center">
                 <button
-                  onClick={() => document.getElementById('registration')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => document.getElementById('winners')?.scrollIntoView({ behavior: 'smooth' })}
                   className="px-6 py-2 rounded-full bg-slate-900 dark:bg-white text-white dark:text-black hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors shadow-lg text-2xl"
                   style={{ fontFamily: '"Mars", system-ui' }}
                 >
@@ -266,6 +266,15 @@ const FluxWave2_0 = () => {
                   style={{ fontFamily: '"Russo One", sans-serif' }}
                 >
                   <MessageCircle size={18} /> Join WhatsApp
+                </a>
+                <a
+                  href="https://drive.google.com/drive/folders/122v9bCw75T2lt-5oX_HddpH-EvTQ_NAR?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-3 rounded-full bg-purple-600 hover:bg-purple-500 text-white transition-colors shadow-[0_0_15px_rgba(147,51,234,0.3)] flex items-center gap-2 font-medium tracking-wider"
+                  style={{ fontFamily: '"Russo One", sans-serif' }}
+                >
+                  <Image size={18} /> Media
                 </a>
               </div>
 
@@ -289,37 +298,37 @@ const FluxWave2_0 = () => {
           </div>
 
           <div className="w-full lg:w-1/3 flex justify-center lg:justify-end relative perspective-[1200px] mt-8 lg:mt-80 z-20">
-             <div className="relative group w-full max-w-sm xl:max-w-md aspect-[3/4] rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(168,85,247,0.3)] border border-cyan-500/30 [transform-style:preserve-3d] transition-all duration-700 hover:rotate-y-6 hover:scale-[1.02] bg-black">
-                
-                <img 
-                  src={posterImage} 
-                  alt="FluxWave 2.0 Poster" 
-                  className="w-full h-full object-cover relative z-0 transition-all duration-700 group-hover:brightness-110 group-hover:contrast-125 group-hover:saturate-150"
-                />
-                
-                <div 
-                  className="absolute inset-0 w-full h-full bg-cover bg-center opacity-0 opacity-70 mix-blend-screen pointer-events-none z-10"
-                  style={{ 
-                    backgroundImage: `url(${posterImage})`,
-                    animation: 'glitch-anim-1 2.5s infinite linear alternate-reverse',
-                    filter: 'drop-shadow(4px 0 0 rgba(255,0,0,0.8))' 
-                  }}
-                ></div>
+            <div className="relative group w-full max-w-sm xl:max-w-md aspect-[3/4] rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(168,85,247,0.3)] border border-cyan-500/30 [transform-style:preserve-3d] transition-all duration-700 hover:rotate-y-6 hover:scale-[1.02] bg-black">
 
-                <div 
-                  className="absolute inset-0 w-full h-full bg-cover bg-center opacity-0 group-hover:opacity-70 mix-blend-screen pointer-events-none z-10"
-                  style={{ 
-                    backgroundImage: `url(${posterImage})`,
-                    animation: 'glitch-anim-2 3s infinite linear alternate-reverse',
-                    filter: 'drop-shadow(-4px 0 0 rgba(0,255,255,0.8))' 
-                  }}
-                ></div>
+              <img
+                src={posterImage}
+                alt="FluxWave 2.0 Poster"
+                className="w-full h-full object-cover relative z-0 transition-all duration-700 group-hover:brightness-110 group-hover:contrast-125 group-hover:saturate-150"
+              />
 
-                <div className="absolute inset-0 pointer-events-none z-20 opacity-20 group-hover:opacity-40 transition-opacity duration-500" style={{ backgroundImage: 'repeating-linear-gradient(transparent, transparent 2px, rgba(0, 0, 0, 0.8) 2px, rgba(0, 0, 0, 0.8) 4px)' }}></div>
-                <div className="absolute top-0 left-0 right-0 h-[10%] bg-gradient-to-b from-transparent via-cyan-400/40 to-transparent pointer-events-none z-30 opacity-0 group-hover:opacity-100 animate-[scanline_3s_linear_infinite]"></div>
-             </div>
+              <div
+                className="absolute inset-0 w-full h-full bg-cover bg-center opacity-0 opacity-70 mix-blend-screen pointer-events-none z-10"
+                style={{
+                  backgroundImage: `url(${posterImage})`,
+                  animation: 'glitch-anim-1 2.5s infinite linear alternate-reverse',
+                  filter: 'drop-shadow(4px 0 0 rgba(255,0,0,0.8))'
+                }}
+              ></div>
+
+              <div
+                className="absolute inset-0 w-full h-full bg-cover bg-center opacity-0 group-hover:opacity-70 mix-blend-screen pointer-events-none z-10"
+                style={{
+                  backgroundImage: `url(${posterImage})`,
+                  animation: 'glitch-anim-2 3s infinite linear alternate-reverse',
+                  filter: 'drop-shadow(-4px 0 0 rgba(0,255,255,0.8))'
+                }}
+              ></div>
+
+              <div className="absolute inset-0 pointer-events-none z-20 opacity-20 group-hover:opacity-40 transition-opacity duration-500" style={{ backgroundImage: 'repeating-linear-gradient(transparent, transparent 2px, rgba(0, 0, 0, 0.8) 2px, rgba(0, 0, 0, 0.8) 4px)' }}></div>
+              <div className="absolute top-0 left-0 right-0 h-[10%] bg-gradient-to-b from-transparent via-cyan-400/40 to-transparent pointer-events-none z-30 opacity-0 group-hover:opacity-100 animate-[scanline_3s_linear_infinite]"></div>
+            </div>
           </div>
-          
+
         </div>
       </section>
 
@@ -328,7 +337,7 @@ const FluxWave2_0 = () => {
       {/* WINNERS (HALL OF FAME) SECTION */}
       <section id="winners" className="relative w-full px-6 md:px-12 lg:px-24 py-20 z-10 font-sans overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          
+
           {/* Section Header */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-500 dark:text-amber-400 text-xs font-bold uppercase tracking-widest mb-4 backdrop-blur-md">
@@ -344,9 +353,9 @@ const FluxWave2_0 = () => {
 
           {/* Podium / Winners Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 items-end mb-20">
-            
+
             {/* 1ST RUNNER UP - Ncoders */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -359,7 +368,7 @@ const FluxWave2_0 = () => {
               </div>
 
               {/* Floating Silver Trophy */}
-              <motion.div 
+              <motion.div
                 animate={{ y: [0, -12, 0] }}
                 transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
                 className="w-32 h-32 md:w-36 md:h-36 mb-6 flex items-center justify-center filter drop-shadow-[0_10px_20px_rgba(203,213,225,0.4)]"
@@ -379,7 +388,7 @@ const FluxWave2_0 = () => {
             </motion.div>
 
             {/* WINNER - Rockstar (Elevated central card) */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -387,13 +396,13 @@ const FluxWave2_0 = () => {
               className="order-1 md:order-2 group relative border-2 border-amber-400/60 dark:border-amber-400/80 rounded-3xl p-8 md:p-10 flex flex-col items-center text-center shadow-[0_0_30px_rgba(245,158,11,0.2)] transition-all duration-500 transform md:-translate-y-4"
             >
               <div className="absolute top-0 left-0 right-0 h-2 rounded-t-3xl bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 shadow-[0_0_15px_#f59e0b]"></div>
-              
+
               <div className="px-4 py-1.5 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-300 text-xs font-black uppercase tracking-widest mb-6 border border-amber-400/40 shadow-[0_0_10px_rgba(245,158,11,0.2)]">
                 👑 Grand Winner
               </div>
 
               {/* Floating Gold Trophy */}
-              <motion.div 
+              <motion.div
                 animate={{ y: [0, -15, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                 className="w-40 h-40 md:w-44 md:h-44 mb-6 flex items-center justify-center filter drop-shadow-[0_15px_30px_rgba(245,158,11,0.5)]"
@@ -407,13 +416,13 @@ const FluxWave2_0 = () => {
               <p className="text-xs font-bold text-amber-600 dark:text-amber-300 uppercase tracking-widest">
                 FluxWave 2.0 Champion
               </p>
-               <p className="text-xs font-semibold text-purple-500 dark:text-purple-400 uppercase tracking-widest">
+              <p className="text-xs font-semibold text-purple-500 dark:text-purple-400 uppercase tracking-widest">
                 2000 Cash Prize
               </p>
             </motion.div>
 
             {/* 2ND RUNNER UP - Protominds */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -426,7 +435,7 @@ const FluxWave2_0 = () => {
               </div>
 
               {/* Floating Bronze Trophy */}
-              <motion.div 
+              <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
                 className="w-32 h-32 md:w-36 md:h-36 mb-6 flex items-center justify-center filter drop-shadow-[0_10px_20px_rgba(217,119,6,0.3)]"
@@ -440,7 +449,7 @@ const FluxWave2_0 = () => {
               <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
                 Bronze Medalist
               </p>
-               <p className="text-xs font-semibold text-purple-500 dark:text-purple-400 uppercase tracking-widest">
+              <p className="text-xs font-semibold text-purple-500 dark:text-purple-400 uppercase tracking-widest">
                 500 Cash Prize
               </p>
             </motion.div>
@@ -688,7 +697,7 @@ const FluxWave2_0 = () => {
       {/* ENHANCED CATEGORIZED & SEARCHABLE FAQS SECTION */}
       <section className="relative w-full px-6 md:px-12 lg:px-24 py-20 z-10">
         <div className="max-w-4xl mx-auto">
-          
+
           {/* Section Heading */}
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold uppercase tracking-widest mb-4">
@@ -714,7 +723,7 @@ const FluxWave2_0 = () => {
                 className="w-full pl-14 pr-10 py-4 rounded-2xl bg-white dark:bg-[#12121a] border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/10 shadow-lg transition-all text-sm font-medium"
               />
               {faqSearchQuery && (
-                <button 
+                <button
                   onClick={() => setFaqSearchQuery('')}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 hover:text-white px-2 py-1 rounded-md bg-white/10"
                 >
@@ -730,11 +739,10 @@ const FluxWave2_0 = () => {
                 <button
                   key={tag}
                   onClick={() => setFaqSearchQuery(tag)}
-                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                    faqSearchQuery.toLowerCase() === tag.toLowerCase()
+                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${faqSearchQuery.toLowerCase() === tag.toLowerCase()
                       ? 'bg-cyan-500 text-white shadow-md'
                       : 'bg-slate-200/60 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-cyan-500/20 hover:text-cyan-400 border border-slate-300 dark:border-white/5'
-                  }`}
+                    }`}
                 >
                   #{tag}
                 </button>
@@ -757,11 +765,10 @@ const FluxWave2_0 = () => {
                       setActiveCategory(cat.category);
                       setActiveFaq(null);
                     }}
-                    className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-xs md:text-sm font-bold uppercase tracking-wider transition-all duration-300 border ${
-                      isActive
+                    className={`flex items-center gap-2 px-6 py-3 rounded-2xl text-xs md:text-sm font-bold uppercase tracking-wider transition-all duration-300 border ${isActive
                         ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white border-transparent shadow-lg shadow-purple-500/20 scale-105'
                         : 'bg-white dark:bg-[#12121a] text-slate-600 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-purple-500/50'
-                    }`}
+                      }`}
                   >
                     {cat.icon}
                     {cat.category}
@@ -797,11 +804,10 @@ const FluxWave2_0 = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.2, delay: idx * 0.05 }}
-                      className={`border rounded-2xl overflow-hidden backdrop-blur-md transition-all duration-300 ${
-                        isOpen
+                      className={`border rounded-2xl overflow-hidden backdrop-blur-md transition-all duration-300 ${isOpen
                           ? 'bg-white dark:bg-[#12121e] border-cyan-500/50 shadow-[0_0_25px_rgba(6,182,212,0.15)]'
                           : 'bg-white/80 dark:bg-white/5 border-slate-200 dark:border-white/10 hover:border-purple-500/40'
-                      }`}
+                        }`}
                     >
                       <button
                         onClick={() => setActiveFaq(isOpen ? null : idx)}
@@ -813,9 +819,8 @@ const FluxWave2_0 = () => {
                             {faq.q}
                           </span>
                         </div>
-                        <div className={`p-2 rounded-xl transition-all duration-300 flex-shrink-0 ${
-                          isOpen ? 'bg-cyan-500/20 text-cyan-400 rotate-180' : 'bg-slate-100 dark:bg-white/5 text-slate-400'
-                        }`}>
+                        <div className={`p-2 rounded-xl transition-all duration-300 flex-shrink-0 ${isOpen ? 'bg-cyan-500/20 text-cyan-400 rotate-180' : 'bg-slate-100 dark:bg-white/5 text-slate-400'
+                          }`}>
                           <ChevronDown className="w-5 h-5" />
                         </div>
                       </button>
@@ -863,7 +868,7 @@ const FluxWave2_0 = () => {
             <a href="/contact" className="px-8 py-3 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold tracking-wide flex items-center gap-2 hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors">
               <Send size={18} /> Contact Support
             </a>
-            <a 
+            <a
               href="https://chat.whatsapp.com/L8cxv50mB7BIv4PgHmM179"
               target="_blank"
               rel="noopener noreferrer"
