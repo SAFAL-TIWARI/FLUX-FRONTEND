@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   X, Cpu, Layers, ChevronRight,
   Maximize2, ChevronLeft, Zap, Users, Bot,
-  ZapOff, PartyPopper
+  ZapOff, PartyPopper, Search
 } from 'lucide-react';
 import { FaEthereum } from 'react-icons/fa';
 
@@ -18,6 +18,8 @@ const roboImages = import.meta.glob('../assets/events/Robo_workshop/*.{png,jpg,j
 const hwImages = import.meta.glob('../assets/events/Hard-wired/*.{png,jpg,jpeg,webp}', { eager: true });
 const blockChainImages = import.meta.glob('../assets/events/Blockchain_workshop/*.{png,jpg,jpeg,webp}', { eager: true });
 const fw2Images = import.meta.glob('../assets/events/FluxWave_2.0/media/*.{jpg,png,jpeg,webp,JPG,JPEG}', { eager: true });
+const web26Images = import.meta.glob('../assets/events/web_workshop_2026/*.{png,jpg,jpeg,webp,JPG,JPEG}', { eager: true });
+const induction26Images = import.meta.glob('../assets/events/induction_2026/*.{png,jpg,jpeg,webp,JPG,JPEG}', { eager: true });
 
 // Technovision 2026 subcategories
 const tv26Ropeway = import.meta.glob('../assets/events/technovision_2026/ropeway/*.{png,jpg,jpeg,webp}', { eager: true });
@@ -29,6 +31,20 @@ const getImageUrls = (globObj) => Object.values(globObj).map(mod => mod.default)
 
 /* ===================== DATA STRUCTURE ===================== */
 const EVENTS = [
+  {
+    id: 'web_workshop_2026',
+    label: 'CODE_TO_CREATION_26',
+    desc: 'Web Development Workshop 2026',
+    icon: <Layers size={24} />,
+    assets: getImageUrls(web26Images)
+  },
+  {
+    id: 'induction_2026',
+    label: 'INDUCTION_26',
+    desc: 'Orientation & Induction 2026',
+    icon: <Users size={24} />,
+    assets: getImageUrls(induction26Images)
+  },
   {
     id: 'fluxwave_2_0',
     label: 'FLUXWAVE_2.0',
@@ -290,22 +306,50 @@ const HorizontalStrip = ({ eventId, onClose }) => {
 /* ===================== MAIN COMPONENT ===================== */
 export default function EventGallery() {
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredEvents = EVENTS.filter((event) => {
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return true;
+    const matchLabel = event.label?.toLowerCase().includes(q);
+    const matchDesc = event.desc?.toLowerCase().includes(q);
+    const matchSub = event.subCategories?.some((sub) =>
+      sub.label?.toLowerCase().includes(q)
+    );
+    return matchLabel || matchDesc || matchSub;
+  });
 
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-[#050505] text-slate-900 dark:text-white">
       <div className="max-w-7xl mx-auto px-4 py-16 md:px-6 md:py-24">
-        <header className="mb-10 md:mb-16 pt-8">
-          <div className="flex items-center gap-2 mb-2">
-            <div className="h-px w-6 md:w-8 bg-cyan-500" />
-            <span className="text-[10px] font-mono tracking-widest text-cyan-500 uppercase">Archive_System_v2.5</span>
+        <header className="mb-10 md:mb-16 pt-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="h-px w-6 md:w-8 bg-cyan-500" />
+              <span className="text-[10px] font-mono tracking-widest text-cyan-500 uppercase">Archive_System_v2.5</span>
+            </div>
+            <h1 className="text-5xl md:text-8xl lg:text-9xl font-black italic uppercase tracking-tighter leading-none">
+              Gallery<span className="text-cyan-500">.</span>
+            </h1>
           </div>
-          <h1 className="text-5xl md:text-9xl font-black italic uppercase tracking-tighter leading-none">
-            Gallery<span className="text-cyan-500">.</span>
-          </h1>
+
+          {/* Search Bar */}
+          <div className="relative group w-full md:w-72">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none z-10">
+              <Search size={16} className="text-slate-400 group-focus-within:text-cyan-500 transition-colors" />
+            </div>
+            <input
+              type="text"
+              placeholder="Search gallery archives..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-white dark:bg-white/5 pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-white/10 text-sm focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all font-mono placeholder:text-slate-400 text-slate-900 dark:text-white shadow-sm"
+            />
+          </div>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-          {EVENTS.map((event) => (
+          {filteredEvents.map((event) => (
             <motion.div
               key={event.id}
               whileHover={{ y: -5 }}
@@ -334,6 +378,15 @@ export default function EventGallery() {
               </div>
             </motion.div>
           ))}
+
+          {filteredEvents.length === 0 && (
+            <div className="col-span-full flex flex-col items-center justify-center py-20 text-center space-y-4">
+              <Search size={48} className="text-slate-300 dark:text-white/10" />
+              <p className="text-slate-500 dark:text-white/30 font-mono text-sm">
+                No gallery archives found matching "{searchQuery}"
+              </p>
+            </div>
+          )}
         </div>
       </div>
 

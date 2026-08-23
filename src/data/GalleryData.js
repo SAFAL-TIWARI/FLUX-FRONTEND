@@ -7,6 +7,7 @@ import poster5 from "../assets/banner/5.jpeg";
 import poster6 from "../assets/banner/6.jpeg";
 import poster7 from "../assets/banner/7.jpeg";
 import poster8 from "../assets/banner/8.jpeg";
+import poster9 from "../assets/banner/9.jpeg";
 
 export const youtubeProjects = [
   { id: "fSaeEhcWA4w", title: "Flying Project: Quadcopter & Glider" },
@@ -25,6 +26,13 @@ export const instaReels = [
 ];
 
 export const eventPosters = [
+  {
+    title: "Code To Creation - Web Dev Workshop",
+    date: "Aug 2026",
+    img: poster9, // Local Asset
+    link: "/events",
+    state: { search: "Code To Creation" }
+  },
   {
     title: "Technical Club Flux",
     date: "Nov 2025",

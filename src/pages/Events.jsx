@@ -147,7 +147,7 @@ const EventCard = ({ event, index }) => {
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 w-full py-4 bg-cyan-500/10 text-cyan-500 hover:bg-cyan-500 hover:text-white rounded-xl transition-all text-xs font-bold uppercase tracking-widest border border-cyan-500/20"
                   >
-                    <ExternalLink size={14} /> View_Archive_Brief.pdf
+                    <ExternalLink size={14} /> {event.reportLabel || "View_Archive_Brief.pdf"}
                   </a>
                 )}
               </div>
