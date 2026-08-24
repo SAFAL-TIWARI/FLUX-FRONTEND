@@ -179,8 +179,8 @@ const FluxAbout = () => {
             batch="Batch of 2019"
             bio="It’s incredible to see how much the club has evolved since we started. Our goal was simple: to create a space where students could innovate and develop skills together—a place where ideas transform into solutions. Strength lies in the networks you build."
             imgSrc={mritunjayImg}
-            li="https://linkedin.com"
-            ig="https://instagram.com"
+            li="https://www.linkedin.com/in/cybermritunjay/"
+            ig="https://www.instagram.com/deamon_aura_santuryu/"
           />
 
           <FounderCard 
@@ -189,7 +189,7 @@ const FluxAbout = () => {
             role="Consultant"
             company="Infosys"
             branch="Electronics & Communication"
-            batch="Class of 2019"
+            batch="Batch of 2019"
             bio="Flux represents an ongoing journey of growth and self-improvement. When we founded this club, our vision was to create a platform for individuals to exchange ideas and access free training. We continue to be a force multiplier in technology."
             imgSrc={shubhamImg}
             li="https://linkedin.com"

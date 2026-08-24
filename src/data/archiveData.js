@@ -11,10 +11,10 @@ import webdev_poster from '../assets/events/Events-Posters/web_dev_workshop.jpeg
 import bw_poster from '../assets/events/Events-Posters/blockchain_workshop.jpeg';
 import rocket_poster from '../assets/events/Events-Posters/rocket_crash.jpeg';
 import fluxwave2_0_poster from '../assets/events/Events-Posters/fluxwave_2.0.jpeg';
+import web_workshop_2026_poster from '../assets/events/Events-Posters/web_dev_workshop_2026.jpeg';
+
 
 // import recruit_poster from '../assets/events/Events-Posters/recruitment_26.jpeg';
-
-
 
 /* ===================== DATA STRUCTURE ===================== */
 
@@ -22,13 +22,24 @@ export const ARCHIVE_DATA = {
 
   "2026": [
     {
+      title: "CODE TO CREATION",
+      tag: "Web Dev Workshop",
+      reportUrl: "https://drive.google.com/file/d/10nM0Ig3AYTLZkxS8ouJCbbrndgy0JLsg/view?usp=drive_link",
+      reportLabel: "Referenced PPT",
+      images: [web_workshop_2026_poster],
+      terminal: "> event: Hands-On_Web_Development_Workshop\n> host: Devanshu_Vishwakarma\n> date: 17_August_2026_(Monday)\n> venue: SMART_CLASSROOM\n> curriculum: MERN_Stack, AI_Tools_10x_Faster, Live_Interactive_Project_Build, Hands-On_CRUD\n> perks: Goodies & Rewards",
+      date: "2026-08-17",
+      popularity: 92,
+      summary: "An intensive hands-on Web Development Workshop hosted by Devanshu Vishwakarma. Participants mastered core MERN stack fundamentals, learned to build 10x faster using cutting-edge AI tools, engaged in a live interactive project build, and implemented hands-on client-side CRUD operations. The event featured exciting goodies, prizes, and rewards for active participation."
+    },
+    {
       title: "FLUXWAVE 2.0 HACKATHON",
       tag: "Mega Hackathon",
       detailsUrl: "/events/fluxwave-2.0",
       images: [fluxwave2_0_poster],
       terminal: "> registered: 35_Teams\n> shortlisted: 15_Teams\n> timeline: July - August 2026\n> prize_pool: Certificates, Trophy and Cash Rewards\n> Winner: Rockstar",
       date: "2026-08-01",
-      popularity: 100,
+      popularity: 95,
       summary: "The ultimate innovation sandbox where code, hardware, and design crash together. Forge solutions to real-world problems and push boundaries."
     },
     {
