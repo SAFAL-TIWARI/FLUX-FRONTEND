@@ -49,6 +49,11 @@ export const fetchAllUsers = () => API.get('/users');
 // --- CHAT ENDPOINTS ---
 export const fetchChatHistory = () => API.get('/chat');
 
+// --- RECRUITMENT 2026 ENDPOINTS ---
+export const registerRecruitment = (formData) => API.post('/recruitment/register', formData);
+export const checkRecruitmentStatus = (email) => API.get(`/recruitment/status?email=${encodeURIComponent(email)}`);
+export const fetchRecruitmentRegistrations = () => API.get('/recruitment/registrations');
+
 // --- FLUXWAVE 2.0 ENDPOINTS ---
 export const registerFluxWave = (formData) => API.post('/fluxwave/register', formData);
 export const fetchFluxWaveDomains = () => API.get('/fluxwave/domains');
