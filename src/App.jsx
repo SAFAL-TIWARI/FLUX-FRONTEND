@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux"; // Import useSelector to sync with Auth state
+import { Toaster } from "react-hot-toast";
 
 
 // Components
@@ -29,7 +30,8 @@ const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Technovision = React.lazy(() => import("./pages/Technovision_26"));
 const FluxWave2_0 = React.lazy(() => import("./pages/FluxWave2_0"));
 const FluxRecruitment = React.lazy(() => import("./pages/Recruitment_26"));
-const CodeToCreation = React.lazy(() => import("./pages/CodeToCreation_26"));
+const FluxWavePublicAdmin = React.lazy(() => import("./pages/FluxWavePublicAdmin"));
+
 const RecruitmentRegistration = React.lazy(() => import("./pages/RecruitmentRegistration"));
 const RecruitmentAdminPortal = React.lazy(() => import("./pages/RecruitmentAdminPortal"));
 
@@ -77,6 +79,26 @@ export default function App() {
         <ScrollToTop />
         <Navbar />
 
+        {/* Global toast notifications — call toast.success()/toast.error() anywhere */}
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: '#0f1115',
+              color: '#fff',
+              border: '1px solid rgba(255,255,255,0.1)',
+              fontSize: '14px',
+            },
+            success: {
+              iconTheme: { primary: '#10b981', secondary: '#0f1115' },
+            },
+            error: {
+              iconTheme: { primary: '#ef4444', secondary: '#0f1115' },
+            },
+          }}
+        />
+
         <main className="flex-grow">
           <React.Suspense fallback={<Loader />}>
             <Routes>
@@ -105,14 +127,14 @@ export default function App() {
               <Route path="/Old-Site" element={<LegacySite />} />
               <Route path="/events/technovision-2026" element={<Technovision />} />
               <Route path="/events/fluxwave-2.0" element={<FluxWave2_0 />} />
+              
+              {/* Temporary, key-gated event admin — remove after FluxWave 2.0 ends */}
+              <Route path="/admin/events/fluxwave-2.0" element={<FluxWavePublicAdmin />} />
+
+
               <Route path="/events/recruitment-2026" element={<FluxRecruitment />} />
-              <Route path="/events/code-to-creation" element={<CodeToCreation />} />
               <Route path="/events/recruitment-2026/register" element={<RecruitmentRegistration />} />
-              <Route path="/register-recruitment" element={<RecruitmentRegistration />} />
-              <Route path="/recruitment2026" element={<RecruitmentAdminPortal />} />
-              <Route path="/recrumient2026" element={<RecruitmentAdminPortal />} />
-              <Route path="/recruitment2026-admin" element={<RecruitmentAdminPortal />} />
-              <Route path="/events/recruitment-2026/admin" element={<RecruitmentAdminPortal />} />
+              <Route path="/admin/events/recruitment-2026" element={<RecruitmentAdminPortal />} />
 
               {/* ---------- AUTH ROUTES ---------- */}
               {/* Note: Auth component itself now handles the "already logged in" redirect */}
