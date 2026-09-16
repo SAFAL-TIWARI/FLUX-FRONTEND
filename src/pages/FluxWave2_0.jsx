@@ -383,7 +383,7 @@ const FluxWave2_0 = () => {
                 Silver Medalist
               </p>
               <p className="text-xs font-semibold text-purple-500 dark:text-purple-400 uppercase tracking-widest">
-                1500 Cash Prize
+                1000 Cash Prize
               </p>
             </motion.div>
 
@@ -417,7 +417,7 @@ const FluxWave2_0 = () => {
                 FluxWave 2.0 Champion
               </p>
               <p className="text-xs font-semibold text-purple-500 dark:text-purple-400 uppercase tracking-widest">
-                2000 Cash Prize
+                1500 Cash Prize
               </p>
             </motion.div>
 
