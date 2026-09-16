@@ -11,7 +11,7 @@ import { FaEthereum } from 'react-icons/fa';
 // These lines scan your folders and create objects mapping the file path to the actual image URL
 const tvImages = import.meta.glob('../assets/events/technovision-2025/*.{png,jpg,jpeg,webp}', { eager: true });
 const fwImages = import.meta.glob('../assets/events/FluxWave/*.{png,jpg,jpeg,webp}', { eager: true });
-const farewellImages = import.meta.glob('../assets/farewell/*.{png,jpg,jpeg,webp,JPG,JPEG}', { eager: true });
+const farewellImages = import.meta.glob('../assets/farewell/2026/*.{png,jpg,jpeg,webp,JPG,JPEG}', { eager: true });
 const webImages = import.meta.glob('../assets/events/Web-Workshop/*.{png,jpg,jpeg,webp}', { eager: true });
 const recruitImages = import.meta.glob('../assets/events/FluxRecruitment/*.{png,jpg,jpeg,webp}', { eager: true });
 const roboImages = import.meta.glob('../assets/events/Robo_workshop/*.{png,jpg,jpeg,webp}', { eager: true });
