@@ -69,6 +69,20 @@
   <meta property="twitter:description"
     content="Official website of Technical Club of SATI Vidisha. Explore our projects, events, team, and learning resources. Specialized in impossible things." />
   <meta property="twitter:image" content="/fluxlogo.png" />
+
+  <!-- Immediate Theme Initialization Script (Prevents Theme Desync / Flash) -->
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'dark' || (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 
 <body>

@@ -5,10 +5,8 @@ import {
   Calendar, MapPin, Users, ExternalLink,
   ChevronDown, MessageCircle, Clock,
   Award, Zap, CheckCircle, Mail, Phone,
-  FileText, UserCheck, Sparkles, Send, Globe,
-  Instagram, Linkedin, Youtube, Facebook
+  FileText, UserCheck, Sparkles, Send, Globe
 } from 'lucide-react';
-
 
 const TimelineStageCard = ({ date, title, subtitle, description, status, icon: Icon, isLast, index }) => {
   const isEven = index % 2 === 0;
@@ -20,7 +18,7 @@ const TimelineStageCard = ({ date, title, subtitle, description, status, icon: I
 
       <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-16 w-full group relative">
         {/* Stage Badge Icon */}
-        <div className="absolute left-6 lg:left-1/2 -translate-x-1/2 w-12 h-12 rounded-2xl bg-white dark:bg-slate-900 border-2 border-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.5)] flex items-center justify-center z-10 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+        <div className="absolute left-6 lg:left-1/2 -translate-x-1/2 w-12 h-12 rounded-2xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border-2 border-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.5)] flex items-center justify-center z-10 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
           <Icon size={22} className="text-cyan-600 dark:text-cyan-400" />
         </div>
 
@@ -34,7 +32,7 @@ const TimelineStageCard = ({ date, title, subtitle, description, status, icon: I
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              className={`bg-white/80 dark:bg-white/5 backdrop-blur-xl border border-slate-200 dark:border-white/10 p-6 md:p-8 rounded-3xl hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] transition-all duration-500 relative ${isEven ? 'lg:mr-auto' : 'lg:ml-auto'} shadow-xl dark:shadow-none w-full group-hover:-translate-y-1`}
+              className={`bg-white/40 dark:bg-white/[0.03] backdrop-blur-xl border border-slate-200/60 dark:border-white/10 p-6 md:p-8 rounded-3xl hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] transition-all duration-500 relative ${isEven ? 'lg:mr-auto' : 'lg:ml-auto'} shadow-xl dark:shadow-none w-full group-hover:-translate-y-1`}
             >
               {/* Status Badge */}
               <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
@@ -72,7 +70,7 @@ const FAQItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden bg-white/80 dark:bg-white/5 backdrop-blur-xl hover:border-cyan-500/30 transition-all shadow-sm">
+    <div className="border border-slate-200/60 dark:border-white/10 rounded-2xl overflow-hidden bg-white/40 dark:bg-white/[0.03] backdrop-blur-xl hover:border-cyan-500/30 transition-all shadow-sm">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-between w-full p-6 text-left gap-4"
@@ -89,7 +87,7 @@ const FAQItem = ({ question, answer }) => {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
           >
-            <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-200 dark:border-white/5 pt-4 text-sm md:text-base">
+            <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-200/60 dark:border-white/5 pt-4 text-sm md:text-base">
               {answer}
             </div>
           </motion.div>
@@ -99,11 +97,26 @@ const FAQItem = ({ question, answer }) => {
   );
 };
 
-const Recruitment_26 = () => {
+const DomainCard = ({ domain, index }) => (
+  <div className="w-[220px] sm:w-[350px] shrink-0 group relative rounded-3xl border border-slate-200/60 dark:border-white/10 p-6 bg-white/40 dark:bg-white/[0.03] backdrop-blur-xl hover:border-cyan-500/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between select-none">
+    <div>
+      <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-4 text-cyan-600 dark:text-cyan-400 font-mono font-bold text-sm group-hover:scale-110 transition-transform">
+        {String(index).padStart(2, '0')}
+      </div>
+      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+        {domain.name}
+      </h3>
+      <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+        {domain.desc}
+      </p>
+    </div>
+  </div>
+);
 
+const Recruitment_26 = () => {
   const stages = [
     {
-      date: "15 September",
+      date: "17 September",
       title: "Registration Opens",
       subtitle: "Phase 01 // Initial Application",
       description: "Official portal opens for online registration. Fill out your details, select your preferred domains, and enter the recruitment funnel.",
@@ -136,21 +149,23 @@ const Recruitment_26 = () => {
     }
   ];
 
-  const domains = [
-    { name: "Technical Executive", desc: "Software engineering, algorithms, problem solving & coding sprints.", color: "from-cyan-500/20 to-blue-500/20" },
-    { name: "Hardware / IoT", desc: "Robotics, microcontrollers, embedded circuits & sensor integration.", color: "from-emerald-500/20 to-teal-500/20" },
-    { name: "Web Developer", desc: "Building scalable web apps, UI components, and modern full-stack systems.", color: "from-indigo-500/20 to-purple-500/20" },
-    { name: "Graphic Designer", desc: "UI/UX wireframes, branding, promotional graphics, and visual design.", color: "from-pink-500/20 to-rose-500/20" },
-    { name: "Video Editor", desc: "VFX, motion graphics, event reels, and cinematic storytelling.", color: "from-amber-500/20 to-orange-500/20" },
-    { name: "Content Writer", desc: "Blogs, technical documentation, event scripts & social media copy.", color: "from-violet-500/20 to-fuchsia-500/20" },
-    { name: "Sponsorship & Promotion", desc: "Industry outreach, partner relationships, PR, and event execution.", color: "from-blue-500/20 to-cyan-500/20" }
+  const domainsRow1 = [
+    { name: "Technical Executive", desc: "Software engineering, algorithms, problem solving & coding sprints.", id: 1 },
+    { name: "Web Developer", desc: "Building scalable web apps, UI components, and modern full-stack systems.", id: 2 },
+    { name: "Video Editor", desc: "VFX, motion graphics, event reels, and cinematic storytelling.", id: 3 },
+    { name: "Sponsorship & Promotion", desc: "Industry outreach, partner relationships, PR, and event execution.", id: 4 }
   ];
 
-  const contacts = [
-    { name: "Disha Nathani", phone: "9981095190", role: "Student Coordinator" },
-    { name: "Anshika Shukla", phone: "7805823575", role: "Student Coordinator" },
-    { name: "Pramit Singh", phone: "7828879681", role: "Student Coordinator" }
+  const domainsRow2 = [
+    { name: "Hardware / IoT", desc: "Robotics, microcontrollers, embedded circuits & sensor integration.", id: 5 },
+    { name: "Graphic Designer", desc: "UI/UX wireframes, branding, promotional graphics, and visual design.", id: 6 },
+    { name: "Content Writer", desc: "Blogs, technical documentation, event scripts & social media copy.", id: 7 },
+    { name: "AI & Data Solutions", desc: "Machine learning pipelines, data analysis, and intelligent automation.", id: 8 }
   ];
+
+  // Repeat items for seamless continuous looping
+  const loopedRow1 = [...domainsRow1, ...domainsRow1, ...domainsRow1];
+  const loopedRow2 = [...domainsRow2, ...domainsRow2, ...domainsRow2];
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#020202] text-slate-900 dark:text-white selection:bg-cyan-500/30 overflow-x-hidden font-sans transition-colors duration-500">
@@ -179,7 +194,7 @@ const Recruitment_26 = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="text-5xl sm:text-7xl lg:text-8xl font-black italic uppercase tracking-tighter leading-none mb-6 text-slate-900 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-b dark:from-white dark:via-slate-200 dark:to-slate-400"
           >
-            Technical Club <span className="text-cyan-600 dark:text-cyan-500">"FLUX"</span>
+            Recruitment <span className="text-cyan-600 dark:text-cyan-500">"2026"</span>
           </motion.h1>
 
           <motion.p
@@ -206,7 +221,7 @@ const Recruitment_26 = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white/80 dark:bg-white/5 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-3xl p-8 md:p-10 shadow-xl"
+            className="bg-white/40 dark:bg-white/[0.03] backdrop-blur-2xl border border-slate-200/60 dark:border-white/10 rounded-3xl p-8 md:p-10 shadow-xl"
           >
             <div className="flex items-center gap-3 mb-6">
               <Sparkles className="text-cyan-500" size={28} />
@@ -220,15 +235,15 @@ const Recruitment_26 = () => {
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-cyan-500/5 border border-cyan-500/15">
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/40 dark:bg-cyan-500/[0.04] backdrop-blur-md border border-cyan-500/20">
                 <Calendar className="text-cyan-500 flex-shrink-0 mt-1" size={20} />
                 <div>
                   <h4 className="font-bold text-slate-900 dark:text-white text-sm">Key Timeline Window</h4>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs font-mono">15 September 2026 — 12 October 2026</p>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs font-mono">17 September 2026 — 12 October 2026</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-cyan-500/5 border border-cyan-500/15">
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/40 dark:bg-cyan-500/[0.04] backdrop-blur-md border border-cyan-500/20">
                 <MapPin className="text-cyan-500 flex-shrink-0 mt-1" size={20} />
                 <div>
                   <h4 className="font-bold text-slate-900 dark:text-white text-sm">Campus Venue</h4>
@@ -236,28 +251,36 @@ const Recruitment_26 = () => {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 rounded-2xl bg-cyan-500/5 border border-cyan-500/15">
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/40 dark:bg-cyan-500/[0.04] backdrop-blur-md border border-cyan-500/20">
                 <Users className="text-cyan-500 flex-shrink-0 mt-1" size={20} />
                 <div>
                   <h4 className="font-bold text-slate-900 dark:text-white text-sm">Eligibility</h4>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs font-mono">Open for  2nd Year SATI Engineering Students</p>
+                  <p className="text-slate-500 dark:text-slate-400 text-xs font-mono">Open for 2nd Year SATI Engineering Students</p>
                 </div>
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+            {/* Action Buttons: Register Online, WhatsApp Group, Contact */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
               <Link
                 to="/events/recruitment-2026/register"
-                className="flex items-center justify-center gap-2 py-4 px-6 bg-cyan-600 hover:bg-cyan-500 text-white rounded-2xl font-bold uppercase tracking-widest text-xs transition-all shadow-lg shadow-cyan-500/20"
+                className="flex items-center justify-center gap-2 py-4 px-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-2xl font-bold uppercase tracking-wider text-xs transition-all shadow-lg shadow-cyan-500/20 text-center"
               >
-                <Send size={16} /> Register Online
+                <Send size={15} /> Register Online
               </Link>
               <a
-                href="#contact-representatives"
-                className="flex items-center justify-center gap-2 py-4 px-6 bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-900 dark:text-white rounded-2xl font-bold uppercase tracking-widest text-xs transition-all border border-slate-200 dark:border-white/10"
+                href="https://chat.whatsapp.com/JKSDCOwvPjcDFZvzPGKaeN?s=sh&p=a&mlu=4&ilr=4"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 py-4 px-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold uppercase tracking-wider text-xs transition-all shadow-lg shadow-emerald-500/20 text-center"
               >
-                <Phone size={16} /> Contact Lead
+                <MessageCircle size={16} /> WhatsApp Group
+              </a>
+              <a
+                href="#need-help-contacts"
+                className="flex items-center justify-center gap-2 py-4 px-4 bg-white/40 dark:bg-white/5 hover:bg-white/60 dark:hover:bg-white/10 backdrop-blur-md text-slate-900 dark:text-white rounded-2xl font-bold uppercase tracking-wider text-xs transition-all border border-slate-200/60 dark:border-white/10 text-center"
+              >
+                <Phone size={15} /> Contact Leads
               </a>
             </div>
           </motion.div>
@@ -292,8 +315,8 @@ const Recruitment_26 = () => {
           </div>
         </div>
 
-        {/* AVAILABLE DOMAINS / TEAMS */}
-        <div className="max-w-6xl mx-auto mb-32">
+        {/* AVAILABLE DOMAINS / TEAMS - HORIZONTAL MOTION IN TWO OPPOSITE ROWS */}
+        <div className="w-full max-w-7xl mx-auto mb-32 overflow-hidden">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter mb-4 text-slate-900 dark:text-white">
               Explore Our <span className="text-cyan-600 dark:text-cyan-500">Domains</span>
@@ -304,72 +327,30 @@ const Recruitment_26 = () => {
             <div className="h-1 w-20 bg-cyan-500 mx-auto rounded-full mt-6" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {domains.map((d, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.08 }}
-                className="group relative rounded-3xl border border-slate-200 dark:border-white/10 p-6 bg-white/80 dark:bg-white/5 backdrop-blur-xl hover:border-cyan-500/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-4 text-cyan-500 font-mono font-bold text-sm group-hover:scale-110 transition-transform">
-                    0{idx + 1}
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{d.name}</h3>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{d.desc}</p>
-                </div>
-                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs font-mono text-cyan-600 dark:text-cyan-400">
-                  <span>Recruiting 2026</span>
-                  <CheckCircle size={14} />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+          {/* Dual Opposite Marquee Container with edge mask */}
+          <div className="space-y-6 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] py-2">
+            {/* Row 1: Flowing Left */}
+            <div className="flex overflow-hidden select-none group">
+              <div className="flex gap-6 shrink-0 animate-marquee-row-left hover:[animation-play-state:paused]">
+                {loopedRow1.map((d, idx) => (
+                  <DomainCard key={`r1-${idx}`} domain={d} index={d.id} />
+                ))}
+              </div>
+            </div>
 
-        {/* CONTACT REPRESENTATIVES SECTION */}
-        <div id="contact-representatives" className="max-w-5xl mx-auto mb-32">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter mb-4 text-slate-900 dark:text-white">
-              Student <span className="text-cyan-600 dark:text-cyan-500">Coordinators</span>
-            </h2>
-            <p className="text-slate-500 dark:text-slate-400 text-base">
-              Have questions regarding the recruitment process? Reach out directly to our student coordinators.
-            </p>
-            <div className="h-1 w-20 bg-cyan-500 mx-auto rounded-full mt-6" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {contacts.map((contact, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="bg-white/80 dark:bg-white/5 backdrop-blur-xl border border-slate-200 dark:border-white/10 p-8 rounded-3xl text-center group hover:border-cyan-500/40 transition-all shadow-lg"
-              >
-                <div className="w-16 h-16 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-500 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <Phone size={24} />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{contact.name}</h3>
-                <p className="text-xs font-mono text-cyan-600 dark:text-cyan-400 uppercase tracking-widest mb-4">{contact.role}</p>
-                <a
-                  href={`tel:+91${contact.phone}`}
-                  className="inline-flex items-center gap-2 py-2.5 px-5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-mono text-sm font-bold border border-cyan-500/20 hover:bg-cyan-500 hover:text-white transition-all"
-                >
-                  <Phone size={14} /> +91 {contact.phone}
-                </a>
-              </motion.div>
-            ))}
+            {/* Row 2: Flowing Right */}
+            <div className="flex overflow-hidden select-none group">
+              <div className="flex gap-6 shrink-0 animate-marquee-row-right hover:[animation-play-state:paused]">
+                {loopedRow2.map((d, idx) => (
+                  <DomainCard key={`r2-${idx}`} domain={d} index={d.id} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
         {/* FAQ SECTION */}
-        <div className="max-w-3xl mx-auto mb-32">
+        <div className="max-w-3xl mx-auto mb-24">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-black uppercase italic tracking-tighter mb-4 text-slate-900 dark:text-white">
               Frequently Asked <span className="text-cyan-600 dark:text-cyan-500">Questions</span>
@@ -397,30 +378,73 @@ const Recruitment_26 = () => {
           </div>
         </div>
 
-        {/* FOOTER SOCIAL HUB */}
-        <div className="text-center border-t border-slate-200 dark:border-white/10 pt-16">
-          <h3 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Connect With Technical Club FLUX</h3>
+        {/* NEED HELP? SECTION (Technovision Style - Replaces Student Coordinators below FAQs) */}
+        <div id="need-help-contacts" className="text-center bg-white/40 dark:bg-white/[0.03] backdrop-blur-xl border border-slate-200/60 dark:border-white/10 rounded-3xl p-8 sm:p-12 mb-12 max-w-4xl mx-auto shadow-lg">
+          <h2 className="text-2xl sm:text-3xl font-black italic uppercase tracking-tight mb-4 text-slate-900 dark:text-white">Need Help?</h2>
+          <div className="flex flex-col items-center gap-4">
+            <Link
+              to="/contact"
+              className="text-cyan-600 dark:text-cyan-400 font-bold text-sm tracking-wider uppercase hover:underline transition-colors"
+            >
+              Contact Us
+            </Link>
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <a
+                href="mailto:flux.club@satiengg.in"
+                className="flex items-center gap-2 text-slate-600 hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400 transition-colors text-sm font-mono"
+              >
+                <Mail size={16} />
+                <span>flux.club@satiengg.in</span>
+              </a>
+            </div>
 
-          <div className="flex flex-wrap justify-center gap-6 mb-8 text-sm font-mono">
-            <a href="https://instagram.com/fluxsati" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-cyan-500 transition-colors">
-              <Instagram size={18} /> @fluxsati
-            </a>
-            <a href="https://linkedin.com/in/satiengg.in" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-cyan-500 transition-colors">
-              <Linkedin size={18} /> /satiengg.in
-            </a>
-            <a href="mailto:flux@satingg.in" className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-cyan-500 transition-colors">
-              <Mail size={18} /> flux@satingg.in
-            </a>
-            <a href="https://clubflux.in" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-cyan-500 transition-colors">
-              <Globe size={18} /> clubflux.in
-            </a>
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-2">
+              <a
+                href="tel:+919981095190"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/50 dark:bg-white/[0.04] backdrop-blur-md border border-slate-200/50 dark:border-white/10 text-slate-700 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400 transition-all text-xs font-mono"
+              >
+                <Phone size={14} className="text-cyan-500" />
+                <span>Disha Nathani - 9981095190</span>
+              </a>
+              <a
+                href="tel:+917805823575"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/50 dark:bg-white/[0.04] backdrop-blur-md border border-slate-200/50 dark:border-white/10 text-slate-700 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400 transition-all text-xs font-mono"
+              >
+                <Phone size={14} className="text-cyan-500" />
+                <span>Anshika Shukla - 7805823575</span>
+              </a>
+              <a
+                href="tel:+917828879681"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/50 dark:bg-white/[0.04] backdrop-blur-md border border-slate-200/50 dark:border-white/10 text-slate-700 hover:text-cyan-600 dark:text-slate-300 dark:hover:text-cyan-400 transition-all text-xs font-mono"
+              >
+                <Phone size={14} className="text-cyan-500" />
+                <span>Pramit Singh - 7828879681</span>
+              </a>
+            </div>
           </div>
-
-          <p className="text-xs text-slate-400 font-mono">
-            © 2026 TECHNICAL CLUB FLUX // SATI VIDISHA. ALL RIGHTS RESERVED.
-          </p>
         </div>
+
       </div>
+
+      {/* Embedded CSS for smooth horizontal 2-row opposite marquee */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        @keyframes marquee-row-left {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.333333%); }
+        }
+        @keyframes marquee-row-right {
+          0% { transform: translateX(-33.333333%); }
+          100% { transform: translateX(0); }
+        }
+        .animate-marquee-row-left {
+          animation: marquee-row-left 35s linear infinite;
+        }
+        .animate-marquee-row-right {
+          animation: marquee-row-right 35s linear infinite;
+        }
+        `
+      }} />
     </div>
   );
 };

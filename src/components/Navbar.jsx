@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout as logoutAction } from '../slices/authSlices';
 import { logout as logoutApi } from '../api';
-import { Sun, Moon, LogOut, User as UserIcon, LayoutDashboard, ChevronDown, Menu, X, MessageSquare, History } from 'lucide-react';
+import { Sun, Moon, LogOut, User as UserIcon, LayoutDashboard, ChevronDown, Menu, X, MessageSquare, History, ShieldCheck } from 'lucide-react';
 import fluxLogo from '/fluxlogo.png';
 
 const Navbar = () => {
@@ -11,6 +11,7 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showVersionDropdown, setShowVersionDropdown] = useState(false);
   const [showMobileVersionDropdown, setShowMobileVersionDropdown] = useState(false);
+  const [showMobileProfileDropdown, setShowMobileProfileDropdown] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isDark, setIsDark] = useState(false);
 
@@ -20,6 +21,7 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
   const versionDropdownRef = useRef(null);
   const mobileVersionDropdownRef = useRef(null);
+  const mobileProfileDropdownRef = useRef(null);
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -34,6 +36,9 @@ const Navbar = () => {
       }
       if (mobileVersionDropdownRef.current && !mobileVersionDropdownRef.current.contains(event.target)) {
         setShowMobileVersionDropdown(false);
+      }
+      if (mobileProfileDropdownRef.current && !mobileProfileDropdownRef.current.contains(event.target)) {
+        setShowMobileProfileDropdown(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -52,6 +57,7 @@ const Navbar = () => {
     setShowDropdown(false);
     setShowVersionDropdown(false);
     setShowMobileVersionDropdown(false);
+    setShowMobileProfileDropdown(false);
   }, [location]);
 
   // Theme Initialization
@@ -143,7 +149,8 @@ const Navbar = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col">
+              {/* Brand Text: Hidden on mobile, only logo appears */}
+              <div className="hidden sm:flex flex-col">
                 <div className="flex items-center gap-1">
                   <span className="text-black dark:text-white text-xl sm:text-2xl lg:text-3xl font-black tracking-tighter leading-none uppercase">FLUX</span>
                   <span className={`w-1.5 h-1.5 rounded-full ${userInfo ? 'bg-green-500 shadow-[0_0_8px_#22c55e]' : 'bg-red-500 shadow-[0_0_8px_#ef4444]'}`}></span>
@@ -263,6 +270,16 @@ const Navbar = () => {
                     {showDropdown && (
                       <div className="absolute right-0 mt-3 w-56 bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-cyan-500/30 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-3xl animate-in fade-in zoom-in duration-200">
                         <div className="p-2 space-y-1">
+                          {userInfo.role === 'admin' && (
+                            <Link
+                              to="/admin"
+                              onClick={() => setShowDropdown(false)}
+                              className="flex items-center gap-3 px-4 py-3 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-600 dark:text-purple-400 font-bold transition-all border border-purple-500/20"
+                            >
+                              <ShieldCheck size={16} />
+                              <span className="text-xs font-bold uppercase">Admin Panel</span>
+                            </Link>
+                          )}
                           <Link to="/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-cyan-500/10 dark:text-gray-300 hover:text-cyan-500 transition-all">
                             <LayoutDashboard size={16} />
                             <span className="text-xs font-bold uppercase">Dashboard</span>
@@ -367,9 +384,82 @@ const Navbar = () => {
                   toggleTheme();
                 }}
                 className="xl:hidden p-2 rounded-lg text-cyan-500 hover:bg-cyan-500/10 active:scale-95 transition-all mr-1"
+                title="Toggle Theme"
               >
                 {isDark ? <Sun size={24} /> : <Moon size={24} />}
               </button>
+
+              {/* MOBILE PROFILE MENU (Mobile Only - Beside Toggle) */}
+              <div className="xl:hidden relative mr-1" ref={mobileProfileDropdownRef}>
+                {userInfo ? (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowMobileProfileDropdown(!showMobileProfileDropdown);
+                    }}
+                    className="p-1.5 rounded-xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-cyan-500/50 flex items-center justify-center text-cyan-500 active:scale-95 transition-all relative"
+                    title={userInfo.name}
+                  >
+                    <UserIcon size={20} className="text-cyan-500" />
+                    <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e]"></span>
+                  </button>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="p-1.5 rounded-xl bg-gray-100 dark:bg-white/5 border border-cyan-500/30 text-cyan-500 active:scale-95 transition-all flex items-center justify-center"
+                    title="Sign In"
+                  >
+                    <UserIcon size={20} />
+                  </Link>
+                )}
+
+                {showMobileProfileDropdown && userInfo && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-cyan-500/30 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-3xl animate-in fade-in zoom-in duration-200 z-[200]">
+                    <div className="p-3 border-b border-gray-100 dark:border-white/5 bg-gray-50 dark:bg-white/[0.02]">
+                      <p className="text-xs font-black text-black dark:text-white uppercase truncate">{userInfo.name}</p>
+                      <p className="text-[9px] font-mono text-cyan-500 uppercase tracking-widest">{userInfo.role || 'Member'}</p>
+                    </div>
+                    <div className="p-2 space-y-1">
+                      {userInfo.role === 'admin' && (
+                        <Link
+                          to="/admin"
+                          onClick={() => setShowMobileProfileDropdown(false)}
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-600 dark:text-purple-400 font-bold transition-all border border-purple-500/20 text-xs uppercase"
+                        >
+                          <ShieldCheck size={16} />
+                          <span>Admin Panel</span>
+                        </Link>
+                      )}
+                      <Link
+                        to="/dashboard"
+                        onClick={() => setShowMobileProfileDropdown(false)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-cyan-500/10 dark:text-gray-300 hover:text-cyan-500 transition-all text-xs font-bold uppercase"
+                      >
+                        <LayoutDashboard size={16} />
+                        <span>Dashboard</span>
+                      </Link>
+                      <Link
+                        to="/chat"
+                        onClick={() => setShowMobileProfileDropdown(false)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-cyan-500/10 dark:text-gray-300 hover:text-cyan-500 transition-all text-xs font-bold uppercase"
+                      >
+                        <MessageSquare size={16} />
+                        <span>Group Chat</span>
+                      </Link>
+                      <button
+                        onClick={() => {
+                          setShowMobileProfileDropdown(false);
+                          handleLogout();
+                        }}
+                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-red-500/10 text-red-500 transition-all text-xs font-bold uppercase"
+                      >
+                        <LogOut size={16} />
+                        <span>Terminate</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
 
               {/* MOBILE TOGGLE - MENU BUTTON */}
               <button
@@ -388,56 +478,30 @@ const Navbar = () => {
 
       {/* --- MOBILE/TABLET MENU (Simple Grid Layout) --- */}
       <div className={`fixed inset-0 w-full h-screen bg-white dark:bg-black z-[140] transition-transform duration-300 xl:hidden ${isOpen ? 'translate-y-0' : '-translate-y-full'}`}>
-        <div className="flex flex-col h-full pt-20 px-6 pb-10">
-
-          {/* Mobile User Profile */}
-          {userInfo && (
-            <div className="flex items-center gap-4 p-4 mb-6 bg-gray-50 dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/5">
-              <div className="w-12 h-12 rounded-full border border-cyan-500/50 flex items-center justify-center">
-                <UserIcon size={24} className="text-cyan-500" />
-              </div>
-              <div>
-                <p className="text-sm font-black text-black dark:text-white uppercase truncate max-w-[150px]">{userInfo.name}</p>
-                <p className="text-[9px] font-mono text-cyan-500 uppercase tracking-widest">{userInfo.role || 'Member'}</p>
-              </div>
-            </div>
-          )}
+        <div className="flex flex-col h-full pt-24 px-6 pb-10">
 
           {/* Mobile Navigation Grid */}
-          <div className="grid grid-cols-2 gap-3 mb-8">
+          <div className="grid grid-cols-2 gap-3 mb-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className="flex items-center justify-center h-16 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-2xl text-[11px] font-bold uppercase tracking-widest active:bg-cyan-500/10 active:text-cyan-500 transition-all"
+                className="flex items-center justify-center h-16 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-2xl text-[11px] font-bold uppercase tracking-widest active:bg-cyan-500/10 active:text-cyan-500 transition-all text-slate-800 dark:text-white"
               >
                 {link.name}
               </Link>
             ))}
           </div>
 
-          {/* Mobile Footer Actions */}
-          <div className="mt-auto space-y-3">
-            <div className="flex justify-center w-full">
-              {userInfo ? (
-                <><Link to="/dashboard" onClick={() => setIsOpen(false)} className="flex items-center justify-center gap-2 w-full h-12 bg-cyan-500/10 text-cyan-500 rounded-xl text-[10px] font-bold uppercase">
-                  <LayoutDashboard size={14} /> Dashboard
-                </Link><Link to="/chat" onClick={() => setIsOpen(false)} className="flex items-center justify-center gap-2 w-full h-12 bg-cyan-500/10 text-cyan-500 rounded-xl text-[10px] font-bold uppercase mt-2">
-                    <MessageSquare size={14} /> Group Chat
-                  </Link></>
-              ) : (
-                <Link to="/login" onClick={() => setIsOpen(false)} className="flex items-center justify-center w-full h-12 bg-cyan-500 text-white dark:text-black rounded-xl text-[10px] font-bold uppercase">
-                  Login
-                </Link>
-              )}
-            </div>
-
-            {userInfo && (
-              <button onClick={handleLogout} className="w-full h-12 flex items-center justify-center gap-2 border border-red-500/20 text-red-500 bg-red-500/5 rounded-xl text-[10px] font-bold uppercase">
-                <LogOut size={14} /> Terminate Session
-              </button>
-            )}
+          {/* Clean Mobile Drawer Footer */}
+          <div className="mt-auto pt-6 border-t border-gray-100 dark:border-white/5 text-center">
+            <p className="text-[10px] font-mono text-cyan-600 dark:text-cyan-400 uppercase tracking-widest font-bold">
+              FLUX TECHNICAL CLUB
+            </p>
+            <p className="text-[9px] font-mono text-gray-400 dark:text-gray-500 uppercase mt-1">
+              Engineered for Excellence
+            </p>
           </div>
         </div>
       </div>

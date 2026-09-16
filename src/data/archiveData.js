@@ -11,9 +11,9 @@ import webdev_poster from '../assets/events/Events-Posters/web_dev_workshop.jpeg
 import bw_poster from '../assets/events/Events-Posters/blockchain_workshop.jpeg';
 import rocket_poster from '../assets/events/Events-Posters/rocket_crash.jpeg';
 import fluxwave2_0_poster from '../assets/events/Events-Posters/fluxwave_2.0.jpeg';
-import recruitment_timeline_26_poster from '../assets/events/Events-Posters/recruitment_timeline_26.jpeg';
+import recruitment_26_poster from '../assets/events/Events-Posters/recruitment_26.jpeg';
 import recruitment_25_poster from '../assets/events/Events-Posters/recruitment_25.jpeg';
-import code_to_creation_poster from '../assets/events/Events-Posters/code_to_creation_26.jpeg';
+import code_to_creation_poster from '../assets/events/Events-Posters/web_dev_workshop_2026.jpeg';
 import banner10_poster from '../assets/banner/10.png';
 
 /* ===================== DATA STRUCTURE ===================== */
@@ -25,8 +25,8 @@ export const ARCHIVE_DATA = {
       title: "FLUX RECRUITMENT 2026",
       tag: "Membership Drive",
       detailsUrl: "/events/recruitment-2026",
-      images: [recruitment_timeline_26_poster],
-      terminal: "> status: Registration_Opens_15_Sept\n> timeline: 15 Sept - 12 Oct 2026\n> stages: Registration, Written_Test, Interview, Result\n> contact: Disha, Anshika, Pramit",
+      images: [recruitment_26_poster],
+      terminal: "> status: Registration_Opens_17_Sept\n> timeline: 17 Sept - 12 Oct 2026\n> stages: Registration, Written_Test, Interview, Result\n> contact: Disha, Anshika, Pramit",
       date: "2026-09-15",
       popularity: 105,
       summary: "Specialized in impossible things! Technical Club FLUX is conducting its official Recruitment Drive 2026. Explore the timeline for Registration, Pen & Paper Test, Personal Interview, and Final Results."
@@ -34,7 +34,7 @@ export const ARCHIVE_DATA = {
     {
       title: "CODE TO CREATION",
       tag: "Web Dev Workshop",
-      detailsUrl: "/events/code-to-creation",
+      reportUrl: "https://drive.google.com/file/d/10nM0Ig3AYTLZkxS8ouJCbbrndgy0JLsg/view?usp=drive_link",
       images: [code_to_creation_poster],
       terminal: "> event: Hands-On_Web_Development_Workshop\n> host: Devanshu_Vishwakarma\n> date: 17_August_2026_(Monday)\n> venue: SMART_CLASSROOM\n> curriculum: MERN_Stack, AI_Tools_10x_Faster, Live_Interactive_Project_Build, Hands-On_CRUD\n> perks: Goodies & Rewards",
       date: "2026-09-01",
