@@ -32,7 +32,7 @@ const FluxWave2_0 = React.lazy(() => import("./pages/FluxWave2_0"));
 const FluxRecruitment = React.lazy(() => import("./pages/Recruitment_26"));
 const FluxWavePublicAdmin = React.lazy(() => import("./pages/FluxWavePublicAdmin"));
 
-const RecruitmentRegistration = React.lazy(() => import("./pages/RecruitmentRegistration"));
+const Recruitment_26_Registration = React.lazy(() => import("./pages/Recruitment_26_Registration"));
 const RecruitmentAdminPortal = React.lazy(() => import("./pages/RecruitmentAdminPortal"));
 
 const VercelAnalytics = React.lazy(() => import('./VercelAnalytics'));
@@ -133,7 +133,7 @@ export default function App() {
 
 
               <Route path="/events/recruitment-2026" element={<FluxRecruitment />} />
-              <Route path="/events/recruitment-2026/register" element={<RecruitmentRegistration />} />
+              <Route path="/events/recruitment-2026/register" element={<Recruitment_26_Registration />} />
               <Route path="/admin/events/recruitment-2026" element={<RecruitmentAdminPortal />} />
 
               {/* ---------- AUTH ROUTES ---------- */}

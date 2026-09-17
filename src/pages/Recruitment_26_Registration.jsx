@@ -4,10 +4,11 @@ import {
   Send, CheckCircle, ArrowLeft, ArrowRight, User, Mail, Phone,
   Sparkles, Check, Upload, FileText, Link as LinkIcon, MessageCircle,
   ExternalLink, ShieldCheck, Award, Briefcase, Code, Cpu, Palette,
-  HelpCircle, ChevronRight, Plus, Trash2, CheckCircle2, RotateCcw
+  HelpCircle, ChevronRight, Plus, Trash2, CheckCircle2, RotateCcw, X
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { registerRecruitment } from '../api';
+import CustomDropdown from '../components/CustomDropdown';
 
 const STORAGE_KEY = 'flux_recruitment_2026_draft';
 
@@ -49,7 +50,8 @@ const initialFormData = {
   whyHireYou: '',
   whatKnowAboutClub: '',
   fluxEventsAttended: '',
-  otherEventsAttended: ''
+  otherEventsAttended: '',
+  expectationsFromClub: ''
 };
 
 const getSavedDraft = () => {
@@ -64,7 +66,7 @@ const getSavedDraft = () => {
   return null;
 };
 
-const RecruitmentRegistration = () => {
+const Recruitment_26_Registration = () => {
   const savedDraft = useMemo(() => getSavedDraft(), []);
 
   const [currentStep, setCurrentStep] = useState(() => {
@@ -73,6 +75,7 @@ const RecruitmentRegistration = () => {
       : 1;
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(() => {
     return Boolean(savedDraft?.isSubmitted);
   });
@@ -371,17 +374,17 @@ const RecruitmentRegistration = () => {
   const validateStep2 = () => {
     const errs = {};
 
-    if (!formData.linkedinUrl.trim()) {
-      errs.linkedinUrl = 'LinkedIn profile URL is compulsory *';
-    }
+    // if (!formData.linkedinUrl.trim()) {
+    //   errs.linkedinUrl = 'LinkedIn profile URL is compulsory *';
+    // }
 
-    if (!formData.githubUrl.trim()) {
-      errs.githubUrl = 'GitHub profile URL is compulsory *';
-    }
+    // if (!formData.githubUrl.trim()) {
+    //   errs.githubUrl = 'GitHub profile URL is compulsory *';
+    // }
 
-    if (!formData.resumeUrl.trim()) {
-      errs.resumeUrl = 'Resume Google Drive link is compulsory *';
-    }
+    // if (!formData.resumeUrl.trim()) {
+    //   errs.resumeUrl = 'Resume Google Drive link is compulsory *';
+    // }
 
     if (formData.softwareSkills.length === 0) errs.softwareSkills = 'Select at least one software skill (or None)';
     if (formData.hardwareSkills.length === 0) errs.hardwareSkills = 'Select at least one hardware skill (or None)';
@@ -402,16 +405,16 @@ const RecruitmentRegistration = () => {
     }
 
     // Projects: Demo video / Live URL is mandatory
-    const hasValidProject = projects.some((p) => p.name.trim() && p.url.trim());
-    if (!hasValidProject) {
-      errs.projects = 'Please provide at least one past project with both Name and Demo Video / Live URL *';
-    } else {
-      // Check if any partially filled project rows exist
-      const incomplete = projects.some((p) => (p.name.trim() && !p.url.trim()) || (!p.name.trim() && p.url.trim()));
-      if (incomplete) {
-        errs.projects = 'Please ensure both Project Name and URL are filled for every project listed.';
-      }
-    }
+    // const hasValidProject = projects.some((p) => p.name.trim() && p.url.trim());
+    // if (!hasValidProject) {
+    //   errs.projects = 'Please provide at least one past project with both Name and Demo Video / Live URL *';
+    // } else {
+    //   // Check if any partially filled project rows exist
+    //   const incomplete = projects.some((p) => (p.name.trim() && !p.url.trim()) || (!p.name.trim() && p.url.trim()));
+    //   if (incomplete) {
+    //     errs.projects = 'Please ensure both Project Name and URL are filled for every project listed.';
+    //   }
+    // }
 
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -451,20 +454,20 @@ const RecruitmentRegistration = () => {
   // Step 4 Validation (3 Strengths and 3 Weaknesses compulsory)
   const validateStep4 = () => {
     const errs = {};
-    if (!formData.whyJoinClub.trim()) errs.whyJoinClub = 'This field is required *';
+    // if (!formData.whyJoinClub.trim()) errs.whyJoinClub = 'This field is required *';
 
-    // 3 Strengths & 3 Weaknesses validation
-    const has3Strengths = strengths.every((s) => s && s.trim().length > 0);
-    const has3Weaknesses = weaknesses.every((w) => w && w.trim().length > 0);
-    if (!has3Strengths || !has3Weaknesses) {
-      errs.strengthsWeaknesses = 'Please enter all 3 strengths and all 3 weaknesses *';
-    }
+    // // 3 Strengths & 3 Weaknesses validation
+    // const has3Strengths = strengths.every((s) => s && s.trim().length > 0);
+    // const has3Weaknesses = weaknesses.every((w) => w && w.trim().length > 0);
+    // if (!has3Strengths || !has3Weaknesses) {
+    //   errs.strengthsWeaknesses = 'Please enter all 3 strengths and all 3 weaknesses *';
+    // }
 
-    if (!formData.handleTeamFailure.trim()) errs.handleTeamFailure = 'This field is required *';
-    if (!formData.handleTeamConflict.trim()) errs.handleTeamConflict = 'This field is required *';
-    if (!formData.whyHireYou.trim()) errs.whyHireYou = 'This field is required *';
-    if (!formData.whatKnowAboutClub.trim()) errs.whatKnowAboutClub = 'This field is required *';
-    if (!formData.fluxEventsAttended.trim()) errs.fluxEventsAttended = 'This field is required *';
+    // if (!formData.handleTeamFailure.trim()) errs.handleTeamFailure = 'This field is required *';
+    // if (!formData.handleTeamConflict.trim()) errs.handleTeamConflict = 'This field is required *';
+    // if (!formData.whyHireYou.trim()) errs.whyHireYou = 'This field is required *';
+    // if (!formData.whatKnowAboutClub.trim()) errs.whatKnowAboutClub = 'This field is required *';
+    // if (!formData.fluxEventsAttended.trim()) errs.fluxEventsAttended = 'This field is required *';
 
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -489,10 +492,14 @@ const RecruitmentRegistration = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateStep4()) return;
+    setSubmitError('');
+    setShowConfirmModal(true);
+  };
 
+  const handleConfirmSubmit = async () => {
     setIsSubmitting(true);
     setSubmitError('');
 
@@ -552,6 +559,7 @@ const RecruitmentRegistration = () => {
     try {
       const response = await registerRecruitment(payload);
       if (response.data && response.data.success) {
+        setShowConfirmModal(false);
         setTicketId(response.data.ticketId || `FLUX-2026-REG-${Math.floor(100000 + Math.random() * 900000)}`);
         setIsSubmitted(true);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -642,6 +650,24 @@ const RecruitmentRegistration = () => {
           <p className="text-slate-600 dark:text-slate-400 text-sm md:text-base max-w-lg mx-auto">
             Step into SATI's flagship technical society. Fill in your details with care and precision.
           </p>
+          <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
+            <a
+              href="https://drive.google.com/file/d/1TepOS1fshYWi5l3LTskDbRNfIynuPFHq/view?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 text-xs font-mono transition-colors"
+            >
+              <FileText size={12} /> Club Constitution <ExternalLink size={10} />
+            </a>
+            <a
+              href="https://drive.google.com/file/d/16RMD4O0LmZoIcWUQ0aVmuWyoZs8AGcMT/view?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20 text-xs font-mono transition-colors"
+            >
+              <FileText size={12} /> Recruitment Procedure <ExternalLink size={10} />
+            </a>
+          </div>
         </div>
 
         {/* FORM CONTAINER - TRANSPARENT GLASSMORPHISM */}
@@ -715,16 +741,18 @@ const RecruitmentRegistration = () => {
                     <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
                       Branch *
                     </label>
-                    <select
-                      name="branch"
+                    <CustomDropdown
+                      variant="form"
+                      options={branches}
                       value={formData.branch}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3.5 rounded-2xl bg-white/60 dark:bg-[#0c0c0e]/80 backdrop-blur-md border border-slate-200/60 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 transition-colors text-sm font-mono"
-                    >
-                      {branches.map((b, i) => (
-                        <option key={i} value={b} className="bg-white dark:bg-[#0c0c0e]">{b}</option>
-                      ))}
-                    </select>
+                      onChange={(val) => {
+                        setFormData((prev) => ({ ...prev, branch: val }));
+                        if (errors.branch) {
+                          setErrors((prev) => ({ ...prev, branch: '' }));
+                        }
+                      }}
+                      placeholder="Select your branch..."
+                    />
                   </div>
 
                   {formData.branch === 'Other' && (
@@ -816,11 +844,11 @@ const RecruitmentRegistration = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-                        LinkedIn Profile (URL) *
+                        LinkedIn Profile (URL)
                       </label>
-                      <span className="block text-[11px] text-cyan-600 dark:text-cyan-400 font-mono mb-2">
+                      {/* <span className="block text-[11px] text-cyan-600 dark:text-cyan-400 font-mono mb-2">
                         (Mandatory profile URL)
-                      </span>
+                      </span> */}
                       <input
                         type="url"
                         name="linkedinUrl"
@@ -836,11 +864,11 @@ const RecruitmentRegistration = () => {
 
                     <div>
                       <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-                        GitHub Profile (URL) *
+                        GitHub Profile (URL)
                       </label>
-                      <span className="block text-[11px] text-cyan-600 dark:text-cyan-400 font-mono mb-2">
+                      {/* <span className="block text-[11px] text-cyan-600 dark:text-cyan-400 font-mono mb-2">
                         (Mandatory repository portfolio link)
-                      </span>
+                      </span> */}
                       <input
                         type="url"
                         name="githubUrl"
@@ -858,11 +886,11 @@ const RecruitmentRegistration = () => {
                   {/* Google Drive Resume Link (Mandatory) */}
                   <div>
                     <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-                      Resume Google Drive Link *
+                      Resume Google Drive Link
                     </label>
-                    <span className="block text-[11px] text-slate-400 font-mono mb-2">
+                    {/* <span className="block text-[11px] text-slate-400 font-mono mb-2">
                       Paste your Google Drive shareable link below (Make sure access is set to "Anyone with the link"):
-                    </span>
+                    </span> */}
                     <input
                       type="url"
                       name="resumeUrl"
@@ -1096,7 +1124,7 @@ const RecruitmentRegistration = () => {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/40 dark:border-white/10 pb-2">
                       <div>
                         <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                          Demo video / Live URL of your past projects *
+                          Demo video / Live URL of your past projects
                         </label>
                         <span className="text-[11px] text-slate-400 font-mono">
                           Provide project title and Google Drive / GitHub / Demo video links:
@@ -1136,7 +1164,7 @@ const RecruitmentRegistration = () => {
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                               <label className="block text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">
-                                Project Name / Title *
+                                Project Name / Title
                               </label>
                               <input
                                 type="text"
@@ -1148,7 +1176,7 @@ const RecruitmentRegistration = () => {
                             </div>
                             <div>
                               <label className="block text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-1">
-                                Demo Video / Live URL / SourceCode *
+                                Demo Video / Live URL / SourceCode
                               </label>
                               <input
                                 type="url"
@@ -1435,7 +1463,7 @@ const RecruitmentRegistration = () => {
                   <div className="space-y-3">
                     <div>
                       <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-                        What are your 3 strengths and 3 weaknesses? *
+                        What are your 3 strengths and 3 weaknesses?
                       </label>
                       <span className="block text-[11px] text-slate-400 font-mono">
                         Fill in exactly 3 strengths in the left column and 3 weaknesses in the right column:
@@ -1451,7 +1479,7 @@ const RecruitmentRegistration = () => {
                         <div className="space-y-3">
                           <div>
                             <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
-                              Strength 1 *
+                              Strength 1
                             </label>
                             <input
                               type="text"
@@ -1463,7 +1491,7 @@ const RecruitmentRegistration = () => {
                           </div>
                           <div>
                             <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
-                              Strength 2 *
+                              Strength 2
                             </label>
                             <input
                               type="text"
@@ -1475,7 +1503,7 @@ const RecruitmentRegistration = () => {
                           </div>
                           <div>
                             <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
-                              Strength 3 *
+                              Strength 3
                             </label>
                             <input
                               type="text"
@@ -1496,7 +1524,7 @@ const RecruitmentRegistration = () => {
                         <div className="space-y-3">
                           <div>
                             <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
-                              Weakness 1 *
+                              Weakness 1
                             </label>
                             <input
                               type="text"
@@ -1508,7 +1536,7 @@ const RecruitmentRegistration = () => {
                           </div>
                           <div>
                             <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
-                              Weakness 2 *
+                              Weakness 2
                             </label>
                             <input
                               type="text"
@@ -1520,7 +1548,7 @@ const RecruitmentRegistration = () => {
                           </div>
                           <div>
                             <label className="block text-[10px] font-mono text-slate-500 dark:text-slate-400 mb-1">
-                              Weakness 3 *
+                              Weakness 3
                             </label>
                             <input
                               type="text"
@@ -1639,6 +1667,21 @@ const RecruitmentRegistration = () => {
                       rows={2}
                       placeholder="Any hackathons, competitions, or technical events outside of FLUX?"
                       value={formData.otherEventsAttended}
+                      onChange={handleInputChange}
+                      className="w-full p-4 rounded-2xl bg-white/50 dark:bg-white/[0.03] backdrop-blur-md border border-slate-200/60 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 transition-colors text-sm"
+                    />
+                  </div>
+
+                  {/* Expectations from FLUX */}
+                  <div>
+                    <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
+                      What are your expectations from the Technical Club Flux?
+                    </label>
+                    <textarea
+                      name="expectationsFromClub"
+                      rows={3}
+                      placeholder="What do you hope to learn, experience, build, or contribute as a member of FLUX?"
+                      value={formData.expectationsFromClub}
                       onChange={handleInputChange}
                       className="w-full p-4 rounded-2xl bg-white/50 dark:bg-white/[0.03] backdrop-blur-md border border-slate-200/60 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-cyan-500 transition-colors text-sm"
                     />
@@ -1769,8 +1812,125 @@ const RecruitmentRegistration = () => {
           </motion.div>
         )}
       </div>
+
+      {/* CONFIRMATION POPUP MODAL */}
+      <AnimatePresence>
+        {showConfirmModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Dark Blur Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => !isSubmitting && setShowConfirmModal(false)}
+              className="fixed inset-0 bg-slate-950/70 backdrop-blur-md"
+            />
+
+            {/* Modal Dialog Content */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 1, y: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              className="relative w-full max-w-md bg-white dark:bg-[#0f0f13] border border-slate-200 dark:border-white/10 rounded-3xl p-6 sm:p-7 shadow-2xl z-10 space-y-5"
+            >
+              {/* Close Button */}
+              <button
+                type="button"
+                disabled={isSubmitting}
+                onClick={() => setShowConfirmModal(false)}
+                className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-white p-1 rounded-full hover:bg-slate-100 dark:hover:bg-white/10 transition-colors disabled:opacity-30"
+              >
+                <X size={18} />
+              </button>
+
+              <div className="flex items-start gap-4 pr-6">
+                <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center shrink-0">
+                  <ShieldCheck size={26} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-black uppercase tracking-tight text-slate-900 dark:text-white">
+                    Confirm Submission
+                  </h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+                    Are you sure you want to submit your application? Please verify your details before finalizing.
+                  </p>
+                </div>
+              </div>
+
+              {/* Candidate Info Verification Box */}
+              <div className="bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/10 rounded-2xl p-4 text-xs space-y-2.5 font-mono">
+                <div className="flex justify-between items-center gap-2">
+                  <span className="text-slate-400">Applicant:</span>
+                  <span className="font-bold text-slate-900 dark:text-white truncate max-w-[200px]">
+                    {formData.fullName || '—'}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center gap-2">
+                  <span className="text-slate-400">Enrollment:</span>
+                  <span className="font-bold text-slate-900 dark:text-white">
+                    {formData.enrollmentNo || '—'}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center gap-2">
+                  <span className="text-slate-400">Branch & Year:</span>
+                  <span className="text-cyan-600 dark:text-cyan-400 font-bold truncate">
+                    {formData.branch ? `${formData.branch.split(' ')[0]} (2nd Year)` : '—'}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center gap-2">
+                  <span className="text-slate-400">Email:</span>
+                  <span className="text-slate-600 dark:text-slate-300 truncate max-w-[190px]">
+                    {formData.email || '—'}
+                  </span>
+                </div>
+              </div>
+
+              <p className="text-[11px] font-mono text-amber-600 dark:text-amber-400/90 bg-amber-500/10 border border-amber-500/20 rounded-xl px-3.5 py-2">
+                ⚠️ Note: Once submitted, your registration cannot be re-edited.
+              </p>
+
+              {submitError && (
+                <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-500 text-xs font-mono">
+                  ⚠️ {submitError}
+                </div>
+              )}
+
+              {/* Modal Buttons */}
+              <div className="flex items-center gap-3 pt-1">
+                <button
+                  type="button"
+                  disabled={isSubmitting}
+                  onClick={() => setShowConfirmModal(false)}
+                  className="flex-1 py-3.5 px-4 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 font-bold text-xs uppercase tracking-wider transition-colors disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  disabled={isSubmitting}
+                  onClick={handleConfirmSubmit}
+                  className="flex-1 py-3.5 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2 disabled:opacity-50"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span>Submitting...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send size={14} />
+                      <span>Confirm Submit</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
 
-export default RecruitmentRegistration;
+export default Recruitment_26_Registration;

@@ -6,16 +6,17 @@ import {
   Clock, RefreshCw, Eye, ExternalLink, ShieldCheck,
   FileText, Phone, Mail, GraduationCap, Code, Cpu,
   Briefcase, Award,
-  X, Lock, Key, LogOut, Loader2, FileDown
+  X, Lock, Key, LogOut, Loader2, FileDown, FileSpreadsheet
 } from 'lucide-react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import {
-  fetchRecruitmentRegistrations,
+  fetchRecruitment_26_Registrations,
   updateRecruitmentStatus,
-  deleteRecruitmentRegistration,
+  deleteRecruitment_26_Registration,
   verifyRecruitmentKey
 } from '../api';
+import CustomDropdown from '../components/CustomDropdown';
 
 const RecruitmentAdminPortal = () => {
   const [adminKey, setAdminKey] = useState('');
@@ -101,7 +102,7 @@ const RecruitmentAdminPortal = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetchRecruitmentRegistrations();
+      const response = await fetchRecruitment_26_Registrations();
       const res = response.data;
       if (res && Array.isArray(res.data)) {
         setRegistrations(res.data);
@@ -160,7 +161,7 @@ const RecruitmentAdminPortal = () => {
     if (!window.confirm(`Are you sure you want to delete the record for ${name}?`)) return;
     setActionLoadingId(id);
     try {
-      await deleteRecruitmentRegistration(id);
+      await deleteRecruitment_26_Registration(id);
       setRegistrations((prev) => prev.filter((reg) => reg._id !== id));
       if (selectedCandidate && selectedCandidate._id === id) {
         setSelectedCandidate(null);
@@ -321,6 +322,132 @@ const RecruitmentAdminPortal = () => {
     }
   };
 
+  // Helper to format cell values for CSV (escaping quotes, joining arrays)
+  const formatCSVCell = (val) => {
+    if (val === null || val === undefined) return '""';
+    if (Array.isArray(val)) {
+      val = val.join('; ');
+    }
+    const str = String(val).replace(/"/g, '""');
+    return `"${str}"`;
+  };
+
+
+  const CSV_HEADERS = [
+    'Ticket ID',
+    'Status',
+    'Applied Date & Time',
+    'Full Name',
+    'Enrollment Number',
+    'Year',
+    'Branch',
+    'Branch (Other Specified)',
+    'WhatsApp Phone Number',
+    'Official College Email',
+    'LinkedIn Profile URL',
+    'GitHub Profile URL',
+    'Resume Google Drive Link',
+    'Technical Domains',
+    'Software Skills',
+    'Hardware Skills',
+    'Designing Skills',
+    'Projects (Title & Links)',
+    'Soft Skills',
+    'Clubs & Organizations Joined',
+    'Experience in Marked Fields',
+    'Tell Us About Yourself',
+    'Significant Achievements / Experience',
+    '3 Strengths & 3 Weaknesses',
+    'Why Join FLUX',
+    'Handling Team Failure / Rejection',
+    'Handling Team Conflicts',
+    'Why Hire You / Distinct Qualities',
+    'What Do You Know About FLUX',
+    'FLUX Events / Workshops Attended',
+    'Other Events / Workshops Attended',
+    'Expectations from Technical Club FLUX'
+  ];
+
+  const mapCandidateToCSVRow = (c) => [
+    formatCSVCell(c.ticketId || ''),
+    formatCSVCell((c.status || 'Pending').toUpperCase()),
+    formatCSVCell(c.createdAt ? new Date(c.createdAt).toLocaleString() : ''),
+    formatCSVCell(c.fullName || ''),
+    formatCSVCell(c.enrollmentNo || ''),
+    formatCSVCell(c.year || '2nd Year'),
+    formatCSVCell(c.branch || ''),
+    formatCSVCell(c.branchOther || ''),
+    formatCSVCell(c.phone || ''),
+    formatCSVCell(c.email || ''),
+    formatCSVCell(c.linkedinUrl || ''),
+    formatCSVCell(c.githubUrl || ''),
+    formatCSVCell(c.resumeUrl || ''),
+    formatCSVCell(c.techSkillCategories || []),
+    formatCSVCell(c.softwareSkills || []),
+    formatCSVCell(c.hardwareSkills || []),
+    formatCSVCell(c.designingSkills || []),
+    formatCSVCell(c.projectDriveUrl || ''),
+    formatCSVCell(c.softSkills || []),
+    formatCSVCell(c.clubsJoined || []),
+    formatCSVCell(c.markedFieldsExperience || ''),
+    formatCSVCell(c.tellAboutYourself || ''),
+    formatCSVCell(c.significantAchievement || ''),
+    formatCSVCell(c.strengthsWeaknesses || ''),
+    formatCSVCell(c.whyJoinClub || ''),
+    formatCSVCell(c.handleTeamFailure || ''),
+    formatCSVCell(c.handleTeamConflict || ''),
+    formatCSVCell(c.whyHireYou || ''),
+    formatCSVCell(c.whatKnowAboutClub || ''),
+    formatCSVCell(c.fluxEventsAttended || ''),
+    formatCSVCell(c.otherEventsAttended || ''),
+    formatCSVCell(c.expectationsFromClub || '')
+  ];
+
+  // Export all applicant details to Excel-compatible CSV spreadsheet
+  const handleExportCSV = () => {
+    if (filteredRegistrations.length === 0) {
+      toast.error('No candidates available to export.');
+      return;
+    }
+
+    const rows = filteredRegistrations.map((c) => mapCandidateToCSVRow(c));
+    const csvContent = [CSV_HEADERS.map((h) => `"${h}"`).join(','), ...rows.map((r) => r.join(','))].join('\r\n');
+    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute(
+      'download',
+      `FLUX_Recruitment_2026_Applications_${new Date().toISOString().slice(0, 10)}.csv`
+    );
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    toast.success(`Exported ${filteredRegistrations.length} applicant record(s) to CSV!`);
+  };
+
+  // Export single applicant details to Excel-compatible CSV
+  const handleExportSingleCandidateCSV = (candidate) => {
+    if (!candidate) return;
+    const row = mapCandidateToCSVRow(candidate);
+    const csvContent = [CSV_HEADERS.map((h) => `"${h}"`).join(','), row.join(',')].join('\r\n');
+    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    const safeName = (candidate.fullName || 'Candidate').replace(/[^a-zA-Z0-9]/g, '_');
+    link.setAttribute(
+      'download',
+      `FLUX_Application_${safeName}_${candidate.ticketId || 'record'}.csv`
+    );
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    toast.success(`Exported CSV for ${candidate.fullName}!`);
+  };
+
   // Render Key-Gated Unlock Screen if not authenticated
   if (!unlocked) {
     return (
@@ -418,13 +545,22 @@ const RecruitmentAdminPortal = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-3 flex-row">
+          <div className="grid grid-cols-2 items-center gap-3 ">
             <button
               onClick={() => loadRegistrations()}
               disabled={loading}
               className="px-4 py-2.5 bg-white dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 rounded-xl font-mono text-xs uppercase tracking-wider transition-all flex items-center gap-2 text-slate-700 dark:text-gray-300 shadow-sm"
             >
               <RefreshCw size={14} className={loading ? 'animate-spin' : ''} /> Refresh
+            </button>
+
+            <button
+              onClick={handleExportCSV}
+              disabled={filteredRegistrations.length === 0}
+              className="px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/20 flex items-center gap-2 disabled:opacity-60 cursor-pointer"
+              title="Export all candidate details to Excel / CSV spreadsheet"
+            >
+              <FileSpreadsheet size={14} /> Export CSV / Excel
             </button>
 
             <button
@@ -497,7 +633,7 @@ const RecruitmentAdminPortal = () => {
         </div>
 
         {/* SEARCH & FILTER CONTROLS */}
-        <div className="bg-white/80 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 p-4 md:p-6 rounded-2xl backdrop-blur-xl space-y-4 shadow-sm">
+        <div className="relative z-30 bg-white/80 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 p-4 md:p-6 rounded-2xl backdrop-blur-xl space-y-4 shadow-sm">
           <div className="grid grid-cols-3 md:grid-cols-4 gap-4">
             {/* Search Input */}
             <div className="md:col-span-1 relative">
@@ -513,38 +649,41 @@ const RecruitmentAdminPortal = () => {
 
             {/* Branch Filter */}
             <div>
-              <select
+              <CustomDropdown
+                variant="filter"
+                options={[
+                  { value: 'ALL', label: 'ALL BRANCHES' },
+                  { value: 'CS', label: 'CS / CSE' },
+                  { value: 'ECE', label: 'ECE' },
+                  { value: 'IOT', label: 'IOT' },
+                  { value: 'CY', label: 'CYBER SECURITY' },
+                  { value: 'AIADS', label: 'AIADS' },
+                  { value: 'IT', label: 'IT' },
+                  { value: 'EE', label: 'Electrical (EE)' },
+                  { value: 'ME', label: 'Mechanical (ME)' },
+                  { value: 'CIVIL', label: 'Civil' }
+                ]}
                 value={selectedBranch}
-                onChange={(e) => setSelectedBranch(e.target.value)}
-                className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl py-2.5 px-4 text-xs font-mono text-slate-700 dark:text-gray-300 focus:outline-none focus:border-cyan-500 transition-all"
-              >
-                <option value="ALL" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">ALL BRANCHES</option>
-                <option value="CS" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">CS / CSE</option>
-                <option value="ECE" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">ECE</option>
-                <option value="IOT" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">IOT</option>
-                <option value="CY" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">CYBER SECURITY</option>
-                <option value="AIADS" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">AIADS</option>
-                <option value="IT" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">IT</option>
-                <option value="EE" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">Electrical (EE)</option>
-                <option value="ME" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">Mechanical (ME)</option>
-                <option value="CIVIL" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">Civil</option>
-              </select>
+                onChange={setSelectedBranch}
+                placeholder="Filter by branch"
+              />
             </div>
 
-           
             {/* Status Filter */}
             <div>
-              <select
+              <CustomDropdown
+                variant="filter"
+                options={[
+                  { value: 'ALL', label: 'ALL STATUSES' },
+                  { value: 'PENDING', label: 'Pending' },
+                  { value: 'SHORTLISTED', label: 'Shortlisted' },
+                  { value: 'REVIEWED', label: 'Reviewed' },
+                  { value: 'REJECTED', label: 'Rejected' }
+                ]}
                 value={selectedStatus}
-                onChange={(e) => setSelectedStatus(e.target.value)}
-                className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl py-2.5 px-4 text-xs font-mono text-slate-700 dark:text-gray-300 focus:outline-none focus:border-cyan-500 transition-all"
-              >
-                <option value="ALL" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">ALL STATUSES</option>
-                <option value="PENDING" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">Pending</option>
-                <option value="SHORTLISTED" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">Shortlisted</option>
-                <option value="REVIEWED" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">Reviewed</option>
-                <option value="REJECTED" className="bg-white dark:bg-zinc-900 text-slate-900 dark:text-white">Rejected</option>
-              </select>
+                onChange={setSelectedStatus}
+                placeholder="Filter by status"
+              />
             </div>
           </div>
 
@@ -570,7 +709,7 @@ const RecruitmentAdminPortal = () => {
         </div>
 
         {/* CANDIDATES TABLE */}
-        <div className="bg-white/80 dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden backdrop-blur-xl shadow-xl dark:shadow-2xl">
+        <div className="relative z-10 bg-white/80 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden backdrop-blur-xl shadow-xl dark:shadow-2xl">
           {loading ? (
             <div className="py-20 text-center space-y-4">
               <RefreshCw size={32} className="animate-spin mx-auto text-cyan-600 dark:text-cyan-400" />
@@ -683,24 +822,20 @@ const RecruitmentAdminPortal = () => {
 
                         {/* Status Dropdown */}
                         <td className="py-4 px-6 text-center" onClick={(e) => e.stopPropagation()}>
-                          <select
+                          <CustomDropdown
+                            variant="status"
+                            options={[
+                              { value: 'Pending', label: 'PENDING' },
+                              { value: 'Shortlisted', label: 'SHORTLISTED' },
+                              { value: 'Reviewed', label: 'REVIEWED' },
+                              { value: 'Rejected', label: 'REJECTED' }
+                            ]}
                             value={status}
                             disabled={isActionLoading}
-                            onChange={(e) => handleStatusChange(candidate._id, e.target.value)}
-                            className={`px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider outline-none border cursor-pointer transition-all ${status === 'Shortlisted'
-                              ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
-                              : status === 'Reviewed'
-                                ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30'
-                                : status === 'Rejected'
-                                  ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30'
-                                  : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30'
-                              }`}
-                          >
-                            <option value="Pending" className="bg-white dark:bg-zinc-900 text-amber-600 dark:text-amber-400">PENDING</option>
-                            <option value="Shortlisted" className="bg-white dark:bg-zinc-900 text-emerald-600 dark:text-emerald-400">SHORTLISTED</option>
-                            <option value="Reviewed" className="bg-white dark:bg-zinc-900 text-blue-600 dark:text-blue-400">REVIEWED</option>
-                            <option value="Rejected" className="bg-white dark:bg-zinc-900 text-rose-600 dark:text-rose-400">REJECTED</option>
-                          </select>
+                            onChange={(newStatus) => handleStatusChange(candidate._id, newStatus)}
+                            className="inline-block"
+                            align="right"
+                          />
                         </td>
 
                         {/* Actions */}
@@ -1040,6 +1175,19 @@ const RecruitmentAdminPortal = () => {
                         <p className="text-slate-700 dark:text-gray-300 leading-relaxed font-light">{selectedCandidate.otherEventsAttended}</p>
                       </div>
                     )}
+
+                    <div className="bg-slate-50 dark:bg-white/[0.02] p-4 rounded-xl border border-slate-200 dark:border-white/5 space-y-1">
+                      <div className="text-cyan-600 dark:text-cyan-400 font-mono text-[10px] uppercase font-bold">Expectations from Technical Club FLUX</div>
+                      <p className="text-slate-700 dark:text-gray-300 leading-relaxed font-light">
+                        {selectedCandidate.expectationsFromClub ? (
+                          selectedCandidate.expectationsFromClub
+                        ) : (
+                          <span className="text-slate-400 dark:text-gray-500 italic text-[11px] font-mono">
+                            No response recorded / submitted prior to update
+                          </span>
+                        )}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1048,24 +1196,38 @@ const RecruitmentAdminPortal = () => {
               <div className="shrink-0 p-4 sm:px-8 border-t border-slate-200 dark:border-white/10 bg-slate-50/80 dark:bg-[#121214] flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-mono text-slate-500 dark:text-gray-400 uppercase font-medium">Status:</span>
-                  <select
+                  <CustomDropdown
+                    variant="status"
+                    options={[
+                      { value: 'Pending', label: 'PENDING' },
+                      { value: 'Shortlisted', label: 'SHORTLISTED' },
+                      { value: 'Reviewed', label: 'REVIEWED' },
+                      { value: 'Rejected', label: 'REJECTED' }
+                    ]}
                     value={selectedCandidate.status || 'Pending'}
-                    onChange={(e) => handleStatusChange(selectedCandidate._id, e.target.value)}
-                    className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold uppercase border bg-white dark:bg-zinc-900 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white outline-none cursor-pointer"
-                  >
-                    <option value="Pending">PENDING</option>
-                    <option value="Shortlisted">SHORTLISTED</option>
-                    <option value="Reviewed">REVIEWED</option>
-                    <option value="Rejected">REJECTED</option>
-                  </select>
+                    onChange={(newStatus) => handleStatusChange(selectedCandidate._id, newStatus)}
+                    className="inline-block min-w-[130px]"
+                    direction="up"
+                    align="left"
+                  />
                 </div>
 
-                <button
-                  onClick={() => setSelectedCandidate(null)}
-                  className="px-5 py-2 bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-200 text-white dark:text-black rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-colors ml-auto"
-                >
-                  Close
-                </button>
+                <div className="flex items-center gap-2 ml-auto">
+                  <button
+                    onClick={() => handleExportSingleCandidateCSV(selectedCandidate)}
+                    className="px-4 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-colors flex items-center gap-1.5"
+                    title="Export candidate's full response details to Excel-compatible CSV"
+                  >
+                    <FileSpreadsheet size={13} /> Export CSV / Excel
+                  </button>
+
+                  <button
+                    onClick={() => setSelectedCandidate(null)}
+                    className="px-5 py-2 bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-200 text-white dark:text-black rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>
