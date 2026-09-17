@@ -5,7 +5,8 @@ import {
   Calendar, MapPin, Users, ExternalLink,
   ChevronDown, MessageCircle, Clock,
   Award, Zap, CheckCircle, Mail, Phone,
-  FileText, UserCheck, Sparkles, Send, Globe
+  FileText, UserCheck, Sparkles, Send, Globe,
+  BookOpen, CheckCircle2
 } from 'lucide-react';
 
 const TimelineStageCard = ({ date, title, subtitle, description, status, icon: Icon, isLast, index }) => {
@@ -216,8 +217,191 @@ const Recruitment_26 = () => {
           </motion.p>
         </div>
 
+        {/* ADVENTURE BEYOND TEXTBOOKS & WHY JOIN FLUX */}
+        <div className="max-w-6xl mx-auto mb-32">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            className="relative bg-white/40 dark:bg-white/[0.03] backdrop-blur-2xl border border-slate-200/60 dark:border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl overflow-hidden"
+          >
+            {/* Ambient Background Glows */}
+            <div className="absolute -top-24 -right-24 w-72 h-72 bg-cyan-500/15 blur-3xl rounded-full pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-blue-500/10 blur-3xl rounded-full pointer-events-none" />
+
+            <div className="relative z-10">
+              {/* Header Announcement */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider mb-4">
+                📢 Adventure Beyond Textbooks
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black italic uppercase tracking-tighter text-slate-900 dark:text-white mb-4">
+                Are You Ready for an <span className="text-cyan-600 dark:text-cyan-400">Adventure</span> Beyond Textbooks?
+              </h2>
+
+              <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed max-w-3xl mb-10">
+                FLUX offers more than just club membership — it's a chance to collaborate with like-minded individuals, tackle real-world challenges, and push the boundaries of technology.
+              </p>
+
+              {/* WHY JOIN FLUX? 3 VALUE PILLARS */}
+              <div className="mb-12">
+                <div className="flex items-center gap-2.5 mb-6">
+                  <Globe className="text-cyan-500" size={22} />
+                  <h3 className="text-xl sm:text-2xl font-black italic uppercase tracking-tight text-slate-900 dark:text-white">
+                    Why Join FLUX? ⚡
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  <div className="p-6 rounded-2xl bg-white/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/10 hover:border-cyan-500/40 hover:-translate-y-1 transition-all group shadow-sm">
+                    <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <Zap size={22} />
+                    </div>
+                    <h4 className="font-bold text-slate-900 dark:text-white text-base mb-2">
+                      Develop Cutting-Edge Projects
+                    </h4>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                      Be part of a team building groundbreaking projects that redefine the technological landscape.
+                    </p>
+                  </div>
+
+                  <div className="p-6 rounded-2xl bg-white/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/10 hover:border-cyan-500/40 hover:-translate-y-1 transition-all group shadow-sm">
+                    <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <Users size={22} />
+                    </div>
+                    <h4 className="font-bold text-slate-900 dark:text-white text-base mb-2">
+                      Collaborate with Passionate Minds
+                    </h4>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                      Work with peers who share your enthusiasm for innovation, hackathons, and collective learning.
+                    </p>
+                  </div>
+
+                  <div className="p-6 rounded-2xl bg-white/60 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/10 hover:border-cyan-500/40 hover:-translate-y-1 transition-all group shadow-sm">
+                    <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <Sparkles size={22} />
+                    </div>
+                    <h4 className="font-bold text-slate-900 dark:text-white text-base mb-2">
+                      Master Latest Tools & Tech
+                    </h4>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                      Gain hands-on experience with industry-leading tools and modern stacks shaping the future.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* READY TO APPLY? HERE'S WHAT YOU NEED TO KNOW */}
+              <div className="border-t border-slate-200/60 dark:border-white/10 pt-10">
+                <div className="flex items-center gap-2.5 mb-6">
+                  <FileText className="text-cyan-500" size={22} />
+                  <h3 className="text-xl sm:text-2xl font-black italic uppercase tracking-tight text-slate-900 dark:text-white">
+                    Ready to Apply? 💻 What You Need to Know
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                  {/* Point 1 */}
+                  <div className="flex gap-4 p-5 rounded-2xl bg-white/50 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/10">
+                    <div className="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-mono font-bold text-sm flex items-center justify-center shrink-0">
+                      01
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-slate-900 dark:text-white text-sm mb-1">
+                        1. Application Form
+                      </h5>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Fill out the application form with complete accuracy, including your preferred domain within FLUX, official email address, and phone number.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Point 2 */}
+                  <div className="flex gap-4 p-5 rounded-2xl bg-white/50 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/10">
+                    <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 font-mono font-bold text-sm flex items-center justify-center shrink-0">
+                      02
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-slate-900 dark:text-white text-sm mb-1">
+                        2. Club Commitment
+                      </h5>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Memberships are limited! To be considered, you can't be a part of more than 3 other clubs/organizations <span className="text-amber-600 dark:text-amber-400 font-bold">(including NSS and NCC)</span>.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Point 3 */}
+                  <div className="flex gap-4 p-5 rounded-2xl bg-white/50 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/10">
+                    <div className="w-9 h-9 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 font-mono font-bold text-sm flex items-center justify-center shrink-0">
+                      03
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-slate-900 dark:text-white text-sm mb-1">
+                        3. Domain-Based Tasks
+                      </h5>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Based on your chosen domain, you'll receive a task via email to complete within a specific timeframe. Meeting deadlines is crucial!
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Point 4 */}
+                  <div className="flex gap-4 p-5 rounded-2xl bg-white/50 dark:bg-white/[0.02] border border-slate-200/60 dark:border-white/10">
+                    <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono font-bold text-sm flex items-center justify-center shrink-0">
+                      04
+                    </div>
+                    <div>
+                      <h5 className="font-bold text-slate-900 dark:text-white text-sm mb-1">
+                        4. Club Constitution
+                      </h5>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Before applying, familiarize yourself with our official rules, constitution bylaws, and member code of conduct.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ATTACHED DOCUMENTS CARDS */}
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-teal-500/5 to-blue-500/10 border border-cyan-500/30 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-lg">
+                  <div className="space-y-1 text-center sm:text-left">
+                    <div className="text-xs font-mono uppercase font-bold text-cyan-600 dark:text-cyan-400 flex items-center justify-center sm:justify-start gap-1.5">
+                      <CheckCircle2 size={15} /> Official Recruitment Documents
+                    </div>
+                    <p className="text-sm text-slate-700 dark:text-slate-200 font-medium">
+                      For more details, read the Recruitment Procedure and Constitution attached below:
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
+                    <a
+                      href="https://drive.google.com/file/d/1TepOS1fshYWi5l3LTskDbRNfIynuPFHq/view?usp=drive_link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/80 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 border border-slate-200/80 dark:border-white/10 text-slate-900 dark:text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-sm group"
+                    >
+                      <BookOpen size={14} className="text-cyan-500 group-hover:scale-110 transition-transform" />
+                      Club Constitution <ExternalLink size={12} className="opacity-60" />
+                    </a>
+
+                    <a
+                      href="https://drive.google.com/file/d/16RMD4O0LmZoIcWUQ0aVmuWyoZs8AGcMT/view?usp=drive_link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-cyan-500/20 group"
+                    >
+                      <FileText size={14} className="group-hover:scale-110 transition-transform" />
+                      Recruitment Procedure <ExternalLink size={12} className="opacity-80" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
         {/* RECRUITMENT OVERVIEW */}
-        <div className="max-w-4xl mx-auto mb-32">
+        <div className="max-w-6xl mx-auto mb-32">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -287,7 +471,7 @@ const Recruitment_26 = () => {
         </div>
 
         {/* TIMELINE STAGES */}
-        <div className="max-w-5xl mx-auto mb-32">
+        <div className="max-w-6xl mx-auto mb-32">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-6xl font-black uppercase italic tracking-tighter mb-4 text-slate-900 dark:text-white">
               Recruitment <span className="text-cyan-600 dark:text-cyan-500">Timeline</span>
@@ -379,7 +563,7 @@ const Recruitment_26 = () => {
         </div>
 
         {/* NEED HELP? SECTION (Technovision Style - Replaces Student Coordinators below FAQs) */}
-        <div id="need-help-contacts" className="text-center bg-white/40 dark:bg-white/[0.03] backdrop-blur-xl border border-slate-200/60 dark:border-white/10 rounded-3xl p-8 sm:p-12 mb-12 max-w-4xl mx-auto shadow-lg">
+        <div id="need-help-contacts" className="text-center bg-white/40 dark:bg-white/[0.03] backdrop-blur-xl border border-slate-200/60 dark:border-white/10 rounded-3xl p-8 sm:p-12 mb-12 max-w-6xl mx-auto shadow-lg">
           <h2 className="text-2xl sm:text-3xl font-black italic uppercase tracking-tight mb-4 text-slate-900 dark:text-white">Need Help?</h2>
           <div className="flex flex-col items-center gap-4">
             <Link

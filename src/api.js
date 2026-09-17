@@ -59,10 +59,10 @@ const recruitmentKeyHeader = () => ({
 
 export const verifyRecruitmentKey = (key) =>
   API.post('/recruitment/verify-key', { key }, { headers: { 'x-recruitment-key': key } });
-export const fetchRecruitmentRegistrations = () => API.get('/recruitment/registrations', recruitmentKeyHeader());
+export const fetchRecruitment_26_Registrations = () => API.get('/recruitment/registrations', recruitmentKeyHeader());
 export const updateRecruitmentStatus = (id, status) =>
   API.patch(`/recruitment/status/${id}`, { status }, recruitmentKeyHeader());
-export const deleteRecruitmentRegistration = (id) =>
+export const deleteRecruitment_26_Registration = (id) =>
   API.delete(`/recruitment/registrations/${id}`, recruitmentKeyHeader());
 
 // --- FLUXWAVE 2.0 ENDPOINTS ---
