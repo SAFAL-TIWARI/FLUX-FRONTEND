@@ -326,7 +326,7 @@ const Recruitment_26 = () => {
                         2. Club Commitment
                       </h5>
                       <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Memberships are limited! To be considered, you can't be a part of more than 3 other clubs/organizations <span className="text-amber-600 dark:text-amber-400 font-bold">(including NSS and NCC)</span>.
+                        Memberships are limited! To be considered, you can't be a part of more than 3 other clubs/organizations <span className="text-amber-600 dark:text-amber-400 font-bold">(including Flux, NSS and NCC)</span>.
                       </p>
                     </div>
                   </div>
