@@ -1,7 +1,50 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const ScrollToTop = () => {
+  const { pathname, search, hash } = useLocation();
   const [isVisible, setIsVisible] = useState(false);
+
+  // Disable browser automatic scroll restoration so navigation starts at top
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  // Scroll to top immediately whenever the page route changes
+  useEffect(() => {
+    if (hash) {
+      const element = document.getElementById(hash.replace('#', ''));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+
+    const resetScroll = () => {
+      try {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'instant',
+        });
+      } catch {
+        window.scrollTo(0, 0);
+      }
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+
+    resetScroll();
+
+    // Re-verify on next animation frame in case lazy components or images shift the height
+    const rAF = requestAnimationFrame(() => {
+      resetScroll();
+    });
+
+    return () => cancelAnimationFrame(rAF);
+  }, [pathname, search]);
 
   useEffect(() => {
     const toggleVisibility = () => {

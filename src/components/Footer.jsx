@@ -1,4 +1,5 @@
 import React, { useState, useEffect, memo } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Github, Linkedin, Youtube, Instagram,
   Sun, Moon, Globe, Database, ArrowRight, Cpu
@@ -51,7 +52,7 @@ const Footer = () => {
     {
       title: "Resources",
       links: [
-        { name: "Learning_Hub", href: "/LearningHub" },
+        { name: "Learning_Hub", href: "/learninghub" },
         { name: "Documentation", href: "#" },
         { name: "Gallery_View", href: "/gallery" },
         { name: "Tech_Stack", href: "#" },
@@ -126,9 +127,21 @@ const Footer = () => {
                 <ul className="space-y-2.5">
                   {section.links.map((link, j) => (
                     <li key={j}>
-                      <a href={link.href} className="text-xs text-slate-500 dark:text-gray-500 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all font-mono block">
-                        &gt; {link.name}
-                      </a>
+                      {link.href.startsWith('/') ? (
+                        <Link
+                          to={link.href}
+                          className="text-xs text-slate-500 dark:text-gray-500 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all font-mono block"
+                        >
+                          &gt; {link.name}
+                        </Link>
+                      ) : (
+                        <a
+                          href={link.href}
+                          className="text-xs text-slate-500 dark:text-gray-500 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all font-mono block"
+                        >
+                          &gt; {link.name}
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
