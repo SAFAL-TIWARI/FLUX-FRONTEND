@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import toast from 'react-hot-toast';
 import {
   Calendar, MapPin, Users, ExternalLink,
   ChevronDown, MessageCircle, Clock,
@@ -167,6 +168,19 @@ const Recruitment_26 = () => {
   // Repeat items for seamless continuous looping
   const loopedRow1 = [...domainsRow1, ...domainsRow1, ...domainsRow1];
   const loopedRow2 = [...domainsRow2, ...domainsRow2, ...domainsRow2];
+
+  const handleRegisterClick = () => {
+    toast('Registration closed. Stay tuned for more updates!', {
+      icon: '🔒',
+      id: 'recruitment-reg-closed',
+      style: {
+        borderRadius: '12px',
+        background: '#0f172a',
+        color: '#e2e8f0',
+        border: '1px solid rgba(6, 182, 212, 0.3)',
+      },
+    });
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#020202] text-slate-900 dark:text-white selection:bg-cyan-500/30 overflow-x-hidden font-sans transition-colors duration-500">
@@ -446,12 +460,13 @@ const Recruitment_26 = () => {
 
             {/* Action Buttons: Register Online, WhatsApp Group, Contact */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-              <Link
-                to="/events/recruitment-2026/register"
-                className="flex items-center justify-center gap-2 py-4 px-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-2xl font-bold uppercase tracking-wider text-xs transition-all shadow-lg shadow-cyan-500/20 text-center"
+              <button
+                type="button"
+                onClick={handleRegisterClick}
+                className="flex items-center justify-center gap-2 py-4 px-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-2xl font-bold uppercase tracking-wider text-xs transition-all shadow-lg shadow-cyan-500/20 text-center cursor-pointer"
               >
                 <Send size={15} /> Register Online
-              </Link>
+              </button>
               <a
                 href="https://chat.whatsapp.com/JKSDCOwvPjcDFZvzPGKaeN?s=sh&p=a&mlu=4&ilr=4"
                 target="_blank"

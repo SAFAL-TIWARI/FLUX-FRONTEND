@@ -581,7 +581,7 @@ const Recruitment_26_Registration = () => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[700px] bg-cyan-500/10 blur-[140px] rounded-full opacity-40" />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 mt-24">
         {/* Navigation Back Link & Draft Auto-Save Status */}
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <Link
