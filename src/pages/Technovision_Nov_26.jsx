@@ -1042,7 +1042,7 @@ ${window.location.href}`;
                             <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/70 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm flex items-center justify-between gap-2">
                                 <div className="text-left min-w-0 flex-1">
                                     <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate">Devansh Patel</h4>
-                                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 block truncate">Convenor, Technovision</span>
+                                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 block truncate">Management Head, Technovision</span>
                                 </div>
                                 <div className="flex gap-1.5 sm:gap-2 shrink-0">
                                     <a
@@ -1067,7 +1067,7 @@ ${window.location.href}`;
                             <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/70 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm flex items-center justify-between gap-2">
                                 <div className="text-left min-w-0 flex-1">
                                     <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate">Dhananjay Rawat</h4>
-                                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 block truncate">Convenor, Technovision</span>
+                                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 block truncate">Software Head, Technovision</span>
                                 </div>
                                 <div className="flex gap-1.5 sm:gap-2 shrink-0">
                                     <a
@@ -1092,7 +1092,7 @@ ${window.location.href}`;
                             <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/70 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm flex items-center justify-between gap-2">
                                 <div className="text-left min-w-0 flex-1">
                                     <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate">Devanshu Vishwakarma</h4>
-                                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 block truncate">Convenor, Technovision</span>
+                                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 block truncate">Co-Convenor, Technovision</span>
                                 </div>
                                 <div className="flex gap-1.5 sm:gap-2 shrink-0">
                                     <a
@@ -1117,7 +1117,7 @@ ${window.location.href}`;
                             <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white/70 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm flex items-center justify-between gap-2">
                                 <div className="text-left min-w-0 flex-1">
                                     <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate">Mrinal Rangare</h4>
-                                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 block truncate">Convenor, Technovision</span>
+                                    <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 block truncate">Media Head, Technovision</span>
                                 </div>
                                 <div className="flex gap-1.5 sm:gap-2 shrink-0">
                                     <a
