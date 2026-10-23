@@ -173,7 +173,7 @@ const TechnovisionNov2026 = () => {
                 "Project must be a safe, working hardware or scientific model.",
                 "Original work only. Plagiarism or pre-bought kits lead to disqualification.",
                 "No explosive, hazardous, or high-risk chemical components.",
-                "Team size: 1 or 2 members."
+                "Team size: 2 to 4 members."
             ],
             prizes: [
                 "Winner & Runner-Up: Trophies + Goodies",
@@ -200,7 +200,7 @@ const TechnovisionNov2026 = () => {
                 "Bot weight must not exceed 1.5 kg.",
                 "Bot must fit within 20 x 20 x 20 cm at match start.",
                 "Maximum 12V DC. Wired or wireless control allowed.",
-                "Team size: 1 or 2 members."
+                "Team size: 2 to 4 members."
             ],
             prizes: [
                 "Top-3 Teams: Trophies, Certificates & Goodies",
@@ -228,7 +228,7 @@ const TechnovisionNov2026 = () => {
                 "NO wheels or circular rolling elements for movement.",
                 "Allowed: Theo Jansen/Klann linkages, walkers, inchworms, crawlers, sliding linkages.",
                 "Bot must cross the multi-terrain obstacle track in minimum time. Power supply up to 12V DC.",
-                "Team size: 1 or 2 members."
+                "Team size: 2 to 4 members."
             ],
             prizes: [
                 "Fastest Bot Winner: Trophy, Goodies & Certificate",
