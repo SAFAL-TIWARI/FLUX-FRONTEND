@@ -368,7 +368,7 @@ const TechnovisionNovRegistration = ({ preselectedEvent = "model", onEventChange
       const status = err.response?.status;
       if (!err.response || status >= 500) {
         toast.error(
-          "We could not reach the registration server. Your details are saved on this device. Please try again in a moment. If it keeps failing, contact the organizers: Devansh 9302276804, Dhananjay 9238138023, Devanshu 7024019720, Mrinal 7052639678 or flux.club@satiengg.in. If you already submitted once, trying again is safe.",
+          "We could not reach the registration server. Your details are saved on this device. Please try again in a moment. If it keeps failing, contact the organizers: Devansh 9302276804, Dhananjay 9238138023, Devanshu 7024019720, Mrinal 9752639678 or flux.club@satiengg.in. If you already submitted once, trying again is safe.",
           { duration: 10000 }
         );
       } else {

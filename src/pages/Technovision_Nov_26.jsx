@@ -1121,14 +1121,14 @@ ${window.location.href}`;
                                 </div>
                                 <div className="flex gap-1.5 sm:gap-2 shrink-0">
                                     <a
-                                        href="tel:+917052639678"
+                                        href="tel:+919752639678"
                                         className="p-2 min-[360px]:p-2.5 rounded-lg sm:rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-500/20 border border-cyan-500/30 transition-all"
                                         title="Call Mrinal"
                                     >
                                         <Phone size={15} />
                                     </a>
                                     <a
-                                        href="https://wa.me/917052639678"
+                                        href="https://wa.me/919752639678"
                                         target="_blank"
                                         rel="noreferrer"
                                         className="p-2 min-[360px]:p-2.5 rounded-lg sm:rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30 transition-all"
