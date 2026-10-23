@@ -40,8 +40,8 @@ const EVENTS = [
     border: "border-amber-500/40",
     accent: "text-amber-500 dark:text-amber-400",
     badge: "Hardware & IoT",
-    minMembers: 1,
-    maxMembers: 2,
+    minMembers: 2,
+    maxMembers: 4,
   },
   {
     id: "robo",
@@ -52,8 +52,8 @@ const EVENTS = [
     border: "border-cyan-500/40",
     accent: "text-cyan-500 dark:text-cyan-400",
     badge: "Combat & Hurdle",
-    minMembers: 1,
-    maxMembers: 2,
+    minMembers: 2,
+    maxMembers: 4,
   },
   {
     id: "botRacing",
@@ -65,8 +65,8 @@ const EVENTS = [
     border: "border-purple-500/40",
     accent: "text-purple-500 dark:text-purple-400",
     badge: "Strictly No Wheels",
-    minMembers: 1,
-    maxMembers: 2,
+    minMembers: 2,
+    maxMembers: 4,
   },
 ];
 
@@ -280,13 +280,13 @@ const TechnovisionNovRegistration = ({ preselectedEvent = "model", onEventChange
       return;
     }
 
-    if (selectedEventId === "botRacing" && (teamSize < 1 || teamSize > 2)) {
-      toast.error("Walking Bot allows a maximum of 2 members in the team.");
+    if (selectedEventId === "botRacing" && (teamSize < 2 || teamSize > 4)) {
+      toast.error("Walking Bot allows a minimum of 2 and maximum of 4 members in the team.");
       return;
     }
 
-    if ((selectedEventId === "model" || selectedEventId === "robo") && (teamSize < 1 || teamSize > 2)) {
-      toast.error("This event allows a maximum of 2 members in the team.");
+    if ((selectedEventId === "model" || selectedEventId === "robo") && (teamSize < 2 || teamSize > 4)) {
+      toast.error("This event allows a minimum of 2 and maximum of 4 members in the team.");
       return;
     }
 
@@ -368,7 +368,7 @@ const TechnovisionNovRegistration = ({ preselectedEvent = "model", onEventChange
       const status = err.response?.status;
       if (!err.response || status >= 500) {
         toast.error(
-          "We could not reach the registration server. Your details are saved on this device. Please try again in a moment. If it keeps failing, contact the organizers: Devansh 9302276804, Dhananjay 9238138023, Devanshu 7024019720, Mrinal 7052639678 or flux.club@satiengg.in. If you already submitted once, trying again is safe.",
+          "We could not reach the registration server. Your details are saved on this device. Please try again in a moment. If it keeps failing, contact the organizers: Devansh 9302276804, Dhananjay 9238138023, Devanshu 7024019720, Mrinal 9752639678 or flux.club@satiengg.in. If you already submitted once, trying again is safe.",
           { duration: 10000 }
         );
       } else {
@@ -823,17 +823,17 @@ Please find the registration pass (PDF) attached.`;
                           : "bg-white dark:bg-black/40 border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-cyan-500/40"
                       }`}
                     >
-                      {num} {num === 1 ? "Solo" : num === 2 ? "Duo" : "Squad"}
+                      {num} {num === 2 ? "Duo" : num === 3 ? "Trio" : "Squad"}
                     </button>
                   ))}
                 </div>
                 {selectedEventId === "botRacing" ? (
                   <p className="text-[11px] text-pink-500 dark:text-pink-400 font-mono font-medium">
-                    * Walking Bot allows a maximum of 2 members per team (Solo or Duo).
+                    * Walking Bot allows a minimum of 2 and maximum of 4 members per team.
                   </p>
                 ) : (
                   <p className="text-[11px] text-cyan-600 dark:text-cyan-400 font-mono font-medium">
-                    * {currentEvent.title} allows a maximum of 2 members per team (Solo or Duo).
+                    * {currentEvent.title} allows a minimum of 2 and maximum of 4 members per team.
                   </p>
                 )}
               </div>
